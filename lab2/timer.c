@@ -5,6 +5,12 @@
 
 #include "i8254.h"
 
+//Timer to be incremented by the timer interrupts
+int count = 0;
+//Hook id to be used to set the interrupt policy
+int hook_id = 0;
+
+//implement for timer_test_time_base
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   /* To be implemented by the students */
   uint16_t initial_value = TIMER_FREQ / freq;
@@ -33,29 +39,56 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if(util_get_LSB(initial_value,&lsb) == 0)
     sys_outb(timer_port,lsb);
   uint8_t msb;
-  if(util_get_LSB(initial_value,&msb) == 0)
+  if(util_get_MSB(initial_value,&msb) == 0)
     sys_outb(timer_port,msb);
   return 0;
 }
 
+/* to hide from other code i8254 related details,
+ * such as the IRQ line used */
 int (timer_subscribe_int)(uint8_t *bit_no) {
-    /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  /* To be implemented by the students */
 
-  return 1;
+  //This function should be used to subscribe a notification
+  // on every interrupt in the input irq_line
+  /* It returns, via its arguments, the bit number,
+   * that will be set in msg.m_notify.interrupts
+   * upon a TIMER 0 interrupt */
+
+  //Checking the validity of the bit_no argument
+  /*if (bit_no == NULL)
+    return 1;*/
+
+  //Auxiliaty variable used to pass and get the return of sys_irqsetpolicy
+  int aux = (int)*bit_no;
+
+  //used to subscribe the interruption
+  if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE,&aux))
+    return 1;
+
+
+  //Used for the return
+  *bit_no = (uint8_t)aux;
+
+
+  return 0;
+
 }
 
 int (timer_unsubscribe_int)() {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  //Unsubscribing the interruptions
+  if(sys_irqrmpolicy(&hook_id))
+    return 1;
 
-  return 1;
+  return 0;
 }
 
+//implement for timer_test_int()
 void (timer_int_handler)() {
   /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  count++;
 }
+
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   /* To be implemented by the students */
@@ -66,7 +99,6 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   uint8_t tmr = TIMER_0 + timer;
   if (sys_outb(TIMER_CTRL, readBackCommand) == OK)
   {
-    
     if (util_sys_inb(tmr, st) == OK)
     {
       return 0;
