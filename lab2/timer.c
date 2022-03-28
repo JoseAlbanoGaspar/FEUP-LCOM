@@ -5,8 +5,13 @@
 
 #include "i8254.h"
 
+int bit_no_global;
+unsigned int counterGlob;
+
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   /* To be implemented by the students */
+  if(freq < 19 || freq > TIMER_FREQ)
+    return 1;
   uint16_t initial_value = TIMER_FREQ / freq;
   if(timer > 2 || freq == 0 )
     return 1;
@@ -33,28 +38,29 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if(util_get_LSB(initial_value,&lsb) == 0)
     sys_outb(timer_port,lsb);
   uint8_t msb;
-  if(util_get_LSB(initial_value,&msb) == 0)
+  if(util_get_MSB(initial_value,&msb) == 0)
     sys_outb(timer_port,msb);
   return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
     /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
+    bit_no_global = *bit_no;
+  if(sys_irqsetpolicy(TIMER0_IRQ,IRQ_REENABLE,bit_no) == OK)
+    return 0;
   return 1;
 }
 
 int (timer_unsubscribe_int)() {
   /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
+  if (sys_irqrmpolicy(&bit_no_global) == OK)
+    return 0;
   return 1;
 }
 
 void (timer_int_handler)() {
   /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  counterGlob++;
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
