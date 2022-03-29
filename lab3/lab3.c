@@ -2,7 +2,7 @@
 
 #include <lcom/lab3.h>
 
-#include "scan.c"
+#include "keyboard.c"
 
 #include <stdbool.h>
 #include <stdint.h>
