@@ -1,6 +1,7 @@
 #include <lcom/lcf.h>
 
 #include <stdint.h>
+extern int global_counter = 0;
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
   /* To be implemented by the students */
@@ -18,10 +19,14 @@ int(util_get_MSB)(uint16_t val, uint8_t *msb) {
 
 int (util_sys_inb)(int port, uint8_t *value) {
   /* To be implemented by the students */
+  #define LAB3
   uint32_t value2;
   if (sys_inb(port, &value2) == OK)
   {
     *value = value2 & 255;
+    #ifdef LAB3
+    global_counter++;
+    #endif;
     return 0;
   }
   return 1;
