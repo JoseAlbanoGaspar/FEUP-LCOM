@@ -1,9 +1,7 @@
 #include <lcom/lcf.h>
 
 #include <lcom/lab3.h>
-
-#include "scan.c"
-
+#include <lcom/keyboard.h>
 #include <stdbool.h>
 #include <stdint.h>
 
