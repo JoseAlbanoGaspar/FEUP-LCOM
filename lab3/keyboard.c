@@ -24,13 +24,39 @@ int (kbd_unsubscribe_int)() {
 }
 
 int (kbd_read_buffer)(uint8_t * data){
+  uint8_t temp;
 
+  if(util_sys_inb(OUT_BUF,&temp))
+    return 1;
+  *data = (uint8_t) temp;
+  return 0;
 }
 int (kbd_read_status) (uint8_t * status){
+  uint8_t temp;
 
+  if(util_sys_inb(STATUS_REG,&temp))
+    return 1;
+  *status = (uint8_t) temp;
+  return 0;
 }
 int (isValidStatus)(){
-    
+    //first reads the status register
+  if (keyboard_read_status(&status) != OK) {
+    return 1;
+  }
+
+  //checks if the ouput buffer has data to read
+  if (status & KBC_OUTB) {
+    //checks if the data is valid 
+    if ((status & (KBC_PARE | KBC_TIMEO | KBC_AUXB)) == 0) {
+      return 0;
+    }
+    else {
+      return 1; //data has errors
+    }
+  }
+  else
+    return 1; //no data to read
 }
  void (kbc_ih)(void) {
      if(isValidStatus()){

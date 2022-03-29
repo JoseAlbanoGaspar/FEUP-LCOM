@@ -8,6 +8,7 @@
 extern int hook_id = 1;
 uint8_t scancode = 0;
 
+
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -39,11 +40,11 @@ int(kbd_test_scan)() {
   uint8_t aux = (uint8_t)hook_id;
 
   //Subscription of the interruption
-  if(timer_subscribe_int(&aux))
+  if(kbd_subscribe_int(&aux))
     return 1;
 
   hook_id = (int)aux;
-  
+  int count_sys_calls = 0 //count the amount of times sys_inb is invoked
   int ipc_status;
   message msg;
   int r;
@@ -59,6 +60,8 @@ int(kbd_test_scan)() {
         case HARDWARE:                                 // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
+            
+            
           }
           break;
 
