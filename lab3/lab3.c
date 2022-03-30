@@ -1,12 +1,19 @@
-#include <lcom/lcf.h>
+/*#include <lcom/lab3.h>
 
+#include "keyboard.c"
+
+#include <stdbool.h>*/
+
+#include <lcom/lcf.h>
 #include <lcom/lab3.h>
-#include <lcom/keyboard.h>
+
 #include <stdbool.h>
 #include <stdint.h>
+#include "i8042.h"
 
-extern int hook_id = 1;
-uint8_t scancode = 0;
+extern int hook_id;
+extern uint16_t scancode;
+extern int global_counter;
 
 
 int main(int argc, char *argv[]) {
@@ -40,16 +47,16 @@ int(kbd_test_scan)() {
   uint8_t aux = (uint8_t)hook_id;
 
   //Subscription of the interruption
-  if(kbd_subscribe_int(&aux))
+  if(timer_subscribe_int(&aux))
     return 1;
 
   hook_id = (int)aux;
-  int count_sys_calls = 0 //count the amount of times sys_inb is invoked
+  
   int ipc_status;
   message msg;
   int r;
 
-  while (scancode != ESC_KEY) {
+  while (scancode != 0x81) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -57,11 +64,32 @@ int(kbd_test_scan)() {
     }
     if (is_ipc_notify(ipc_status)) { // received notification
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:                                 // hardware interrupt notification
+        case HARDWARE:
+
+          // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            
-            
+            if (scancode != 0xE000){
+              uint8_t size = 0x01;
+              bool make = true;
+              uint8_t temp1 = (uint8_t) scancode;
+              uint16_t tempcode = scancode;
+              tempcode = tempcode >> 8; //get the most significant byte;
+              uint8_t temp2 = (uint8_t) tempcode; 
+              if (temp2 != 0x00){
+                uint8_t bytes[2];
+                bytes[0] = temp2;
+                bytes[1] = temp1;
+                size = 0x02;
+                if ((bytes[1] & 0x80) == 0x80) make = false;
+                kbd_print_scancode(make, size, bytes);
+              }
+              else{
+                if ((temp1 & 0x80) == 0x80) make = false;
+                kbd_print_scancode(make, size, &temp1);
+              }
+              scancode = 0x0000;
+            }
           }
           break;
 
@@ -73,7 +101,9 @@ int(kbd_test_scan)() {
       // no standard messages expected: do nothing
     }
   }
-
+  kbd_unsubscribe_int();
+  kbd_print_no_sysinb(global_counter);
+  return 1;
 
   /* 
   if receives te break code of ESC (0x81), then:

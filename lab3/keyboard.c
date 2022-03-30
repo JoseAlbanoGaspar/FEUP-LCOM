@@ -1,9 +1,17 @@
+/*#include <lcom/lab3.h>
+#include "keyboard.h"
+#include "utils.c"*/
+
 #include <lcom/lcf.h>
-#include <lcom/keyboard.h>
+#include <lcom/timer.h>
 
 #include <stdint.h>
 
-#include "i8042.h"
+#include "i82042.h"
+
+uint8_t status;
+uint16_t scancode = 0x0000;
+int hook_id = 1;
 
 int (kbd_subscribe_int)(uint8_t *bit_no){
     int aux = (int)*bit_no;
@@ -23,15 +31,21 @@ int (kbd_unsubscribe_int)() {
   return 0;
 }
 
-int (kbd_read_buffer)(uint8_t * data){
+int (kbd_read_buffer)(uint16_t * scancode){
   uint8_t temp;
 
-  if(util_sys_inb(OUT_BUF,&temp))
-    return 1;
-  *data = (uint8_t) temp;
+  if(util_sys_inb(OUT_BUF,&temp)) return 1;
+
+  if (temp == 0xE0){
+    *scancode |= 0xE000;
+  }
+  else{
+    *scancode |= temp;
+  }
   return 0;
 }
-int (kbd_read_status) (uint8_t * status){
+
+int (kbd_read_status)(uint8_t * status){
   uint8_t temp;
 
   if(util_sys_inb(STATUS_REG,&temp))
@@ -39,9 +53,10 @@ int (kbd_read_status) (uint8_t * status){
   *status = (uint8_t) temp;
   return 0;
 }
+
 int (isValidStatus)(){
     //first reads the status register
-  if (keyboard_read_status(&status) != OK) {
+  if (kbd_read_status(&status)) {
     return 1;
   }
 
@@ -58,8 +73,8 @@ int (isValidStatus)(){
   else
     return 1; //no data to read
 }
- void (kbc_ih)(void) {
-     if(isValidStatus()){
-         kbd_read_buffer(&scancode);
-     }
- }
+void (kbc_ih)(void) {
+  if(isValidStatus()){
+    kbd_read_buffer(&scancode);
+  }
+}
