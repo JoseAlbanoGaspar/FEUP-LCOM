@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "i8042.h"
+#include "keyboard.h"
 
 extern int hook_id;
 extern uint16_t scancode;
@@ -47,16 +48,21 @@ int(kbd_test_scan)() {
   uint8_t aux = (uint8_t)hook_id;
 
   //Subscription of the interruption
-  if(timer_subscribe_int(&aux))
+  if(kbd_subscribe_int(&aux))
     return 1;
 
   hook_id = (int)aux;
   
   int ipc_status;
   message msg;
+  //1 is true
   int r;
-
+  int dont_screw_upCounter = 0;
   while (scancode != 0x81) {
+    if (dont_screw_upCounter == 100) {
+      break;
+    }
+    dont_screw_upCounter++;
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -88,7 +94,8 @@ int(kbd_test_scan)() {
                 if ((temp1 & 0x80) == 0x80) make = false;
                 kbd_print_scancode(make, size, &temp1);
               }
-              scancode = 0x0000;
+              if (scancode != 0x81)
+                scancode = 0x0000;
             }
           }
           break;
@@ -112,7 +119,6 @@ int(kbd_test_scan)() {
   -to count the number of sys_inb() calls we must use the approach based on a wrapper function as described in the lecture notes
   -return 1
   */
-  return 1;
 }
 
 int(kbd_test_poll)() {

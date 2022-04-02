@@ -3,11 +3,9 @@
 #include "utils.c"*/
 
 #include <lcom/lcf.h>
-#include <lcom/timer.h>
 
 #include <stdint.h>
-
-#include "i82042.h"
+#include "keyboard.h"
 
 uint8_t status;
 uint16_t scancode = 0x0000;
@@ -32,9 +30,8 @@ int (kbd_unsubscribe_int)() {
 }
 
 int (kbd_read_buffer)(uint16_t * scancode){
-  uint8_t temp;
-
-  if(util_sys_inb(OUT_BUF,&temp)) return 1;
+  uint8_t temp = 0x00;
+  if(!util_sys_inb(OUT_BUF,&temp)) return 1;
 
   if (temp == 0xE0){
     *scancode |= 0xE000;
@@ -48,7 +45,7 @@ int (kbd_read_buffer)(uint16_t * scancode){
 int (kbd_read_status)(uint8_t * status){
   uint8_t temp;
 
-  if(util_sys_inb(STATUS_REG,&temp))
+  if(!util_sys_inb(STATUS_REG,&temp))
     return 1;
   *status = (uint8_t) temp;
   return 0;
@@ -56,7 +53,7 @@ int (kbd_read_status)(uint8_t * status){
 
 int (isValidStatus)(){
     //first reads the status register
-  if (kbd_read_status(&status)) {
+  if (kbd_read_status(&status) == 0) {
     return 1;
   }
 
@@ -76,5 +73,6 @@ int (isValidStatus)(){
 void (kbc_ih)(void) {
   if(isValidStatus()){
     kbd_read_buffer(&scancode);
+    //printf("Scancode: %X\n", scancode);
   }
 }
