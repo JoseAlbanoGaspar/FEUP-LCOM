@@ -1,7 +1,7 @@
 #ifndef _LCOM_I8042_H_
 #define _LCOM_I8042_H_
 
-#define BIT(n) (0x01 << (n)) /**< @brief Sets bit in position n as 1 */
+//#define BIT(n) (0x01 << (n)) /**< @brief Sets bit in position n as 1 */
 
 #define KBC_IRQ 1         /**< @brief Keyboard IRQ line */
 #define OUT_BUF 0x60      /**< @brief Keyboard output buffer port */
@@ -13,7 +13,7 @@
 
 //Important keys
 #define ESC_KEY 0x81            /**< @brief Esc key breakcode */
-#define FIRST_OF_TWO_BYTES 0xE0 /** @brief First byte of two byte scan code */
+#define FIRST_OF_TWO_BYTES 0xE0 /**< @brief First byte of two byte scan code */
 //KBC Status register
 #define KBC_PARE BIT(7)  /**< @brief Status register parity error */
 #define KBC_TIMEO BIT(6) /**< @brief Status register timeout error */
