@@ -19,4 +19,14 @@ int (isValidStatus)();
 
 void (kbc_ih)(void);
 
+void (kbc_print)();
+
+int (kbc_poll)();
+
+int (kbc_read_command)(uint8_t * data);
+
+int (kbc_write_command)(uint8_t data);
+
+int (kbc_commandByte)(uint8_t commandByte);
+
 #endif /* _LCOM_KEYBOARD_H */

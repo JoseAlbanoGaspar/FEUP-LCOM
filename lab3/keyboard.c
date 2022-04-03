@@ -56,7 +56,6 @@ int (isValidStatus)(){
   if (kbd_read_status(&status) == 0) {
     return 1;
   }
-
   //checks if the ouput buffer has data to read
   if (status & KBC_OUTB) {
     //checks if the data is valid 
@@ -76,3 +75,56 @@ void (kbc_ih)(void) {
     //printf("Scancode: %X\n", scancode);
   }
 }
+
+int (kbc_poll)(){
+
+  util_sys_inb(STATUS_REG, &status);
+
+  if ((status & (KBC_TIMEO | KBC_PARE | KBC_AUXB)) == 0){
+    if (status & KBC_OUTB){
+      kbd_read_buffer(&scancode);
+      if (scancode != 0xE000) kbc_print();
+      else {
+        kbd_read_buffer(&scancode);
+        kbc_print();
+      }
+      return 0;
+    }
+    else return 0;
+  }
+  else return 1;
+}
+
+void (kbc_print)(){
+  uint8_t size = 0x01;
+  bool make = true;
+  uint8_t temp1 = (uint8_t) scancode;
+  uint16_t tempcode = scancode;
+  tempcode = tempcode >> 8; //get the most significant byte;
+  uint8_t temp2 = (uint8_t) tempcode; 
+  if (temp2 != 0x00){
+    uint8_t bytes[2];
+    bytes[0] = temp2;
+    bytes[1] = temp1;
+    size = 0x02;
+    if ((bytes[1] & 0x80) == 0x80) make = false;
+    kbd_print_scancode(make, size, bytes);
+  }
+  else{
+    if ((temp1 & 0x80) == 0x80) make = false;
+    kbd_print_scancode(make, size, &temp1);
+  }
+  if (scancode != 0x81) scancode = 0x0000; 
+}
+
+int (kbc_commandByte)(uint8_t commandByte){
+  sys_outb(0x64, 0x20);
+  //uint32_t commandByte;
+  util_sys_inb(OUT_BUF, &commandByte);
+  sys_outb(0x64, 0x60);
+  commandByte = commandByte | BIT(0);
+  sys_outb(OUT_BUF, commandByte);
+  return 1;
+}
+
+

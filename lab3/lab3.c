@@ -57,12 +57,8 @@ int(kbd_test_scan)() {
   message msg;
   //1 is true
   int r;
-  int dont_screw_upCounter = 0;
+
   while (scancode != 0x81) {
-    if (dont_screw_upCounter == 100) {
-      break;
-    }
-    dont_screw_upCounter++;
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -122,7 +118,21 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
+  uint8_t command_byte = 0x00;
+
+  while(scancode != ESC_KEY){
+    //polls the KBC for new scancodes
+    kbc_poll();
+  }
+
+  //sys_irqenable(&hook_id);
+  kbd_print_no_sysinb(global_counter);
+
+  //resets the command byte
+  kbc_commandByte(command_byte);
+
+  return 1;
+  
   /*
   -Must not use interrupts
   -should call kbd_print_scancode()
@@ -133,9 +143,6 @@ int(kbd_test_poll)() {
     -return 1
   -Must enble interrupts before returning, by writing an appropriate KBC command type
   */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
@@ -152,3 +159,4 @@ int(kbd_test_timed_scan)(uint8_t n) {
 
   return 1;
 }
+
