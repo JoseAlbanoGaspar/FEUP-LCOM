@@ -44,7 +44,6 @@ int(kbd_test_scan)() {
     return 1;
 
   hook_id = (int)aux;
-  int count_sys_calls = 0 //count the amount of times sys_inb is invoked
   int ipc_status;
   message msg;
   int r;
@@ -60,7 +59,7 @@ int(kbd_test_scan)() {
         case HARDWARE:                                 // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            
+
             
           }
           break;
@@ -97,6 +96,7 @@ int(kbd_test_poll)() {
     -return 1
   -Must enble interrupts before returning, by writing an appropriate KBC command type
   */
+ /*É só fazer uma rotina que de x em x tempos tenta ler o buffer*/
   printf("%s is not yet implemented!\n", __func__);
 
   return 1;
