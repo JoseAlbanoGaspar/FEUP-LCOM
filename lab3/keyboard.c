@@ -83,7 +83,7 @@ int (kbc_poll)(){
   if ((status & (KBC_TIMEO | KBC_PARE | KBC_AUXB)) == 0){
     if (status & KBC_OUTB){
       kbd_read_buffer(&scancode);
-      if (scancode != 0xE000) kbc_print();
+      if (scancode != FIRST_OF_TWO_BYTES) kbc_print();
       else {
         kbd_read_buffer(&scancode);
         kbc_print();
@@ -98,10 +98,18 @@ int (kbc_poll)(){
 void (kbc_print)(){
   uint8_t size = 0x01;
   bool make = true;
-  uint8_t temp1 = (uint8_t) scancode;
-  uint16_t tempcode = scancode;
-  tempcode = tempcode >> 8; //get the most significant byte;
-  uint8_t temp2 = (uint8_t) tempcode; 
+  //uint8_t temp1 = (uint8_t) scancode;
+  
+  uint8_t temp1;
+  util_get_LSB(scancode, &temp1);
+  
+  uint8_t temp2;
+  util_get_MSB(scancode, &temp2);
+
+
+  //uint16_t tempcode = scancode;
+  //tempcode = tempcode >> 8; //get the most significant byte;
+  //uint8_t temp2 = (uint8_t) tempcode; 
   if (temp2 != 0x00){
     uint8_t bytes[2];
     bytes[0] = temp2;
@@ -118,10 +126,10 @@ void (kbc_print)(){
 }
 
 int (kbc_commandByte)(uint8_t commandByte){
-  sys_outb(0x64, 0x20);
+  sys_outb(STATUS_REG, READ_CMD_B);
   //uint32_t commandByte;
   util_sys_inb(OUT_BUF, &commandByte);
-  sys_outb(0x64, 0x60);
+  sys_outb(STATUS_REG, WRITE_CMD_B);
   commandByte = commandByte | BIT(0);
   sys_outb(OUT_BUF, commandByte);
   return 1;
