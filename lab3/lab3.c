@@ -63,12 +63,8 @@ int(kbd_test_scan)() {
   message msg;
   //1 is true
   int r;
-  int dont_screw_upCounter = 0;
-  while (scancode != 0x81) {
-    if (dont_screw_upCounter == 100) {
-      break;
-    }
-    dont_screw_upCounter++;
+
+  while (scancode != ESC_KEY) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -81,27 +77,8 @@ int(kbd_test_scan)() {
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            if (scancode != 0xE000){
-              uint8_t size = 0x01;
-              bool make = true;
-              uint8_t temp1 = (uint8_t) scancode;
-              uint16_t tempcode = scancode;
-              tempcode = tempcode >> 8; //get the most significant byte;
-              uint8_t temp2 = (uint8_t) tempcode; 
-              if (temp2 != 0x00){
-                uint8_t bytes[2];
-                bytes[0] = temp2;
-                bytes[1] = temp1;
-                size = 0x02;
-                if ((bytes[1] & 0x80) == 0x80) make = false;
-                kbd_print_scancode(make, size, bytes);
-              }
-              else{
-                if ((temp1 & 0x80) == 0x80) make = false;
-                kbd_print_scancode(make, size, &temp1);
-              }
-              if (scancode != 0x81)
-                scancode = 0x0000;
+            if (scancode != FIRST_OF_TWO_BYTES){
+              kbc_print();
             }
           }
           break;
@@ -128,7 +105,21 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
+  uint8_t command_byte = 0x00;
+
+  while(scancode != ESC_KEY){
+    //polls the KBC for new scancodes
+    kbc_poll();
+  }
+
+  //sys_irqenable(&hook_id);
+  kbd_print_no_sysinb(global_counter);
+
+  //resets the command byte
+  kbc_commandByte(command_byte);
+
+  return 1;
+  
   /*
   -Must not use interrupts
   -should call kbd_print_scancode()
@@ -233,3 +224,4 @@ int(kbd_test_timed_scan)(uint8_t n) {
           -must use the interrups of the PC's Timer 0, no configuration changes needed, only to subscribe to its interrrupts as done in timer_test_int() of Lab2.
   */
 }
+

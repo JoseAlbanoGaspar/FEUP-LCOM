@@ -13,7 +13,7 @@
 
 //Important keys
 #define ESC_KEY 0x81            /**< @brief Esc key breakcode */
-#define FIRST_OF_TWO_BYTES 0xE0 /**< @brief First byte of two byte scan code */
+#define FIRST_OF_TWO_BYTES 0xE000 /**< @brief First byte of two byte scan code */
 //KBC Status register
 #define KBC_PARE BIT(7)  /**< @brief Status register parity error */
 #define KBC_TIMEO BIT(6) /**< @brief Status register timeout error */
