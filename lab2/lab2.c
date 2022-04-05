@@ -43,7 +43,7 @@ int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
 //Tests change of Timer O interrupt frequency.
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
   /* To be implemented by the students */
-  if(timer_set_frequency(timer,freq) == 0) ///como é que sabe que em que usar isto?
+  if(timer_set_frequency(timer,freq) == 0)
     return 0;
   return 1;
 }
@@ -70,14 +70,37 @@ int(timer_test_int)(uint8_t time) {
   while(count < time * 60){
     /* Get a request message */
     if((r=driver_receive(ANY,&msg,&ipc_status)) != 0){
+      /**
+        ANY: The value ANY means that the driver accepts messages from any process
+        &msg: message that is received
+        &ipc_status: IPC - This is essentially a message based mechanism
+       */
+// => Device Driver receive the notification of the GIH just by use the IPC mechanism
       printf("driver_receive failed with: %d",r);
       continue;
     }
+    /** is_ipc_notify()
+     * returns true if the message received is a notification or false otherwise,
+     * example: if it is a standard message.
+     */
     if(is_ipc_notify(ipc_status)){ /* Received notication */
+      /**
+       * O endpoint é um "endereço" usado pelo Minix 3 IPC para especificar a origem e o destino de uma mensagem.
+       */
       switch(_ENDPOINT_P(msg.m_source)){
+        /**
+         * HARDWARE: é um valor de identificador de processo especial para indicar uma notificação de interrupção HW.
+         */
         case HARDWARE:  /* Hardware interrupt notification */
+          /**
+           * .m_notify.interrupts: é uma máscara de 32 bits com os bits de interrupções assinadas pendentes definidas como 1
+           * irq_set: é uma máscara de bits e é usada para descobrir qual interrupção ocorreu, a fim de executar o interrupt handler apropriado.
+           */
           if(msg.m_notify.interrupts & irq_set){
-
+            /**
+             * In this lab, we will subscribe only one interrupt, and therefore we will need
+             * to test the occurrence of that interrupt, and process it
+             */
             //Each interruption we increment the counter
             timer_int_handler();
 

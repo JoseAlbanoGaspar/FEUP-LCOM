@@ -18,11 +18,17 @@ int(util_get_MSB)(uint16_t val, uint8_t *msb) {
 
 int (util_sys_inb)(int port, uint8_t *value) {
   /* To be implemented by the students */
-  uint32_t value2;
-  if (sys_inb(port, &value2) == OK)
-  {
-    *value = value2 & 255;
-    return 0;
+
+  uint32_t value2; //temporary value for the return of the sys_inb funtion
+  if (sys_inb(port, &value2) == OK) {
+    *value = value2 & 255; //*value = (uint8_t)value2;
+    /*//If we are in lab 3 we want to check how many times sys_inb is called
+     #ifdef LAB3
+       sys_inb_count++;
+     #endif
+     */
+    return 0; //success
   }
+
   return 1;
 }
