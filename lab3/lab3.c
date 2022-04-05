@@ -1,12 +1,22 @@
-#include <lcom/lcf.h>
+/*#include <lcom/lab3.h>
 
+#include "keyboard.c"
+
+#include <stdbool.h>*/
+
+#include <lcom/lcf.h>
 #include <lcom/lab3.h>
-#include <lcom/keyboard.h>
+
 #include <stdbool.h>
 #include <stdint.h>
+#include "i8042.h"
+#include "keyboard.h"
 
-extern int hook_id = 1;
-uint8_t scancode = 0;
+extern int hook_id;
+extern int hook_id_timer;
+extern int count; //used in 3rd function
+extern uint16_t scancode;
+extern int global_counter;
 
 
 int main(int argc, char *argv[]) {
@@ -36,6 +46,7 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() {
   //Here we select the bit in the hook_id needed to check if we got the right interruption
   uint32_t irq_set = BIT(hook_id);
+  
 
   uint8_t aux = (uint8_t)hook_id;
 
@@ -44,9 +55,13 @@ int(kbd_test_scan)() {
     return 1;
 
   hook_id = (int)aux;
-  int count_sys_calls = 0 //count the amount of times sys_inb is invoked
+
+//--------------------------------
+  
+  
   int ipc_status;
   message msg;
+  //1 is true
   int r;
 
   while (scancode != ESC_KEY) {
@@ -57,11 +72,14 @@ int(kbd_test_scan)() {
     }
     if (is_ipc_notify(ipc_status)) { // received notification
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:                                 // hardware interrupt notification
+        case HARDWARE:
+
+          // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            
-            
+            if (scancode != FIRST_OF_TWO_BYTES){
+              kbc_print();
+            }
           }
           break;
 
@@ -73,7 +91,9 @@ int(kbd_test_scan)() {
       // no standard messages expected: do nothing
     }
   }
-
+  kbd_unsubscribe_int();
+  kbd_print_no_sysinb(global_counter);
+  return 1;
 
   /* 
   if receives te break code of ESC (0x81), then:
@@ -82,11 +102,24 @@ int(kbd_test_scan)() {
   -to count the number of sys_inb() calls we must use the approach based on a wrapper function as described in the lecture notes
   -return 1
   */
-  return 1;
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
+  uint8_t command_byte = 0x00;
+
+  while(scancode != ESC_KEY){
+    //polls the KBC for new scancodes
+    kbc_poll();
+  }
+
+  //sys_irqenable(&hook_id);
+  kbd_print_no_sysinb(global_counter);
+
+  //resets the command byte
+  kbc_commandByte(command_byte);
+
+  return 1;
+  
   /*
   -Must not use interrupts
   -should call kbd_print_scancode()
@@ -97,14 +130,72 @@ int(kbd_test_poll)() {
     -return 1
   -Must enble interrupts before returning, by writing an appropriate KBC command type
   */
-  printf("%s is not yet implemented!\n", __func__);
+ /*É só fazer uma rotina que de x em x tempos tenta ler o buffer*/
+ //------------------------------------------------------------------
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
 
-  return 1;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
   /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint32_t irq_set = BIT(hook_id);
+  uint32_t irq_set_timer = BIT(hook_id_timer);
+
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+  //----------------------
+  aux = (uint8_t)hook_id_timer;
+  if(timer_subscribe_int(&aux))
+    return 1;
+  hook_id_timer = (int)aux;
+
+  
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != 0x81 && (count < n * 60)) {
+
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+            if (scancode != 0xE000){
+              kbc_print();
+            }
+            count = 0;
+          }
+          if(msg.m_notify.interrupts & irq_set_timer){
+            timer_int_handler();
+          }
+          break;
+
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  timer_unsubscribe_int();
+  kbd_print_no_sysinb(global_counter);
+  return 1;
   /*
     Similarities to kbd_test_scan():
       -like kbd_test_scan(), subscribe to keyboard interrupts and print the scancodes received by invoking kbd_print_scancode()
@@ -113,6 +204,5 @@ int(kbd_test_timed_scan)(uint8_t n) {
         ->measure time:
           -must use the interrups of the PC's Timer 0, no configuration changes needed, only to subscribe to its interrrupts as done in timer_test_int() of Lab2.
   */
-
-  return 1;
 }
+
