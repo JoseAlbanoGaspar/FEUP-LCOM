@@ -98,22 +98,22 @@ int (kbc_poll)(){
 void (kbc_print)(){
   uint8_t size = 0x01;
   bool make = true;
-  uint8_t temp1;
-  uint8_t temp2;
-  util_get_LSB(scancode, &temp1);  
-  util_get_MSB(scancode, &temp2);
+  uint8_t lsb;
+  uint8_t msb;
+  util_get_LSB(scancode, &lsb);  
+  util_get_MSB(scancode, &msb);
 
-  if (temp2 != 0x00){
+  if (msb != 0x00){
     uint8_t bytes[2];
-    bytes[0] = temp2;
-    bytes[1] = temp1;
+    bytes[0] = msb;
+    bytes[1] = lsb;
     size = 0x02;
     if ((bytes[1] & 0x80) == 0x80) make = false;
     kbd_print_scancode(make, size, bytes);
   }
   else{
-    if ((temp1 & 0x80) == 0x80) make = false;
-    kbd_print_scancode(make, size, &temp1);
+    if ((lsb & 0x80) == 0x80) make = false;
+    kbd_print_scancode(make, size, &lsb);
   }
   if (scancode != 0x81) scancode = 0x0000; 
 }
