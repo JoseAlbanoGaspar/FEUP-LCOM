@@ -98,18 +98,11 @@ int (kbc_poll)(){
 void (kbc_print)(){
   uint8_t size = 0x01;
   bool make = true;
-  //uint8_t temp1 = (uint8_t) scancode;
-  
   uint8_t temp1;
-  util_get_LSB(scancode, &temp1);
-  
   uint8_t temp2;
+  util_get_LSB(scancode, &temp1);  
   util_get_MSB(scancode, &temp2);
 
-
-  //uint16_t tempcode = scancode;
-  //tempcode = tempcode >> 8; //get the most significant byte;
-  //uint8_t temp2 = (uint8_t) tempcode; 
   if (temp2 != 0x00){
     uint8_t bytes[2];
     bytes[0] = temp2;

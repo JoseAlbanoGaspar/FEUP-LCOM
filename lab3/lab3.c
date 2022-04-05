@@ -175,26 +175,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
             if (scancode != 0xE000){
-              uint8_t size = 0x01;
-              bool make = true;
-              uint8_t temp1 = (uint8_t) scancode;
-              uint16_t tempcode = scancode;
-              tempcode = tempcode >> 8; //get the most significant byte;
-              uint8_t temp2 = (uint8_t) tempcode; 
-              if (temp2 != 0x00){
-                uint8_t bytes[2];
-                bytes[0] = temp2;
-                bytes[1] = temp1;
-                size = 0x02;
-                if ((bytes[1] & 0x80) == 0x80) make = false;
-                kbd_print_scancode(make, size, bytes);
-              }
-              else{
-                if ((temp1 & 0x80) == 0x80) make = false;
-                kbd_print_scancode(make, size, &temp1);
-              }
-              if (scancode != 0x81)
-                scancode = 0x0000;
+              kbc_print();
             }
             count = 0;
           }
