@@ -3,9 +3,8 @@
 #include <stdint.h>
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
-  /* To be implemented by the students */
   val = (0x00FF & val);
-  *lsb = (uint8_t) val;
+  *lsb = (uint8_t) val; //lsb fica com os 8 bits menos significativos de val
   return 0;
 }
 
@@ -17,18 +16,11 @@ int(util_get_MSB)(uint16_t val, uint8_t *msb) {
 }
 
 int (util_sys_inb)(int port, uint8_t *value) {
-  /* To be implemented by the students */
-
   uint32_t value2; //temporary value for the return of the sys_inb funtion
   if (sys_inb(port, &value2) == OK) {
-    *value = value2 & 255; //*value = (uint8_t)value2;
-    /*//If we are in lab 3 we want to check how many times sys_inb is called
-     #ifdef LAB3
-       sys_inb_count++;
-     #endif
-     */
+    *value = value2 & 255/*ou & 0xFF*/; //*value = (uint8_t)value2;
     return 0; //success
   }
-
-  return 1;
+  printf("Error in util_sys_inb\n");
+  return 1; //error
 }

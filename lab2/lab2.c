@@ -33,44 +33,43 @@ int main(int argc, char *argv[]) {
 
 //Tests display of timer config.
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
-  /* To be implemented by the students */
   uint8_t r;
-  if(timer_get_conf(timer,&r)== 0 && timer_display_conf(timer,r,field) == 0)
-    return 0;
-  return 1;
+  if(timer_get_conf(timer,&r) == 0 && timer_display_conf(timer,r,field) == 0)
+    return 0; //success
+  return 1; //error
 }
 
-//Tests change of Timer O interrupt frequency.
+//Tests change of Timer O interrupt frequency, but also works for other timers
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
-  /* To be implemented by the students */
   if(timer_set_frequency(timer,freq) == 0)
-    return 0;
-  return 1;
+    return 0; //success
+  return 1; //error
 }
 
+//Subscribes Timer 0 interrupts and prints a message once per second for the specified time interval in seconds.
 int(timer_test_int)(uint8_t time) {
 
-  int ipc_status;
+  int ipc_status; //it is throw IPC that the device driver receives the notification of the GIH (Generic IH)
   message msg;
   int r;
 
   //Here we select the bit in the hook_id needed to check if we got the right interruption
-  uint32_t irq_set = BIT(hook_id);
+  uint32_t irq_set = BIT(hook_id); //comecça com hook_id = 0, logo irq_set começa com o bit 0 a 1
 
-  uint8_t aux = (uint8_t)hook_id;
+  uint8_t aux = (uint8_t)hook_id; //aux = hook_id só que no tipo uint8_t, para poder ser usado como um registo e ser usado como parametro da função timer_subscribe_int
 
   //Subscription of the interruption
   if(timer_subscribe_int(&aux))
-    return 1;
+    return 1; //error
 
   hook_id = (int)aux;
 
 
-  //The while only runs 60*the time requested because the timer interrupts 60 times per second
-  while(count < time * 60){
+  //The while only runs 60 * the time requested because the timer interrupts 60 times per second
+  while(count < time * 60){ //count começa = 0
     /* Get a request message */
     if((r=driver_receive(ANY,&msg,&ipc_status)) != 0){
-      /**
+      /** - é usado pelos DD para receber menaagens incluindo notificações (do kernel ou de outros processos):
         ANY: The value ANY means that the driver accepts messages from any process
         &msg: message that is received
         &ipc_status: IPC - This is essentially a message based mechanism
@@ -101,12 +100,11 @@ int(timer_test_int)(uint8_t time) {
              * In this lab, we will subscribe only one interrupt, and therefore we will need
              * to test the occurrence of that interrupt, and process it
              */
-            //Each interruption we increment the counter
+            //In each interruption we increment the counter
             timer_int_handler();
 
-            //It only prints each second that is calculated by making the modulo operation with 60
-            //because we assume the timer is operating at a 60Hz frequency
-            if(count % 60 == 0)
+            //It only prints each second that is calculated by making the modulo operation with 60, because we assume the timer is operating at a 60Hz frequency
+            if (count % 60 == 0)
               timer_print_elapsed_time();
           }
           break;
@@ -120,7 +118,7 @@ int(timer_test_int)(uint8_t time) {
 
   //In the end we unsubscribe from the timer interruptions
   if(timer_unsubscribe_int())
-    return 1;
+    return 1; //error
 
-  return 0;
+  return 0; //success
 }
