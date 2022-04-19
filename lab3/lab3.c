@@ -160,7 +160,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
   //1 is true
   int r;
 
-  while (scancode != 0x81 && (count < n * 60)) {
+  while (scancode != ESC_KEY && (count < n * 60)) {
 
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -192,9 +192,11 @@ int(kbd_test_timed_scan)(uint8_t n) {
       // no standard messages expected: do nothing
     }
   }
+
   kbd_unsubscribe_int();
   timer_unsubscribe_int();
   kbd_print_no_sysinb(global_counter);
+  
   return 1;
   /*
     Similarities to kbd_test_scan():
