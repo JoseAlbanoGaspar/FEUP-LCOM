@@ -5,8 +5,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include "timer5.c"
-#include "register.c"
+#include "register.h"
 
 /* Constants for VBE 0x105 mode */
 
@@ -27,11 +26,6 @@ static unsigned h_res;		/* Horizontal screen resolution in pixels */
 static unsigned v_res;		/* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 
-
-//Timer to be incremented by the timer interrupts
-extern int count;
-//Hook id to be used to set the interrupt policy
-extern int hook_id_timer;
 
 // Any header files included below this line should have been created by you
 
@@ -66,11 +60,12 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   unsigned int vram_size;  /* VRAM's size, but you can use
               the frame-buffer size, instead */
    
-  mmap_t map;
-  lm_alloc(sizeof(vbe_mode_info_t), &map);
-  int r;
-  reg86_t r86;
+  //mmap_t map;
   vbe_mode_info_t info;
+  //lm_alloc(sizeof(vbe_mode_info_t), &map);
+  int r;
+  /*reg86_t r86;
+
   memset(&r86, 0, sizeof(r));
   r86.ax = 0x4F01;
   r86.es = PB2BASE(map.phys);
@@ -78,7 +73,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   r86.cx = mode;
   r86.intno = 0x10;
 
-  util_sys_int86(&r86);
+  if (sys_int86(&r86) != OK) return 1;*/
 
 
   vbe_get_mode_info(mode, &info);
@@ -94,7 +89,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   mr.mr_base = (phys_bytes) vram_base;	
   mr.mr_limit = mr.mr_base + vram_size;  
 
-  if( OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+  if(OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
 
   /* Map memory */
@@ -111,9 +106,9 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   reg86.al = 0x02;    
   reg86.bx = 1<<14 | mode;
   
-  util_sys_int86(&reg86);
+  if (sys_int86(&reg86) != OK) return 1;
   
-  timer_count(delay);
+  tickdelay(micros_to_ticks(delay * 1000000));
   vg_exit();
   return 1;
 }
