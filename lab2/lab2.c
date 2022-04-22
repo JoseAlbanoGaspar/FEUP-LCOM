@@ -49,21 +49,17 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
 //Subscribes Timer 0 interrupts and prints a message once per second for the specified time interval in seconds.
 int(timer_test_int)(uint8_t time) {
 
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id); //começa com hook_id = 0, logo irq_set começa com o bit 0 a 1
+
+  uint8_t aux = (uint8_t)hook_id; //aux = hook_id só que no tipo uint8_t, para poder ser usado como um registo e ser usado como parametro da função timer_subscribe_int
+  if(timer_subscribe_int(&aux)) //Subscription of the interruption
+    return 1; //error
+  hook_id = (int)aux;
+
   int ipc_status; //it is throw IPC that the device driver receives the notification of the GIH (Generic IH)
   message msg;
   int r;
-
-  //Here we select the bit in the hook_id needed to check if we got the right interruption
-  uint32_t irq_set = BIT(hook_id); //comecça com hook_id = 0, logo irq_set começa com o bit 0 a 1
-
-  uint8_t aux = (uint8_t)hook_id; //aux = hook_id só que no tipo uint8_t, para poder ser usado como um registo e ser usado como parametro da função timer_subscribe_int
-
-  //Subscription of the interruption
-  if(timer_subscribe_int(&aux))
-    return 1; //error
-
-  hook_id = (int)aux;
-
 
   //The while only runs 60 * the time requested because the timer interrupts 60 times per second
   while(count < time * 60){ //count começa = 0

@@ -8,7 +8,8 @@
 //Timer to be incremented by the timer interrupts
 int count = 0;
 //Hook id to be used to set the interrupt policy
-int hook_id = 0;
+int hook_id = 0; //hook_id do timer
+//o do teclado é =1
 
 
 //implement for timer_test_time_base
@@ -107,7 +108,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) { //st - Address of memory posi
 
   //Analisar a conf. lida(?)
   if (sys_outb(TIMER_CTRL, readBackCommand) == OK) //porque o RB command é escrito no control register tal como a control word
-    //chamamos o util_sys_inb porque queremos fszer um sys_inb mas o argumento tem 8 bits e o sys_inb tem como parametro um de 32 bits
+    //chamamos o util_sys_inb porque queremos fazer um sys_inb mas o argumento tem 8 bits e o sys_inb tem como parametro um de 32 bits
     if (util_sys_inb(tmr, st) == OK) //util_sys_inb faz um sys_inb mas com um argumento de 8 bits; escreve o timer na pos de memória st
       return 0; //success
 
