@@ -5,6 +5,27 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include "register.h"
+
+/* Constants for VBE 0x105 mode */
+
+/* The physical address may vary from VM to VM.
+ * At one time it was 0xD0000000
+ *  #define VRAM_PHYS_ADDR    0xD0000000 
+ * Currently on lab B107 is 0xF0000000
+ * Better run my version of lab5 as follows:
+ *     service run `pwd`/lab5 -args "mode 0x105"
+ */
+
+
+/* Private global variables */
+
+static char *video_mem;		/* Process address to which VRAM is mapped */
+
+static unsigned h_res;		/* Horizontal screen resolution in pixels */
+static unsigned v_res;		/* Vertical screen resolution in pixels */
+static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
+
 
 // Any header files included below this line should have been created by you
 
@@ -33,9 +54,62 @@ int main(int argc, char *argv[]) {
 }
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  /* To be completed */
-  printf("%s(0x%03x, %u): under construction\n", __func__, mode, delay);
 
+  struct minix_mem_range mr;
+  unsigned int vram_base;  /* VRAM's physical addresss */
+  unsigned int vram_size;  /* VRAM's size, but you can use
+              the frame-buffer size, instead */
+   
+  //mmap_t map;
+  vbe_mode_info_t info;
+  //lm_alloc(sizeof(vbe_mode_info_t), &map);
+  int r;
+  /*reg86_t r86;
+
+  memset(&r86, 0, sizeof(r));
+  r86.ax = 0x4F01;
+  r86.es = PB2BASE(map.phys);
+  r86.di = PB2OFF(map.phys);
+  r86.cx = mode;
+  r86.intno = 0x10;
+
+  if (sys_int86(&r86) != OK) return 1;*/
+
+
+  vbe_get_mode_info(mode, &info);
+  vram_base = info.PhysBasePtr;
+  vram_size = info.WinSize;
+  h_res = info.XResolution;
+  v_res = info.YResolution;
+  bits_per_pixel = info.BitsPerPixel;
+  /* Use VBE function 0x01 to initialize vram_base and vram_size */
+
+  /* Allow memory mapping */
+
+  mr.mr_base = (phys_bytes) vram_base;	
+  mr.mr_limit = mr.mr_base + vram_size;  
+
+  if(OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+    panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+
+  /* Map memory */
+
+  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
+
+  if(video_mem == MAP_FAILED)
+    panic("couldn't map video memory");
+
+  reg86_t reg86;
+  memset(&reg86, 0, sizeof(reg86));
+  reg86.intno = 0x10;
+  reg86.ah = 0x4F;   
+  reg86.al = 0x02;    
+  reg86.bx = 1<<14 | mode;
+  
+  if (sys_int86(&reg86) != OK) return 1;
+  
+  tickdelay(micros_to_ticks(delay * 1000000));
+  vg_exit();
   return 1;
 }
 
@@ -78,3 +152,4 @@ int(video_test_controller)() {
 
   return 1;
 }
+
