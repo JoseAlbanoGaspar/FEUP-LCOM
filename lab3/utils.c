@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #include <lcom/lcf.h>
 #include <stdint.h>
 
@@ -35,5 +33,3 @@ int(util_sys_inb)(int port, uint8_t *value) {
   // é praí a única função que está com os returns trocados
 
 }
-
->>>>>>> 0a5f24c698faf98c8241aff8609b31dd625e802e
