@@ -2,10 +2,10 @@
 #include <lcom/lcf.h>
 
 #include <lcom/lab5.h>
-//#include <machine/int86.h>
 
 #include <stdint.h>
 #include <stdio.h>
+#include "int86.h"
 //#include "register.c"
 
 /* Constants for VBE 0x105 mode */
@@ -64,18 +64,18 @@ int main(int argc, char *argv[]) {
 }
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  reg86_t reg86;
+  struct reg86u r86;
 
-  reg86.intno = 0x10;
-  reg86.ah = 0x4F;   
-  reg86.al = 0x02;    
-  reg86.bx = mode;
-  printf("%x", reg86.bx);
-  sys_int86(&reg86);
-  //if( sys_int86(&reg86) != OK ) {
-   // printf("\tvg_exit(): sys_int86() failed \n");
-   // return 1;
-  //}
+  r86.u.b.intno = INT_NO;
+  r86.u.b.ah = VBE_CALL;   
+  r86.u.b.al = SET_VBE_MODE;    
+  r86.u.w.bx = mode;
+
+  
+  if( sys_int86(&r86) != OK ) {
+    printf("\tvg_exit(): sys_int86() failed \n");
+    return 1;
+  }
   
   uint32_t irq_set = BIT(hook_id);
   uint32_t irq_set_timer = BIT(hook_id_timer);

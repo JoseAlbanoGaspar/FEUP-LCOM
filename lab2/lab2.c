@@ -31,73 +31,57 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-//Tests display of timer config.
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
-  /* To be implemented by the students */
-  uint8_t r;
-  if(timer_get_conf(timer,&r)== 0 && timer_display_conf(timer,r,field) == 0)
+  uint8_t st;
+  if (timer_get_conf(timer, &st) == 0 && timer_display_conf(timer, st, field)== 0)
     return 0;
+
   return 1;
 }
 
-//Tests change of Timer O interrupt frequency.
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
-  /* To be implemented by the students */
-  if(timer_set_frequency(timer,freq) == 0) ///como é que sabe que em que usar isto?
-    return 0;
+  if (timer_set_frequency(timer, freq) == OK) return 0; 
+
+
   return 1;
 }
 
 int(timer_test_int)(uint8_t time) {
-
+  uint8_t r;
   int ipc_status;
   message msg;
-  int r;
+  uint8_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t) hook_id;
+  if (timer_subscribe_int(&aux) != OK) return 1;
+  hook_id = (int) aux;
 
-  //Here we select the bit in the hook_id needed to check if we got the right interruption
-  uint32_t irq_set = BIT(hook_id);
-
-  uint8_t aux = (uint8_t)hook_id;
-
-  //Subscription of the interruption
-  if(timer_subscribe_int(&aux))
-    return 1;
-
-  hook_id = (int)aux;
-
-
-  //The while only runs 60*the time requested because the timer interrupts 60 times per second
-  while(count < time * 60){
-    /* Get a request message */
-    if((r=driver_receive(ANY,&msg,&ipc_status)) != 0){
-      printf("driver_receive failed with: %d",r);
+  while(count < time * 60) { /* You may want to use a different condition */
+     /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
       continue;
     }
-    if(is_ipc_notify(ipc_status)){ /* Received notication */
-      switch(_ENDPOINT_P(msg.m_source)){
-        case HARDWARE:  /* Hardware interrupt notification */
-          if(msg.m_notify.interrupts & irq_set){
-
-            //Each interruption we increment the counter
+    if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */				
+          if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
             timer_int_handler();
+      
 
-            //It only prints each second that is calculated by making the modulo operation with 60
-            //because we assume the timer is operating at a 60Hz frequency
-            if(count % 60 == 0)
-              timer_print_elapsed_time();
+            if (count % 60 == 0) timer_print_elapsed_time();
           }
           break;
-
         default:
-          break; /*No other interruptions expected*/
+          break; /* no other notifications expected: do nothing */	
       }
-    } else {}
-  }
+    } 
+    else { /* received a standard message, not a notification */
+        /* no standard messages expected: do nothing */
+    }
+ }
 
+  if (timer_unsubscribe_int() != OK) return 1;
 
-  //In the end we unsubscribe from the timer interruptions
-  if(timer_unsubscribe_int())
-    return 1;
 
   return 0;
 }
