@@ -6,36 +6,13 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "int86.h"
-//#include "register.c"
 
-/* Constants for VBE 0x105 mode */
+static char *video_mem;		/* Process address to which VRAM is mapped */
 
-/* The physical address may vary from VM to VM.
- * At one time it was 0xD0000000
- *  #define VRAM_PHYS_ADDR    0xD0000000 
- * Currently on lab B107 is 0xF0000000
- * Better run my version of lab5 as follows:
- *     service run `pwd`/lab5 -args "mode 0x105"
- */
-#define VRAM_PHYS_ADDR	0xF0000000
-#define H_RES             1024
-#define V_RES		  768
-#define BITS_PER_PIXEL	  8
+static unsigned h_res;		/* Horizontal screen resolution in pixels */
+static unsigned v_res;		/* Vertical screen resolution in pixels */
+static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 
-/* Private global variables */
-
-//static char *video_mem;		/* Process address to which VRAM is mapped */
-
-//static unsigned h_res = H_RES;		/* Horizontal screen resolution in pixels */
-//static unsigned v_res = V_RES;		/* Vertical screen resolution in pixels */
-//static unsigned bits_per_pixel = BITS_PER_PIXEL; /* Number of VRAM bits per pixel */
-
-
-//Timer to be incremented by the timer interrupts
-extern int count;
-//Hook id to be used to set the interrupt policy
-extern int hook_id_timer;
-int hook_id = 1;
 
 // Any header files included below this line should have been created by you
 
@@ -64,60 +41,47 @@ int main(int argc, char *argv[]) {
 }
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  struct reg86u r86;
 
-  r86.u.b.intno = INT_NO;
-  r86.u.b.ah = VBE_CALL;   
-  r86.u.b.al = SET_VBE_MODE;    
-  r86.u.w.bx = mode;
+  struct minix_mem_range mr;
+  unsigned int vram_base;  /* VRAM's physical addresss */
+  unsigned int vram_size;  /* VRAM's size, but you can use the frame-buffer size, instead */
 
-  
-  if( sys_int86(&r86) != OK ) {
-    printf("\tvg_exit(): sys_int86() failed \n");
-    return 1;
-  }
-  
-  uint32_t irq_set = BIT(hook_id);
-  uint32_t irq_set_timer = BIT(hook_id_timer);
-  uint8_t aux = (uint8_t)hook_id;
-  hook_id = (int)aux;
-  aux = (uint8_t)hook_id_timer;
-  if(timer_subscribe_int(&aux))
-    return 1;
-  hook_id_timer = (int)aux;
-  int ipc_status;
-  message msg;
-  //1 is true
+  vbe_mode_info_t info;
   int r;
-  while (count < (int) delay * 60) {
 
-    // Get a request message
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) { // received notification
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
+  vbe_get_mode_info(mode, &info);
+  vram_base = info.PhysBasePtr;
+  vram_size = info.WinSize;
+  h_res = info.XResolution;
+  v_res = info.YResolution;
+  bits_per_pixel = info.BitsPerPixel;
+  /* Use VBE function 0x01 to initialize vram_base and vram_size */
 
-          // hardware interrupt notification
-          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
-            count = 0;
-          }
-          if(msg.m_notify.interrupts & irq_set_timer){
-            timer_int_handler();
-          }
-          break;
+  /* Allow memory mapping */
 
-        default:
-          break; // no other notifications expected: do nothing
-      }
-    }
-    else { //received a standard message, not a notification
-      // no standard messages expected: do nothing
-    }
-  }
-  timer_unsubscribe_int();
+  mr.mr_base = (phys_bytes) vram_base;	
+  mr.mr_limit = mr.mr_base + vram_size;  
+
+  if(OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+    panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+
+  /* Map memory */
+
+  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
+
+  if(video_mem == MAP_FAILED)
+    panic("couldn't map video memory");
+
+  reg86_t reg86;
+  memset(&reg86, 0, sizeof(reg86));
+  reg86.intno = 0x10;
+  reg86.ah = 0x4F;   
+  reg86.al = 0x02;    
+  reg86.bx = 1<<14 | mode;
+  
+  if (sys_int86(&reg86) != OK) return 1;
+  
+  tickdelay(micros_to_ticks(delay * 1000000));
   vg_exit();
   return 1;
 }
