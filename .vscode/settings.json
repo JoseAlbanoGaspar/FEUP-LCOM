@@ -1,9 +1,5 @@
 {
     "files.associations": {
-<<<<<<< HEAD
         "register.h": "c"
-=======
-        "lcf.h": "c"
->>>>>>> d870e7f952e29869904bac62488adb808dcb41cb
     }
 }

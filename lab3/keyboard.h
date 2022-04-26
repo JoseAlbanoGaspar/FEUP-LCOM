@@ -12,17 +12,14 @@ int (kbd_subscribe_int)(uint8_t *bit_no);
 int (kbd_unsubscribe_int)();
 
 int (kbd_read_buffer)(uint16_t * data);
-int (kbd_my_read_buffer)();
 
 int (kbd_read_status)(uint8_t * status);
 
 int (isValidStatus)();
 
 void (kbc_ih)(void);
-void (kbc_my_ih)(void);
 
 void (kbc_print)();
-void (kbc_my_print)(uint8_t* bytes,bool* is2bytes);
 
 int (kbc_poll)();
 
