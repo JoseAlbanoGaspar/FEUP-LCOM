@@ -69,6 +69,7 @@ int (isValidStatus)(){
   else
     return 1; //no data to read
 }
+
 void (kbc_ih)(void) {
   if(isValidStatus()){
     kbd_read_buffer(&scancode);
