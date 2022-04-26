@@ -5,7 +5,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include "register.h"
 
 /* Constants for VBE 0x105 mode */
 
@@ -64,17 +63,6 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   vbe_mode_info_t info;
   //lm_alloc(sizeof(vbe_mode_info_t), &map);
   int r;
-  /*reg86_t r86;
-
-  memset(&r86, 0, sizeof(r));
-  r86.ax = 0x4F01;
-  r86.es = PB2BASE(map.phys);
-  r86.di = PB2OFF(map.phys);
-  r86.cx = mode;
-  r86.intno = 0x10;
-
-  if (sys_int86(&r86) != OK) return 1;*/
-
 
   vbe_get_mode_info(mode, &info);
   vram_base = info.PhysBasePtr;
@@ -110,7 +98,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   
   tickdelay(micros_to_ticks(delay * 1000000));
   vg_exit();
-  return 1;
+  return 0;
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
