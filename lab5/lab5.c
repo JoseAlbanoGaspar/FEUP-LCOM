@@ -4,11 +4,14 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <vbe.h>
-//#include <keyboard.h>
 #include <lcom/timer.h>
 #include <i8254.h>
+#include <i8042.h>
+#include <keyboard.h>
 
 unsigned int counter_global = 0;
+extern uint16_t scancode;
+extern int hook_id;
 
 // Any header files included below this line should have been created by you
 
@@ -60,8 +63,47 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   /* Draw Rectangle */
   vg_draw_rectangle(x, y, width, height, color);
   
-  
 
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
   
   vg_exit();
 
