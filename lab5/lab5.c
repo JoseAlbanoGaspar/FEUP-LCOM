@@ -5,6 +5,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+<<<<<<< HEAD
+
 
 /* Constants for VBE 0x105 mode */
 
@@ -16,14 +18,21 @@
  *     service run `pwd`/lab5 -args "mode 0x105"
  */
 
+char *video_mem;
+unsigned h_res;
+unsigned v_res;
+unsigned bits_per_pixel;
+unsigned bytes_per_pixel;
 
-/* Private global variables */
+=======
+#include "int86.h"
 
 static char *video_mem;		/* Process address to which VRAM is mapped */
 
 static unsigned h_res;		/* Horizontal screen resolution in pixels */
 static unsigned v_res;		/* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
+>>>>>>> d95e263685d24b42aeb9a7309246d958e8178336
 
 
 // Any header files included below this line should have been created by you
@@ -54,47 +63,7 @@ int main(int argc, char *argv[]) {
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
 
-  struct minix_mem_range mr;
-  unsigned int vram_base;  /* VRAM's physical addresss */
-  unsigned int vram_size;  /* VRAM's size, but you can use
-              the frame-buffer size, instead */
-   
-  //mmap_t map;
-  vbe_mode_info_t info;
-  //lm_alloc(sizeof(vbe_mode_info_t), &map);
-  int r;
-
-  vbe_get_mode_info(mode, &info);
-  vram_base = info.PhysBasePtr;
-  vram_size = info.WinSize;
-  h_res = info.XResolution;
-  v_res = info.YResolution;
-  bits_per_pixel = info.BitsPerPixel;
-  /* Use VBE function 0x01 to initialize vram_base and vram_size */
-
-  /* Allow memory mapping */
-
-  mr.mr_base = (phys_bytes) vram_base;	
-  mr.mr_limit = mr.mr_base + vram_size;  
-
-  if(OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
-    panic("sys_privctl (ADD_MEM) failed: %d\n", r);
-
-  /* Map memory */
-
-  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-
-  if(video_mem == MAP_FAILED)
-    panic("couldn't map video memory");
-
-  reg86_t reg86;
-  memset(&reg86, 0, sizeof(reg86));
-  reg86.intno = 0x10;
-  reg86.ah = 0x4F;   
-  reg86.al = 0x02;    
-  reg86.bx = 1<<14 | mode;
-  
-  if (sys_int86(&reg86) != OK) return 1;
+  video_mem = vg_init(mode);
   
   tickdelay(micros_to_ticks(delay * 1000000));
   vg_exit();
@@ -103,10 +72,13 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
-  /* To be completed */
-  printf("%s(0x%03X, %u, %u, %u, %u, 0x%08x): under construction\n",
-         __func__, mode, x, y, width, height, color);
+  
+  vg_init(mode);
 
+  vg_draw_rectangle(x,y,width,height,color);
+  printf("AFTER IT'S DONE\n");
+  tickdelay(micros_to_ticks(2000000));
+  vg_exit();
   return 1;
 }
 
