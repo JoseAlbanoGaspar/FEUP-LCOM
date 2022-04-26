@@ -1,0 +1,220 @@
+@lcflib.a:2019, lcf_start
+  video_test_rectangle(mode, x, y, width, height, color)
+> video_test_rectangle(0x115, 3, 3, 50, 50, 0x0000ffff [65535])
+  @lab5.c:61, video_test_rectangle
+    vg_init(mode)
+  > vg_init(0x115)
+    @vbe.c:8, vg_init
+      sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)
+    > sys_privctl(SELF, SYS_PRIV_ADD_MEM, addr: 0x824a57c [0x00000000 - 0x00100000 <1 MiB>])
+    < sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) -> (ret: 0)
+    @vbe.c:11, vg_init
+      vbe_get_mode_info(mode, &info)
+    > vbe_get_mode_info(0x115, addr: 0xeffff3c8)
+    < vbe_get_mode_info(0x115, addr: 0xeffff3c8 [0xe0000000, 800x600, 8:8:8 (24) <1.37329 MiB>]) -> (ret: 0)
+    @vbe.c:31, vg_init
+      sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)
+    > sys_privctl(SELF, SYS_PRIV_ADD_MEM, addr: 0x824a57c [0xe0000000 - 0xe015f900 <1.37329 MiB>])
+    < sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) -> (ret: 0)
+    @vbe.c:36, vg_init
+      vm_map_phys(SELF, (void *)mr.mr_base, (h_res * v_res * bytesPerPixel))
+    < vm_map_phys(SELF, addr: 0xe0000000, 1.37329 MiB) -> (ret: 0xef89b000)
+    @vbe.c:47, vg_init
+      sys_int86(&reg86)
+    > sys_int86(addr: 0xeffff3a0 [AX: 4f02, BX: 4115, CX: 0000, DX: 0000, ES: 0000, DI: 0000])
+    < sys_int86(addr: 0xeffff3a0 [AX: 004f, BX: 4115, CX: 0000, DX: 0000, ES: 0000, DI: 0000]) -> (ret: 0)
+  < vg_init(0x115) -> (ret: 0xef89b000)
+  @lab5.c:64, video_test_rectangle
+    vg_draw_rectangle(x, y, width, height, color)
+  > vg_draw_rectangle(3, 3, 50, 50, 0x0000ffff [65535])
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 3, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 4, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 5, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 6, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 7, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 8, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 9, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 10, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 11, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 12, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 13, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 14, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 15, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 16, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 17, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 18, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 19, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 20, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 21, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 22, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 23, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 24, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 25, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 26, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 27, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 28, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 29, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 30, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 31, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 32, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 33, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 34, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 35, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 36, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 37, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 38, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 39, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 40, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 41, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 42, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 43, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 44, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 45, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 46, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 47, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 48, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 49, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 50, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 51, 50, 0x0000ffff [65535]) -> (ret: 0)
+    @vbe.c:97, vg_draw_rectangle
+      vg_draw_hline(x, i, width, color)
+    < vg_draw_hline(3, 52, 50, 0x0000ffff [65535]) -> (ret: 0)
+  < vg_draw_rectangle(3, 3, 50, 50, 0x0000ffff [65535]) -> (ret: 0)
+  @keyboard.c:17, kbd_subscribe_int
+    sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &aux)
+  > sys_irqsetpolicy(1, 3, addr: 0xeffff590 [1])
+  < sys_irqsetpolicy(1, 3, addr: 0xeffff590 [10]) -> (ret: 0)
+  @lab5.c:85, video_test_rectangle
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff5d0, addr: 0xeffff614)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab5.c:95, video_test_rectangle
+    kbc_ih()
+    @utils.c:27, util_sys_inb
+      sys_inb(port, &value2)
+    > sys_inb(0x64, addr: 0xeffff4e8)
+    < sys_inb(0x64, addr: 0xeffff4e8 [0x1d = 0b00011101])
+    @utils.c:27, util_sys_inb
+      sys_inb(port, &value2)
+    > sys_inb(0x60, addr: 0xeffff4e8)
+    < sys_inb(0x60, addr: 0xeffff4e8 [0x01 = 0b00000001])
+  @lab5.c:85, video_test_rectangle
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff5d0, addr: 0xeffff614)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab5.c:95, video_test_rectangle
+    kbc_ih()
+    @utils.c:27, util_sys_inb
+      sys_inb(port, &value2)
+    > sys_inb(0x64, addr: 0xeffff4e8)
+    < sys_inb(0x64, addr: 0xeffff4e8 [0x1d = 0b00011101])
+    @utils.c:27, util_sys_inb
+      sys_inb(port, &value2)
+    > sys_inb(0x60, addr: 0xeffff4e8)
+    < sys_inb(0x60, addr: 0xeffff4e8 [0x81 = 0b10000001])
+  @keyboard.c:26, kbd_unsubscribe_int
+    sys_irqrmpolicy(&hook_id)
+  > sys_irqrmpolicy(addr: 0x822db48 [10])
+  < sys_irqrmpolicy(addr: 0x822db48 [10]) -> (ret: 0)
+  @lab5.c:108, video_test_rectangle
+    vg_exit()
+  < vg_exit() -> (ret: 0)
+< video_test_rectangle(0x115, 3, 3, 50, 50, 0x0000ffff [65535]) -> (ret: 0)
