@@ -59,7 +59,8 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
 
   /* Draw Rectangle */
   vg_draw_rectangle(x, y, width, height, color);
-  sleep(2);
+  
+  
 
   
   vg_exit();
