@@ -5,7 +5,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-<<<<<<< HEAD
 
 
 /* Constants for VBE 0x105 mode */
@@ -23,16 +22,6 @@ unsigned h_res;
 unsigned v_res;
 unsigned bits_per_pixel;
 unsigned bytes_per_pixel;
-
-=======
-#include "int86.h"
-
-static char *video_mem;		/* Process address to which VRAM is mapped */
-
-static unsigned h_res;		/* Horizontal screen resolution in pixels */
-static unsigned v_res;		/* Vertical screen resolution in pixels */
-static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
->>>>>>> d95e263685d24b42aeb9a7309246d958e8178336
 
 
 // Any header files included below this line should have been created by you
