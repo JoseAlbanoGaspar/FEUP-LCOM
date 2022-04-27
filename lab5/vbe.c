@@ -119,10 +119,10 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 
 int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step)
 {
-    uint32_t color_temp;
-    uint8_t rFirst = red_p;
-    uint8_t gFirst = green_p;
-    uint8_t bFirst = blue_p;
+    uint32_t color_temp/*,red,green,blue;
+    uint32_t initial_blue = (first & getmask(1)) >> 8;
+    uint32_t initial_green = (first & getmask(2)) >> 16;
+    uint32_t initial_red = (first & getmask(3)) >> 24*/;
     for (unsigned int col = 0; col < no_rectangles; col++) // Col
     {
         for (unsigned int row = 0; row < no_rectangles; row++) // Row
@@ -133,10 +133,11 @@ int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step)
             }
             else // Direct Color Model
             {
-                color_temp = ((rFirst + col * step) % (1 << red_s)) +
-                             ((gFirst + row * step) % (1 << green_s)) +
-                             ((bFirst + (col + row) * step) % (1 << blue_s));
+                color_temp = ((uint8_t) first + (col + row) * step) % (1 << blue_s);
+                color_temp += (((uint8_t)(first >> blue_s) + row * step) % (1 << (green_s)) << blue_s);
+                color_temp += (((uint8_t)(first >> (blue_s + green_s)) + col * step) % (1 << (red_s)) << (blue_s + green_s));
             }
+            printf("COLOR : %x\n",color_temp);
             vg_draw_rectangle(col * (h_res / no_rectangles), row * (v_res / no_rectangles), (h_res / no_rectangles), (v_res / no_rectangles), color_temp);
         }
     }
