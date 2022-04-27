@@ -12,6 +12,7 @@
 unsigned int counter_global = 0;
 extern uint16_t scancode;
 extern int hook_id;
+extern int bitsPerPixel;
 
 // Any header files included below this line should have been created by you
 
@@ -112,10 +113,78 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step)
 {
+  /* Initialize Graphics Mode */
+  vg_init(mode);
+
+  uint32_t color;
+  int x = 0, y = 0;
+
+  for(int i = 0; i < (int) no_rectangles; i++){
+    if (mode == 0x0105){
+      index(row, col) = (first + (row * no_rectangles + col) * step) % (1 << bitsPerPixel);
+    }
+    else if (mode == 0x0115){
+      
+    }
+    color = first + (step * i);
+    
+    vg_draw_rectangle(x, y, 100, 100, color);
+  }
+  
+  
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  vg_exit();
   return 0;
 }
 
 int test_controller()
 {
  return 0;
+}
+
+int video_test_xpm(const char *xpm[], uint16_t x, uint16_t y){
+  return 0;
+}
+
+int video_test_move(const char *xpm[], uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate){
+  return 0;
 }
