@@ -176,7 +176,71 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   return 0;
 }
 
-int test_controller()
-{
- return 0;
+int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  
+  vg_init(0x105); //in this exercise is asked to initialize the vram in 0x105 mode 
+
+
+  vg_draw_pixmap(xpm,x,y);
+
+
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
+  if(vg_exit()) return 1;
+  return 0;
+}
+
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
+                     int16_t speed, uint8_t fr_rate) {
+  /* To be completed */
+  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
+         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+
+  return 1;
+}
+
+int(video_test_controller)() {
+  /* To be completed */
+  printf("%s(): under construction\n", __func__);
+
+  return 1;
 }
