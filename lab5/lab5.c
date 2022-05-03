@@ -1,43 +1,22 @@
 // IMPORTANT: you must include the following line in all your C files
 #include <lcom/lcf.h>
-
 #include <lcom/lab5.h>
-
 #include <stdint.h>
 #include <stdio.h>
-<<<<<<< HEAD
+#include <vbe.h>
+#include <lcom/timer.h>
+#include <i8254.h>
+#include <i8042.h>
+#include <keyboard.h>
 
-
-/* Constants for VBE 0x105 mode */
-
-/* The physical address may vary from VM to VM.
- * At one time it was 0xD0000000
- *  #define VRAM_PHYS_ADDR    0xD0000000 
- * Currently on lab B107 is 0xF0000000
- * Better run my version of lab5 as follows:
- *     service run `pwd`/lab5 -args "mode 0x105"
- */
-
-char *video_mem;
-unsigned h_res;
-unsigned v_res;
-unsigned bits_per_pixel;
-unsigned bytes_per_pixel;
-
-=======
-#include "int86.h"
-
-static char *video_mem;		/* Process address to which VRAM is mapped */
-
-static unsigned h_res;		/* Horizontal screen resolution in pixels */
-static unsigned v_res;		/* Vertical screen resolution in pixels */
-static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
->>>>>>> d95e263685d24b42aeb9a7309246d958e8178336
-
+unsigned int counter_global = 0;
+extern uint16_t scancode;
+extern int hook_id;
 
 // Any header files included below this line should have been created by you
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
 
@@ -61,55 +40,268 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int(video_test_init)(uint16_t mode, uint8_t delay) {
+int(video_test_init)(uint16_t mode, uint8_t delay)
+{
+  /* Initialize Graphics Mode */
+  vg_init(mode);
 
-  video_mem = vg_init(mode);
-  
-  tickdelay(micros_to_ticks(delay * 1000000));
+  /* Waits delay */
+  sleep(delay);
+
+  /* Exit Graphics Mode */
   vg_exit();
+
   return 0;
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
-                          uint16_t width, uint16_t height, uint32_t color) {
-  
+                          uint16_t width, uint16_t height, uint32_t color)
+{
+  /* Initialize Graphics Mode */
   vg_init(mode);
 
-  vg_draw_rectangle(x,y,width,height,color);
-  printf("AFTER IT'S DONE\n");
-  tickdelay(micros_to_ticks(2000000));
+  /* Draw Rectangle */
+  vg_draw_rectangle(x, y, width, height, color);
+  
+
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
   vg_exit();
-  return 1;
+
+  return 0;
 }
 
-int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
-  /* To be completed */
-  printf("%s(0x%03x, %u, 0x%08x, %d): under construction\n", __func__,
-         mode, no_rectangles, first, step);
+int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step)
+{
+  int ipc_status;
+  message msg;
+  uint32_t irq_set = BIT(1);
+  uint32_t r;
 
-  return 1;
+  /* Initialize Graphics Mode */
+  vg_init(mode);
+
+  /* Draw Pattern */
+  if (vg_draw_pattern(no_rectangles, first, step) != 0)
+  {
+    scancode = ESC_KEY;
+  }
+
+  /* Keyboard Subscribe With Bit_No = 1 */
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux; 
+  /* Device Driver Loop Start */
+  while (scancode != ESC_KEY)
+  { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0)
+    {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status))
+    { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source))
+      {
+      case HARDWARE: /* hardware interrupt notification */
+        if (msg.m_notify.interrupts & irq_set)
+        { /* subscribed interrupt */
+          /* process it */
+          kbc_ih();
+        }
+        break;
+      default:
+        break; /* no other notifications expected: do nothing */
+      }
+    }
+    else
+    { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+  /* Device Driver Loop End */
+
+  /* Keyboard Unsubscribe */
+  if (kbd_unsubscribe_int())
+    return 1;
+  /* */
+
+  /* Exit Graphics Mode */
+  vg_exit();
+
+  return 0;
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  
+  vg_init(0x105); //in this exercise is asked to initialize the vram in 0x105 mode 
 
-  return 1;
+
+  vg_draw_pixmap(xpm,x,y);
+
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
+  if(vg_exit()) return 1;
+  return 0;
 }
 
-int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
-                     int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
 
-  return 1;
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    
+    vg_init(0x105); //in this exercise is asked to initialize the vram in 0x105 mode 
+
+
+    vg_draw_pixmap(xpm,xi,yi);
+
+
+
+
+
+
+
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
+  if(vg_exit()) return 1;
+  return 0;
+
+
+
+
+
+
+
+
+
+
+
+  return 0;
 }
 
 int(video_test_controller)() {
-  /* To be completed */
+  /* Not To be completed */
   printf("%s(): under construction\n", __func__);
 
   return 1;
 }
-
