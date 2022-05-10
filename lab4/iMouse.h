@@ -23,12 +23,12 @@
 #define MOUSE_CMD 0xD4 //Write Byte to Mouse
 #define MOUSE_ENABLE_CMD 0xF4 //Enable Data Reporting, in stream mode only
 #define MOUSE_DISABLE_CMD 0xF5 //Disable Data Reporting
+#define MOUSE_RESET 0xFF
 
 #define KBC_CMD 0x64
 #define OUT_BUF 0x60
 
 /* PS/2 Mouse commands - responses */
-#define MOUSE_RESET 0xFF
 #define MOUSE_ACK_ERROR 0xFC //error - second consecutive invalid byte
 #define MOUSE_OK 0xFA
 #define MOUSE_NACK 0xFE //Resend, for communication errors

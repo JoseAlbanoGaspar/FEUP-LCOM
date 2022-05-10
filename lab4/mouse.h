@@ -15,3 +15,5 @@ int (mouse_unsubscribe_int)();
 
 int (mouse_reset)();
 
+int (mouse_en_data_report)();
+
