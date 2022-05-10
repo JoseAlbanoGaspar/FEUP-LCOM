@@ -277,7 +277,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            printf("scancode: 0x%x\n",scancode);
+            kbc_reset_scancode();
           }
 
           if (msg.m_notify.interrupts & irq_set1) { // subscribed interrupt
