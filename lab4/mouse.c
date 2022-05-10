@@ -32,4 +32,18 @@ int (mouse_reset)(){
         else if (ack == MOUSE_ACK_ERROR) return 1;
     }
     printf("Error value: %x\n", ack);
+    return 1;
+}
+
+int (mouse_en_data_report)(){
+    uint8_t ack;
+    if (sys_outb(KBC_CMD, MOUSE_ENABLE_CMD) != OK) return 1;
+    if (util_sys_inb(OUT_BUF, &ack) == 1) return 1;
+    else {
+        if (ack == MOUSE_OK) return 0;
+        else if (ack == MOUSE_NACK) return mouse_reset();
+        else if (ack == MOUSE_ACK_ERROR) return 1;
+    }
+    printf("Error value: %x\n", ack);
+    return 1;
 }
