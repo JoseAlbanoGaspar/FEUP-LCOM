@@ -35,5 +35,20 @@
 #define MOUSE_STREAM 0xEA //Set Stream Mode
 #define MOUSE_READ 0xEB //Read Data - When in remote mode, request the packet.
 
+/* Mouse status register */
+
+#define MOUSE_PARE BIT(7)  /**< @brief Status register parity error */
+#define MOUSE_TIMEO BIT(6) /**< @brief Status register timeout error */
+#define MOUSE_AUXB BIT(5)  /**< @brief Status register mouse data */
+#define MOUSE_KEYL BIT(4)  /**< @brief Status register keylock/inhibit flag */
+#define MOUSE_CD BIT(3)    /**< @brief Status register command/A2 input line */
+#define MOUSE_SYSF BIT(2)  /**< @brief Status register system flag */
+#define MOUSE_INPB BIT(1)  /**< @brief Status register input buffer flag */
+#define MOUSE_OUTB BIT(0)  /**< @brief Status register output buffer flag*/
+
+/* Mouse buffer - PORTS (same as kbd buffer)*/
+#define MOUSE_STATUS_REG 0x64
+#define MOUSE_OUT_BUF 0x60
+#define MOUSE_IRQ 12
 
 #endif // LAB4_IMOUSE_H

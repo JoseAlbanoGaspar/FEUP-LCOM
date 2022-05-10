@@ -5,9 +5,9 @@
 #include <stdio.h>
 #include "mouse.h"
 
-struct packet mouse_packet;
+extern struct packet mouse_packet;
 extern int hook_id;  
-int count = 0;
+extern int count;
 
 // Any header files included below this line should have been created by you
 
@@ -52,8 +52,8 @@ int (mouse_test_packet)(uint32_t cnt) {
   message msg;
   //1 is true
   int r;
-  mouse_en_data_reporting();
-  while (count < cnt) {
+  mouse_en_data_report();
+  while (count < (int) cnt) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -93,7 +93,7 @@ int (mouse_test_async)(uint8_t idle_time) {
     return 1;
 }
 
-int (mouse_test_gesture)() {
+int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
     /* To be completed */
     printf("%s: under construction\n", __func__);
     return 1;
@@ -104,3 +104,4 @@ int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
     printf("%s(%u, %u): under construction\n", __func__, period, cnt);
     return 1;
 }
+
