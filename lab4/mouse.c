@@ -1,9 +1,5 @@
 #include "mouse.h"
 
-void (mouse_ih)(void){
-    /*manages mouse interrupts*/
-}
-
 int (mouse_subscribe_int)(uint8_t *bit_no){
     int aux = (int)*bit_no;
     
@@ -32,11 +28,11 @@ int mouse_get_status()
 
 int mouse_check_status()
 {
-    if ((mouse_status & BIT(0)) != 0)
+    if ((mouse_status & BIT(0)) != 0)  //check if buffer has data to read
     {
-        if ((mouse_status & (BIT(7) | BIT(6))) == 0)
+        if ((mouse_status & (BIT(7) | BIT(6))) == 0) //check if there are errors
         {
-            if ((mouse_status & BIT(5)) != 0)
+            if ((mouse_status & BIT(5)) != 0)  //check if the data is for the mouse 
             {
                 return 0;
             }
@@ -90,7 +86,7 @@ void(mouse_ih)()
     {
         if (mouse_check_status() == OK)
         {
-            if (sys_inb(MOUSE_OUT_BUF, &packet_byte) == OK)
+            if (util_sys_inb(MOUSE_OUT_BUF, &packet_byte) == OK)
             {
                 parse();
             }
