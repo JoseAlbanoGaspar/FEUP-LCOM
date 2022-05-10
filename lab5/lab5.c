@@ -1,35 +1,24 @@
 // IMPORTANT: you must include the following line in all your C files
 #include <lcom/lcf.h>
-
 #include <lcom/lab5.h>
-
 #include <stdint.h>
 #include <stdio.h>
-#include "register.h"
-
-/* Constants for VBE 0x105 mode */
-
-/* The physical address may vary from VM to VM.
- * At one time it was 0xD0000000
- *  #define VRAM_PHYS_ADDR    0xD0000000 
- * Currently on lab B107 is 0xF0000000
- * Better run my version of lab5 as follows:
- *     service run `pwd`/lab5 -args "mode 0x105"
- */
+#include <vbe.h>
+#include <lcom/timer.h>
+#include <i8254.h>
+#include <i8042.h>
+#include <keyboard.h>
 
 
-/* Private global variables */
-
-static char *video_mem;		/* Process address to which VRAM is mapped */
-
-static unsigned h_res;		/* Horizontal screen resolution in pixels */
-static unsigned v_res;		/* Vertical screen resolution in pixels */
-static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
-
+unsigned int counter_global = 0;
+extern uint16_t scancode;
+extern int hook_id;
+extern int hook_id_timer;
 
 // Any header files included below this line should have been created by you
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
 
@@ -53,103 +42,317 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int(video_test_init)(uint16_t mode, uint8_t delay) {
+int(video_test_init)(uint16_t mode, uint8_t delay)
+{
+  /* Initialize Graphics Mode */
+  vg_init(mode);
 
-  struct minix_mem_range mr;
-  unsigned int vram_base;  /* VRAM's physical addresss */
-  unsigned int vram_size;  /* VRAM's size, but you can use
-              the frame-buffer size, instead */
-   
-  //mmap_t map;
-  vbe_mode_info_t info;
-  //lm_alloc(sizeof(vbe_mode_info_t), &map);
-  int r;
-  /*reg86_t r86;
+  /* Waits delay */
+  sleep(delay);
 
-  memset(&r86, 0, sizeof(r));
-  r86.ax = 0x4F01;
-  r86.es = PB2BASE(map.phys);
-  r86.di = PB2OFF(map.phys);
-  r86.cx = mode;
-  r86.intno = 0x10;
-
-  if (sys_int86(&r86) != OK) return 1;*/
-
-
-  vbe_get_mode_info(mode, &info);
-  vram_base = info.PhysBasePtr;
-  vram_size = info.WinSize;
-  h_res = info.XResolution;
-  v_res = info.YResolution;
-  bits_per_pixel = info.BitsPerPixel;
-  /* Use VBE function 0x01 to initialize vram_base and vram_size */
-
-  /* Allow memory mapping */
-
-  mr.mr_base = (phys_bytes) vram_base;	
-  mr.mr_limit = mr.mr_base + vram_size;  
-
-  if(OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
-    panic("sys_privctl (ADD_MEM) failed: %d\n", r);
-
-  /* Map memory */
-
-  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-
-  if(video_mem == MAP_FAILED)
-    panic("couldn't map video memory");
-
-  reg86_t reg86;
-  memset(&reg86, 0, sizeof(reg86));
-  reg86.intno = 0x10;
-  reg86.ah = 0x4F;   
-  reg86.al = 0x02;    
-  reg86.bx = 1<<14 | mode;
-  
-  if (sys_int86(&reg86) != OK) return 1;
-  
-  tickdelay(micros_to_ticks(delay * 1000000));
+  /* Exit Graphics Mode */
   vg_exit();
-  return 1;
+
+  return 0;
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
-                          uint16_t width, uint16_t height, uint32_t color) {
-  /* To be completed */
-  printf("%s(0x%03X, %u, %u, %u, %u, 0x%08x): under construction\n",
-         __func__, mode, x, y, width, height, color);
+                          uint16_t width, uint16_t height, uint32_t color)
+{
+  /* Initialize Graphics Mode */
+  vg_init(mode);
 
-  return 1;
+  /* Draw Rectangle */
+  vg_draw_rectangle(x, y, width, height, color);
+  
+
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
+  vg_exit();
+
+  return 0;
 }
 
-int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
-  /* To be completed */
-  printf("%s(0x%03x, %u, 0x%08x, %d): under construction\n", __func__,
-         mode, no_rectangles, first, step);
+int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step)
+{
+  int ipc_status;
+  message msg;
+  uint32_t irq_set = BIT(1);
+  uint32_t r;
 
-  return 1;
+  /* Initialize Graphics Mode */
+  vg_init(mode);
+
+  /* Draw Pattern */
+  if (vg_draw_pattern(no_rectangles, first, step) != 0)
+  {
+    scancode = ESC_KEY;
+  }
+
+  /* Keyboard Subscribe With Bit_No = 1 */
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux; 
+  /* Device Driver Loop Start */
+  while (scancode != ESC_KEY)
+  { /* You may want to use a different condition */
+    /* Get a request message. */
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0)
+    {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status))
+    { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source))
+      {
+      case HARDWARE: /* hardware interrupt notification */
+        if (msg.m_notify.interrupts & irq_set)
+        { /* subscribed interrupt */
+          /* process it */
+          kbc_ih();
+        }
+        break;
+      default:
+        break; /* no other notifications expected: do nothing */
+      }
+    }
+    else
+    { /* received a standard message, not a notification */
+      /* no standard messages expected: do nothing */
+    }
+  }
+  /* Device Driver Loop End */
+
+  /* Keyboard Unsubscribe */
+  if (kbd_unsubscribe_int())
+    return 1;
+  /* */
+
+  /* Exit Graphics Mode */
+  vg_exit();
+
+  return 0;
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  
+  vg_init(0x105); //in this exercise is asked to initialize the vram in 0x105 mode 
 
-  return 1;
+
+  vg_draw_pixmap(xpm,x,y);
+
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+
+  hook_id = (int)aux;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  while (scancode != ESC_KEY) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+            printf("scancode: 0x%x\n",scancode);
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  
+  if(vg_exit()) return 1;
+  return 0;
 }
 
-int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
-                     int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
 
-  return 1;
+  /* Wait for ESC key */
+  //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint8_t aux = (uint8_t)hook_id;
+
+  uint32_t irq_set1 = BIT(hook_id_timer);
+  uint8_t aux1 = (uint8_t) hook_id_timer;
+
+  //Subscription of the interruption
+  if(kbd_subscribe_int(&aux))
+    return 1;
+  if(timer_subscribe_int(&aux1))
+    return 1;
+
+  hook_id = (int)aux;
+  hook_id_timer = (int)aux1;
+//--------------------------------
+  int ipc_status;
+  message msg;
+  //1 is true
+  int r;
+
+  uint16_t x = xi;
+  uint16_t y = yi;
+  int fr_counter = 0;
+  bool finished = false;
+  timer_set_frequency(0, fr_rate);
+  vg_init(0x105); //in this exercise is asked to initialize the vram in 0x105 mode 
+  vg_draw_pixmap(xpm, x, y);
+
+  while (scancode != ESC_KEY) {
+
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            kbc_ih();
+            kbc_reset_scancode();
+          }
+
+          if (msg.m_notify.interrupts & irq_set1) { // subscribed interrupt
+            if (finished) break;
+            if (x == xf && y == yf) {
+              vg_erase_pixmap(xpm, x, y);
+              vg_draw_pixmap(xpm, x, y);
+              finished = true;
+              printf("X: %d, Y: %d\n", x, y);
+              break;
+            }
+            
+            if (speed < 0){
+              fr_counter++;
+              if (abs(speed) == fr_counter){
+                fr_counter = 0;
+                vg_erase_pixmap(xpm, x, y);
+                if(xi == xf){
+                  if (yi > yf) y--;
+                  else y++;
+                }
+                else{
+                  if (xi < xf) x++;
+                  else x--;
+                }
+                vg_draw_pixmap(xpm, x, y);
+                printf("X: %d, Y: %d\n", x, y);
+              }
+            }
+            else{
+              vg_erase_pixmap(xpm, x, y);
+              if(xi == xf){
+                if (yi > yf) {
+                  if (y - speed < yf) y = yf;
+                  else y -= speed;
+                }
+                else {
+                  if (y + speed > yf) y = yf;
+                  else y += speed;
+                }
+              }
+              else{
+                if (xi < xf) {
+                  if (x + speed > xf) x = xf;
+                  else x += speed;
+                }
+                else {
+                  if (x - speed < xf) x = xf;
+                  else x -= speed;
+                }
+              }
+              vg_draw_pixmap(xpm, x, y);
+              printf("X: %d, Y: %d\n", x, y);
+            }
+            
+          }
+          break;
+      default:
+        break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+  kbd_unsubscribe_int();
+  timer_unsubscribe_int();
+  
+  if(vg_exit()) return 1;
+  return 0;
 }
 
 int(video_test_controller)() {
-  /* To be completed */
+  /* Not To be completed */
   printf("%s(): under construction\n", __func__);
 
   return 1;
 }
-
