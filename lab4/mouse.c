@@ -21,3 +21,15 @@ int (mouse_unsubscribe_int)(){
 
     return 0;
 }
+
+int (mouse_reset)(){
+    uint8_t ack;
+    if (sys_outb(0x64, 0xFF) != OK) return 1;
+    if (util_sys_inb(0x60, &ack) == 1) return 1;
+    else {
+        if (ack == 0xFA) return 0;
+        else if (ack == 0xFE) return mouse_reset();
+        else if (ack == 0xFC) return 1;
+    }
+    printf("Error value: %x\n", ack);
+}

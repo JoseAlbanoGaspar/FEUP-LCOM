@@ -13,3 +13,6 @@ void (mouse_ih)(void);
 int (mouse_subscribe_int)(uint8_t *bit_no);
 
 int (mouse_unsubscribe_int)();
+
+int (mouse_reset)();
+

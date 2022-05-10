@@ -83,7 +83,7 @@ int (mouse_test_packet)(uint32_t cnt) {
     }
   }
   mouse_unsubscribe_int();
-
+  mouse_reset();
   return 0;
 }
 
