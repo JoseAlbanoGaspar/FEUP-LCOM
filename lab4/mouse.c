@@ -1,20 +1,26 @@
-#include <mouse.h>
+#include "mouse.h"
 
-int(mouse_subscribe_int)(uint8_t *bit_no)
-{
-    bit_no_global_mouse = *bit_no;
-    if ((sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &bit_no_global_mouse) == OK))
-        return 0;
-    return 1;
+void (mouse_ih)(void){
+    /*manages mouse interrupts*/
 }
 
-int(mouse_unsubscribe_int)()
-{
-    if (sys_irqrmpolicy(&bit_no_global_mouse) == OK)
-        return 0;
-    return 1;
+int (mouse_subscribe_int)(uint8_t *bit_no){
+    int aux = (int)*bit_no;
+    
+    if(sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE,&aux))
+        return 1;
+
+    *bit_no = (uint8_t)aux;
+    return 0;
 }
 
+int (mouse_unsubscribe_int)(){
+    //Unsubscribing the interruptions
+    if(sys_irqrmpolicy(&hook_id))
+    return 1;
+
+    return 0;
+}
 int mouse_get_status()
 {
     if (sys_inb(MOUSE_STATUS_REG, &mouse_status) == OK)
@@ -96,3 +102,4 @@ int(re_enable_mouse_interrupts)()
 {
     return 0;
 }
+
