@@ -3,8 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-
-#define MOUSE_IRQ 12
+#include <iMouse.h>
 
 int hook_id = MOUSE_IRQ;
 
