@@ -73,8 +73,12 @@ int (isValidStatus)(){
 void (kbc_ih)(void) {
   if(isValidStatus()){
     kbd_read_buffer(&scancode);
-    //printf("Scancode: %X\n", scancode);
+    printf("Scancode: %X\n", scancode);
   }
+}
+
+void(kbc_reset_scancode)(void){
+   if (scancode != 0x81) scancode = 0x0000;
 }
 
 int (kbc_poll)(){
@@ -116,7 +120,7 @@ void (kbc_print)(){
     if ((lsb & 0x80) == 0x80) make = false;
     kbd_print_scancode(make, size, &lsb);
   }
-  if (scancode != 0x81) scancode = 0x0000; 
+  kbc_reset_scancode();
 }
 
 int (kbc_commandByte)(uint8_t commandByte){

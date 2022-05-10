@@ -19,6 +19,8 @@ int (isValidStatus)();
 
 void (kbc_ih)(void);
 
+void (kbc_reset_scancode)(void);
+
 void (kbc_print)();
 
 int (kbc_poll)();
