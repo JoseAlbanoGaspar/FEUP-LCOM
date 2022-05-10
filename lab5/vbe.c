@@ -131,13 +131,17 @@ int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
     // Can be XPM_INDEXED, XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
     enum xpm_image_type type = XPM_INDEXED;
     xpm_image_t img;
-    uint8_t *sprite = xpm_load(xpm, type, &img);
+    uint8_t *map = xpm_load(xpm, type, &img);
+    if(map == NULL) {
+        printf("ERROR::xpm_load failed!\n");
+        return 1;
+    }
     /* Print Sprite */
     for (unsigned int i = 0; i < img.height; i++)
     {
         for (unsigned int j = 0; j < img.width; j++)
         {
-            vg_draw_pixel(x + j, y + i, *(sprite + img.width * i + j));
+            vg_draw_pixel(x + j, y + i, *(map + img.width * i + j));
         }
     }
     /* */
