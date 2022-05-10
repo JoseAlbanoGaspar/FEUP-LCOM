@@ -4,13 +4,6 @@
 #include <stdint.h>
 #include <stdio.h>
 
-extern struct packet mouse_packet;
-uint32_t mouse_status;
-extern int bytes_count;
-int bit_no_global_mouse;
-int hook_id = MOUSE_IRQ;
-uint8_t packet_byte;
-
 int(mouse_subscribe_int)(uint8_t *bit_no);
 
 int(mouse_unsubscribe_int)();

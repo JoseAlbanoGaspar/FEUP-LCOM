@@ -1,5 +1,12 @@
 #include "mouse.h"
+
 extern struct packet mouse_packet;
+uint32_t mouse_status;
+int count = 0;
+int bit_no_global_mouse;
+int hook_id = MOUSE_IRQ;
+uint8_t packet_byte;
+struct packet mouse_packet;
 
 int (mouse_subscribe_int)(uint8_t *bit_no){
     int aux = (int)*bit_no;
@@ -47,9 +54,7 @@ void parse()
 {
     /* Preencher Struct mouse_packet definida em lab4.c */
 
-    uint32_t packet;
-
-    switch (bytes_count)
+    switch (count)
     {
     case 0:
         mouse_packet.bytes[0] = packet_byte;
@@ -63,19 +68,19 @@ void parse()
         mouse_packet.bytes[1] = packet_byte;
         if ((mouse_packet.bytes[0] & MOUSE_X_DELTA_SIGN))
         {
-            mouse_packet.delta_x = packet;
+            mouse_packet.delta_x = packet_byte;
         }
         else
-            mouse_packet.delta_x = packet_byte;
+            mouse_packet.delta_x = 0;
         break;
     case 2:
         mouse_packet.bytes[2] = packet_byte;
         if ((mouse_packet.bytes[0] & MOUSE_Y_DELTA_SIGN))
         {
-            mouse_packet.delta_y = packet;
+            mouse_packet.delta_y = packet_byte;
         }
         else
-            mouse_packet.delta_y = packet_byte;
+            mouse_packet.delta_y = 0;
         break;
     }
 }
