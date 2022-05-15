@@ -6,7 +6,7 @@
 #include "i8254.h"
 
 //Timer to be incremented by the timer interrupts
-int count = 0;
+int counter = 0;
 //Hook id to be used to set the interrupt policy
 int hook_id = 0;
 
@@ -86,7 +86,7 @@ int (timer_unsubscribe_int)() {
 //implement for timer_test_int()
 void (timer_int_handler)() {
   /* To be implemented by the students */
-  count++;
+  counter++;
 }
 
 

@@ -49,7 +49,7 @@ int (mouse_test_packet)(uint32_t cnt) {
     return 1;
 
   /* provided by minix */
-  if (mouse_enable_data_reporting())
+  if (mouse_en_data_report())
     return 1;
 
   hook_id = (int)aux;
@@ -90,10 +90,8 @@ int (mouse_test_packet)(uint32_t cnt) {
     }
   }
 
-  //if (mouse_enable_data_reporting()) return 1; // enables mouse data reporting
-  //if (mouse_reset()) return 1;
-  
   if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+  if (mouse_dis_data_report()) return 1;
 
   return 0;
 }
