@@ -48,12 +48,12 @@ int (mouse_test_packet)(uint32_t cnt) {
   hook_id = (int)aux;
 //--------------------------------
   int ipc_status;
-  unsigned int packet_count = 0;
+  int packet_count = 0;
   message msg;
   //1 is true
   int r;
-  mouse_en_data_report();
-  while (count < (int) cnt) {
+  mouse_enable_data_reporting();
+  while (packet_count < (int) cnt) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
