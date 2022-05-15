@@ -115,7 +115,7 @@ int (mouse_test_async)(uint8_t idle_time) {
   if (mouse_enable_data_reporting())
     return 1;
 
-  
+
 
 
   int ipc_status;
