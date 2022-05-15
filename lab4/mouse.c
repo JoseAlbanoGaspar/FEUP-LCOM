@@ -1,7 +1,7 @@
 #include "mouse.h"
 
 extern struct packet mouse_packet;
-uint32_t mouse_status;
+uint8_t mouse_status;
 int count = 0;
 int bit_no_global_mouse;
 int hook_id = MOUSE_IRQ;
@@ -21,21 +21,21 @@ int (mouse_subscribe_int)(uint8_t *bit_no){
 int (mouse_unsubscribe_int)(){
     //Unsubscribing the interruptions
     if(sys_irqrmpolicy(&hook_id))
-    return 1;
+        return 1;
 
     return 0;
 }
 
-int mouse_get_status()
+int (mouse_get_status)()
 {
-    if (sys_inb(MOUSE_STATUS_REG, &mouse_status) == OK)
+    if (util_sys_inb(MOUSE_STATUS_REG, &mouse_status))
     {
         return 0;
     }
     return 1;
 }
 
-int mouse_check_status()
+int (mouse_check_status)()
 {
     if ((mouse_status & MOUSE_OUTB) != 0)  //check if buffer has data to read
     {
@@ -43,10 +43,12 @@ int mouse_check_status()
         {
             if ((mouse_status & MOUSE_AUXB) != 0)  //check if the data is for the mouse 
             {
+                printf("valid status\n");
                 return 0;
             }
         }
     }
+    printf("Invalid Status\n");
     return 1;
 }
 
@@ -57,6 +59,7 @@ void parse()
     {
     case 0:
         mouse_packet.bytes[0] = packet_byte;
+        printf("packet_byte 1: 0x%x", packet_byte);
         mouse_packet.lb = (packet_byte & MOUSE_LB_PRESSED);
         mouse_packet.rb = (packet_byte & MOUSE_RB_PRESSED);
         mouse_packet.mb = (packet_byte & MOUSE_MB_PRESSED);
@@ -65,33 +68,42 @@ void parse()
         break;
     case 1:
         mouse_packet.bytes[1] = packet_byte;
-        if ((mouse_packet.bytes[0] & MOUSE_X_DELTA_SIGN))
+        printf("packet_byte 2: 0x%x", packet_byte);
+        if ((mouse_packet.bytes[0] & BIT(4)))
         {
-            mouse_packet.delta_x = packet_byte;
+            printf("deltaX\n");
+            uint16_t temp = 0xFF00 | packet_byte;
+            mouse_packet.delta_x = temp;
         }
         else
-            mouse_packet.delta_x = 0;
+            mouse_packet.delta_x = (uint16_t) packet_byte;
         break;
     case 2:
         mouse_packet.bytes[2] = packet_byte;
-        if ((mouse_packet.bytes[0] & MOUSE_Y_DELTA_SIGN))
+        printf("packet_byte 3: 0x%x", packet_byte);
+        if ((mouse_packet.bytes[0] & BIT(5)))
         {
-            mouse_packet.delta_y = packet_byte;
+            printf("deltaY\n");
+            uint16_t temp = 0xFF00 | packet_byte;
+            mouse_packet.delta_y = temp;
         }
         else
-            mouse_packet.delta_y = 0;
+            mouse_packet.delta_y = (uint16_t) packet_byte;
         break;
     }
 }
 
 void(mouse_ih)()
 {
+    printf("Mouse_ih()\n");
     if (mouse_get_status() == OK)
     {
+        printf("Got Status\n");
         if (mouse_check_status() == OK)
         {
-            if (util_sys_inb(MOUSE_OUT_BUF, &packet_byte) == OK)
+            if (util_sys_inb(MOUSE_OUT_BUF, &packet_byte))
             {
+                printf("parsing...\n");
                 parse();
             }
         }
