@@ -27,7 +27,7 @@
 #define MOUSE_STREAM 0xEA //Set Stream Mode
 
 /* PS/2 Mouse commands - responses */
-#define MOUSE_IS_OK 0xFA // if everything OK
+#define MOUSE_OK 0xFA // if everything OK
 #define MOUSE_NACK 0xFE // if invalid byte (due to communication errors)
 #define MOUSE_ACK_ERROR 0xFC //error - second consecutive invalid byte
 

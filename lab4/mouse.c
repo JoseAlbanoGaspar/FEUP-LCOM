@@ -20,6 +20,7 @@ int (mouse_subscribe_int)(uint8_t *bit_no){
 
 int (mouse_unsubscribe_int)(){
     //Unsubscribing the interruptions
+    
     if(sys_irqrmpolicy(&hook_id))
         return 1;
 
@@ -55,7 +56,6 @@ int (mouse_check_status)()
 void parse()
 {
     /* Preencher Struct mouse_packet definida em lab4.c */
-
     switch (count)
     {
     case 0:
@@ -108,6 +108,9 @@ void(mouse_ih)()
                 parse();
             }
         }
+        else {
+            count--; //ensures the count mantains if the status is invalid
+        }
     }
 }
 
@@ -121,7 +124,7 @@ int (mouse_reset)(){
     if (sys_outb(MOUSE_STATUS_REG, MOUSE_RESET) != OK) return 1;
     if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
     else {
-        if (ack == MOUSE_IS_OK) return 0;
+        if (ack == MOUSE_OK) return 0;
         else if (ack == MOUSE_NACK) //If a NACK 0xFE is received, the command should be retried fromthe start
           return mouse_reset();
         else if (ack == MOUSE_ACK_ERROR) return 1;
@@ -131,31 +134,45 @@ int (mouse_reset)(){
 }
 
 int (mouse_en_data_report)(){
-    uint8_t ack;
-    if (sys_outb(MOUSE_STATUS_REG, MOUSE_ENABLE_CMD) != OK) return 1;
-    if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
-    else {
-        if (ack == MOUSE_IS_OK) return 0;
-        else if (ack == MOUSE_NACK) return mouse_en_data_report();
-        else if (ack == MOUSE_ACK_ERROR) return 1;
-    }
-    printf("Error value: %x\n", ack);
-    return 1;
-}
-/*
-// retirada do git:
-int(mouse_send_cmd)(uint8_t cmd) {
-
   uint8_t ack;
+  do {
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_CMD) != OK)
+      return 1;
 
-  do{
-    if (kbc_commandByte(MOUSE_CMD)) return 1;
-    if (kbc_write(cmd)) return 1; //qual a nossa?
-    if (kbc_read(&ack)) return 1; // qual a nossa?
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_OUT_BUF, MOUSE_ENABLE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    util_sys_inb(MOUSE_OUT_BUF, &ack);
+
     if (ack == MOUSE_ACK_ERROR) return 1;
 
-  } while(ack == MOUSE_NACK);
+  } while (ack == MOUSE_NACK);
 
   return 0;
 }
-*/
+
+int (mouse_dis_data_report)(){
+  uint8_t ack;
+  do {
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_OUT_BUF, MOUSE_DISABLE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    util_sys_inb(MOUSE_OUT_BUF, &ack);
+
+    if (ack == MOUSE_ACK_ERROR) return 1;
+
+  } while (ack == MOUSE_NACK);
+
+  return 0;
+}
+
+

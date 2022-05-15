@@ -22,3 +22,5 @@ int (mouse_reset)();
 
 int (mouse_en_data_report)();
 
+int (mouse_dis_data_report)();
+
