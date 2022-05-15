@@ -128,18 +128,47 @@ int (mouse_reset)(){
     printf("Error value: %x\n", ack);
     return 1;
 }
-/*
+
 int (mouse_en_data_report)(){
-    uint8_t ack;
-    if (sys_outb(MOUSE_STATUS_REG, MOUSE_ENABLE_CMD) != OK) return 1;
-    if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
-    else {
-        if (ack == MOUSE_IS_OK) return 0;
-        else if (ack == MOUSE_NACK) return mouse_reset();
-        else if (ack == MOUSE_ACK_ERROR) return 1;
-    }
-    printf("Error value: %x\n", ack);
-    return 1;
+  uint8_t ack;
+  do {
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_OUT_BUF, MOUSE_ENABLE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    util_sys_inb(MOUSE_OUT_BUF, &ack);
+
+    if (ack == MOUSE_ACK_ERROR) return 1;
+
+  } while (ack == MOUSE_NACK);
+
+  return 0;
 }
-}*/
+
+int (mouse_dis_data_report)(){
+  uint8_t ack;
+  do {
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    if (sys_outb(MOUSE_OUT_BUF, MOUSE_DISABLE_CMD) != OK)
+      return 1;
+
+    util_sys_inb(MOUSE_STATUS_REG, &mouse_status);
+    util_sys_inb(MOUSE_OUT_BUF, &ack);
+
+    if (ack == MOUSE_ACK_ERROR) return 1;
+
+  } while (ack == MOUSE_NACK);
+
+  return 0;
+}
+
 
