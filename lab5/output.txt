@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 X: 60, Y: 300
 X: 70, Y: 300
 X: 80, Y: 300
@@ -30,3 +32,4 @@ Scancode: A0
 Scancode: 92
 Scancode: 1
 Scancode: 81
+>>>>>>> f70765b0ff27c8248ac2e8b688bd268288a800d4

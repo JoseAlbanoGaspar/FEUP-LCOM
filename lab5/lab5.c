@@ -264,7 +264,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   vg_draw_pixmap(xpm, x, y);
 
   while (scancode != ESC_KEY) {
-
+    printf("Scancode: %x\n", scancode);
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -286,7 +286,6 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
               vg_erase_pixmap(xpm, x, y);
               vg_draw_pixmap(xpm, x, y);
               finished = true;
-              printf("X: %d, Y: %d\n", x, y);
               break;
             }
             
@@ -304,7 +303,6 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
                   else x--;
                 }
                 vg_draw_pixmap(xpm, x, y);
-                printf("X: %d, Y: %d\n", x, y);
               }
             }
             else{
@@ -330,7 +328,6 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
                 }
               }
               vg_draw_pixmap(xpm, x, y);
-              printf("X: %d, Y: %d\n", x, y);
             }
             
           }

@@ -108,6 +108,9 @@ void(mouse_ih)()
                 parse();
             }
         }
+        else {
+            count--; //ensures the count mantains if the status is invalid
+        }
     }
 }
 
