@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include "mouse.h"
 
-struct packet mouse_packet;
-extern int hook_id;  
-int count = 0;
+extern struct packet mouse_packet; // data packet of 3 bytes
+extern int hook_id; 
+extern int hook_id_timer; 
+extern int count; //used to say in which byte of the mouse package we are in
+extern int counter_timer; // used to count the number of interruptions caused by the timer
 
 // Any header files included below this line should have been created by you
 
@@ -39,21 +41,26 @@ int main(int argc, char *argv[]) {
 int (mouse_test_packet)(uint32_t cnt) {
   //Here we select the bit in the hook_id needed to check if we got the right interruption
   uint32_t irq_set = BIT(hook_id);
+
   uint8_t aux = (uint8_t)hook_id;
 
   //Subscription of the interruption
   if(mouse_subscribe_int(&aux))
     return 1;
 
+  /* provided by minix */
+  if (mouse_en_data_report())
+    return 1;
+
   hook_id = (int)aux;
-//--------------------------------
+
+
   int ipc_status;
-  unsigned int packet_count = 0;
+  int packet_count = 0;
   message msg;
   //1 is true
   int r;
-  mouse_en_data_reporting();
-  while (count < cnt) {
+  while (packet_count < (int) cnt) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -66,8 +73,8 @@ int (mouse_test_packet)(uint32_t cnt) {
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             mouse_ih();
-            count++;
-            if (count == 3){
+            count++; //received another packet
+            if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 packet_count++;
                 count = 0;
                 mouse_print_packet(&mouse_packet);
@@ -82,18 +89,85 @@ int (mouse_test_packet)(uint32_t cnt) {
       // no standard messages expected: do nothing
     }
   }
-  mouse_unsubscribe_int();
-  mouse_reset();
+
+  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+  if (mouse_dis_data_report()) return 1;
+
   return 0;
 }
 
 int (mouse_test_async)(uint8_t idle_time) {
-    /* To be completed */
-    printf("%s(%u): under construction\n", __func__, idle_time);
+     //Here we select the bit in the hook_id needed to check if we got the right interruption
+  uint32_t irq_set = BIT(hook_id);
+  uint32_t irq_set_timer = BIT(0);
+
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(mouse_subscribe_int(&aux))
     return 1;
+  hook_id = (int)aux;
+  aux = (uint8_t) hook_id_timer;
+  if(timer_subscribe_int(&aux))
+    return 1;
+  hook_id_timer = (int) aux;
+  /* provided by minix */
+  if (mouse_enable_data_reporting())
+    return 1;
+
+  
+
+
+  int ipc_status;
+  int packet_count = 0;
+  message msg;
+  //1 is true
+  int r;
+  //timer_set_frequency(0,60);
+  while (counter_timer < idle_time * 60) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            mouse_ih();
+            count++; //received another packet
+            if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
+                packet_count++;
+                count = 0;
+                mouse_print_packet(&mouse_packet);
+            }
+            counter_timer = 0;
+          }
+          if (msg.m_notify.interrupts & irq_set_timer) { // subscribed interrupt
+              timer_int_handler();
+              
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+
+  //if (mouse_enable_data_reporting()) return 1; // enables mouse data reporting
+  if (mouse_reset()) return 1;
+  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+  if(timer_unsubscribe_int()) return 1;
+
+  return 0;
 }
 
-int (mouse_test_gesture)() {
+int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
     /* To be completed */
     printf("%s: under construction\n", __func__);
     return 1;
@@ -104,3 +178,4 @@ int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
     printf("%s(%u, %u): under construction\n", __func__, period, cnt);
     return 1;
 }
+

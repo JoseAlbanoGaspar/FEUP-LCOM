@@ -6,9 +6,9 @@
 #include "i8254.h"
 
 //Timer to be incremented by the timer interrupts
-int counter = 0;
+int counter_timer = 0;
 //Hook id to be used to set the interrupt policy
-int hook_id = 0;
+int hook_id_timer = 0;
 
 //implement for timer_test_time_base
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
@@ -77,7 +77,7 @@ int (timer_subscribe_int)(uint8_t *bit_no) {
 
 int (timer_unsubscribe_int)() {
   //Unsubscribing the interruptions
-  if(sys_irqrmpolicy(&hook_id))
+  if(sys_irqrmpolicy(&hook_id_timer))
     return 1;
 
   return 0;
@@ -86,7 +86,7 @@ int (timer_unsubscribe_int)() {
 //implement for timer_test_int()
 void (timer_int_handler)() {
   /* To be implemented by the students */
-  counter++;
+  counter_timer++;
 }
 
 
