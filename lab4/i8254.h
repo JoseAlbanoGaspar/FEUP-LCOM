@@ -60,8 +60,8 @@
 #define KEYBOARD_STATUS_REG 0x64
 
 /* MOUSE */
-#define MOUSE_STATUS_REG 0x64
-#define MOUSE_OUT_BUF 0x60
+#define MOUSE_STATUS_REG 0x64 // Sent to KBC by writing to port 0x64
+#define MOUSE_OUT_BUF 0x60 // Arguments and return values are written/read to/from 0x60
 #define MOUSE_IRQ 12
 
 /**@}*/
