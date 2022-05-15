@@ -24,12 +24,26 @@ int (mouse_unsubscribe_int)(){
 
 int (mouse_reset)(){
     uint8_t ack;
-    if (sys_outb(0x64, 0xFF) != OK) return 1;
-    if (util_sys_inb(0x60, &ack) == 1) return 1;
+    if (sys_outb(KBC_CMD, MOUSE_RESET) != OK) return 1;
+    if (util_sys_inb(OUT_BUF, &ack) == 1) return 1;
     else {
-        if (ack == 0xFA) return 0;
-        else if (ack == 0xFE) return mouse_reset();
-        else if (ack == 0xFC) return 1;
+        if (ack == MOUSE_OK) return 0;
+        else if (ack == MOUSE_NACK) return mouse_reset();
+        else if (ack == MOUSE_ACK_ERROR) return 1;
     }
     printf("Error value: %x\n", ack);
+    return 1;
+}
+
+int (mouse_en_data_report)(){
+    uint8_t ack;
+    if (sys_outb(KBC_CMD, MOUSE_ENABLE_CMD) != OK) return 1;
+    if (util_sys_inb(OUT_BUF, &ack) == 1) return 1;
+    else {
+        if (ack == MOUSE_OK) return 0;
+        else if (ack == MOUSE_NACK) return mouse_reset();
+        else if (ack == MOUSE_ACK_ERROR) return 1;
+    }
+    printf("Error value: %x\n", ack);
+    return 1;
 }

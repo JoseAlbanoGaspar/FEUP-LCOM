@@ -52,7 +52,7 @@ int (mouse_test_packet)(uint32_t cnt) {
   message msg;
   //1 is true
   int r;
-  mouse_enable_data_reporting();
+  mouse_en_data_reporting();
   while (count < cnt) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
