@@ -120,7 +120,7 @@ int (mouse_reset)(){
     if (sys_outb(MOUSE_STATUS_REG, MOUSE_RESET) != OK) return 1;
     if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
     else {
-        if (ack == MOUSE_IS_OK) return 0;
+        if (ack == MOUSE_OK) return 0;
         else if (ack == MOUSE_NACK) //If a NACK 0xFE is received, the command should be retried fromthe start
           return mouse_reset();
         else if (ack == MOUSE_ACK_ERROR) return 1;
@@ -142,20 +142,4 @@ int (mouse_en_data_report)(){
     return 1;
 }
 }*/
-
-// retirada do git:
-int(mouse_send_cmd)(uint8_t cmd) {
-
-  uint8_t ack;
-
-  do{
-    if (kbc_commandByte(MOUSE_CMD)) return 1;
-    if (kbc_write(cmd)) return 1; //qual a nossa?
-    if (kbc_read(&ack)) return 1; // qual a nossa?
-    if (ack == MOUSE_ACK_ERROR) return 1;
-
-  } while(ack == MOUSE_NACK);
-
-  return 0;
-}
 

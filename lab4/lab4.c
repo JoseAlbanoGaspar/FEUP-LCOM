@@ -58,13 +58,7 @@ int (mouse_test_packet)(uint32_t cnt) {
   message msg;
   //1 is true
   int r;
-<<<<<<< HEAD
-  mouse_enable_data_reporting();
   while (packet_count < (int) cnt) {
-=======
-
-  while (count /* packet_count here, no? */ < (int) cnt) { //The KBC generates a mouse interrupt for each byte of the packet.
->>>>>>> f70765b0ff27c8248ac2e8b688bd268288a800d4
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
