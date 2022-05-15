@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "mouse.h"
 
-extern struct packet mouse_packet;
+extern struct packet mouse_packet; // data packet of 3 bytes
 extern int hook_id;  
 extern int count;
 
@@ -39,21 +39,32 @@ int main(int argc, char *argv[]) {
 int (mouse_test_packet)(uint32_t cnt) {
   //Here we select the bit in the hook_id needed to check if we got the right interruption
   uint32_t irq_set = BIT(hook_id);
+
   uint8_t aux = (uint8_t)hook_id;
 
   //Subscription of the interruption
   if(mouse_subscribe_int(&aux))
     return 1;
 
+  /* provided by minix */
+  if (mouse_enable_data_reporting())
+    return 1;
+
   hook_id = (int)aux;
-//--------------------------------
+
+
   int ipc_status;
   int packet_count = 0;
   message msg;
   //1 is true
   int r;
+<<<<<<< HEAD
   mouse_enable_data_reporting();
   while (packet_count < (int) cnt) {
+=======
+
+  while (count /* packet_count here, no? */ < (int) cnt) { //The KBC generates a mouse interrupt for each byte of the packet.
+>>>>>>> f70765b0ff27c8248ac2e8b688bd268288a800d4
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -66,8 +77,8 @@ int (mouse_test_packet)(uint32_t cnt) {
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             mouse_ih();
-            count++;
-            if (count == 3){
+            count++; //received another packet
+            if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 packet_count++;
                 count = 0;
                 mouse_print_packet(&mouse_packet);
@@ -82,8 +93,11 @@ int (mouse_test_packet)(uint32_t cnt) {
       // no standard messages expected: do nothing
     }
   }
-  mouse_unsubscribe_int();
-  mouse_reset();
+
+  //if (mouse_enable_data_reporting()) return 1; // enables mouse data reporting
+  if (mouse_reset()) return 1;
+  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+
   return 0;
 }
 
