@@ -53,7 +53,6 @@ int mouse_check_status()
 void parse()
 {
     /* Preencher Struct mouse_packet definida em lab4.c */
-
     switch (count)
     {
     case 0:
