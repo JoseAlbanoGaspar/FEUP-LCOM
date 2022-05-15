@@ -118,26 +118,29 @@ int(re_enable_mouse_interrupts)()
 
 int (mouse_reset)(){
     uint8_t ack;
-    if (sys_outb(KBC_CMD, MOUSE_RESET) != OK) return 1;
-    if (util_sys_inb(OUT_BUF, &ack) == 1) return 1;
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_RESET) != OK) return 1;
+    if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
     else {
         if (ack == MOUSE_OK) return 0;
-        else if (ack == MOUSE_NACK) return mouse_reset();
+        else if (ack == MOUSE_NACK) //If a NACK 0xFE is received, the command should be retried fromthe start
+          return mouse_reset();
         else if (ack == MOUSE_ACK_ERROR) return 1;
     }
     printf("Error value: %x\n", ack);
     return 1;
 }
-
+/*
 int (mouse_en_data_report)(){
     uint8_t ack;
-    if (sys_outb(KBC_CMD, MOUSE_ENABLE_CMD) != OK) return 1;
-    if (util_sys_inb(OUT_BUF, &ack) == 1) return 1;
+    if (sys_outb(MOUSE_STATUS_REG, MOUSE_ENABLE_CMD) != OK) return 1;
+    if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
     else {
-        if (ack == MOUSE_OK) return 0;
+        if (ack == MOUSE_IS_OK) return 0;
         else if (ack == MOUSE_NACK) return mouse_reset();
         else if (ack == MOUSE_ACK_ERROR) return 1;
     }
     printf("Error value: %x\n", ack);
     return 1;
 }
+}*/
+
