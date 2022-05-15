@@ -20,6 +20,7 @@ int (mouse_subscribe_int)(uint8_t *bit_no){
 
 int (mouse_unsubscribe_int)(){
     //Unsubscribing the interruptions
+    
     if(sys_irqrmpolicy(&hook_id))
         return 1;
 
