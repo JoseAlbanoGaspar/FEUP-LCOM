@@ -111,8 +111,7 @@ int (mouse_test_async)(uint8_t idle_time) {
   if(timer_subscribe_int(&aux))
     return 1;
   hook_id_timer = (int) aux;
-  
-  
+  /* provided by minix */
   if (mouse_en_data_report())
     return 1;
 
@@ -120,7 +119,6 @@ int (mouse_test_async)(uint8_t idle_time) {
 
 
   int ipc_status;
-  int packet_count = 0;
   message msg;
   //1 is true
   int r;
@@ -140,7 +138,6 @@ int (mouse_test_async)(uint8_t idle_time) {
             mouse_ih();
             count++; //received another packet
             if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
-                packet_count++;
                 count = 0;
                 mouse_print_packet(&mouse_packet);
             }
@@ -161,9 +158,9 @@ int (mouse_test_async)(uint8_t idle_time) {
   }
 
   //if (mouse_enable_data_reporting()) return 1; // enables mouse data reporting
+  if(timer_unsubscribe_int()) return 1;
   if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
   if (mouse_dis_data_report()) return 1;
-  if(timer_unsubscribe_int()) return 1;
 
   return 0;
 }
