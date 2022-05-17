@@ -24,3 +24,7 @@ int (mouse_en_data_report)();
 
 int (mouse_dis_data_report)();
 
+int (mouse_is_valid_first_line_mov)(int tolerance);
+
+int (mouse_is_valid_second_line_mov)(int tolerance);
+

@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 @lcflib.a:2019, lcf_start
   video_test_move(xpm, xi, yi, xf, yf, speed, fps)
 > video_test_move(0x81e213c, 50, 300, 300, 300, 10, 60)
@@ -1083,3 +1085,4 @@
     vg_exit()
   < vg_exit() -> (ret: 0)
 < video_test_move(0x81e213c, 50, 300, 300, 300, 10, 60) -> (ret: 0)
+>>>>>>> f70765b0ff27c8248ac2e8b688bd268288a800d4

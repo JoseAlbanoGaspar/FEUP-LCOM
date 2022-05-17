@@ -112,14 +112,13 @@ int (mouse_test_async)(uint8_t idle_time) {
     return 1;
   hook_id_timer = (int) aux;
   /* provided by minix */
-  if (mouse_enable_data_reporting())
+  if (mouse_en_data_report())
     return 1;
 
   
 
 
   int ipc_status;
-  int packet_count = 0;
   message msg;
   //1 is true
   int r;
@@ -139,7 +138,6 @@ int (mouse_test_async)(uint8_t idle_time) {
             mouse_ih();
             count++; //received another packet
             if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
-                packet_count++;
                 count = 0;
                 mouse_print_packet(&mouse_packet);
             }
@@ -160,17 +158,119 @@ int (mouse_test_async)(uint8_t idle_time) {
   }
 
   //if (mouse_enable_data_reporting()) return 1; // enables mouse data reporting
-  if (mouse_reset()) return 1;
-  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
   if(timer_unsubscribe_int()) return 1;
+  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+  if (mouse_dis_data_report()) return 1;
 
   return 0;
 }
 
 int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
-    /* To be completed */
-    printf("%s: under construction\n", __func__);
+  //SETTING UP EVERYTHING FOR THE DRIVER LOOP
+  uint32_t irq_set = BIT(hook_id);
+
+  uint8_t aux = (uint8_t)hook_id;
+
+  //Subscription of the interruption
+  if(mouse_subscribe_int(&aux))
     return 1;
+
+  if (mouse_en_data_report())
+    return 1;
+
+  hook_id = (int)aux;
+
+
+  int ipc_status;
+  message msg;
+  int r;
+
+  //SETTING UP THINGS FOR THIS EXERCISE
+  enum states {START , FIRST, MIDDLE, SECOND, FINISH}; 
+  enum states state = START;
+  uint8_t total_displacement_x = 0;
+  while (state != FINISH) {
+    // Get a request message
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { // received notification
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
+            mouse_ih();
+            count++; //received another packet
+            if (count == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
+                count = 0;
+                //check if the state transitions are met and if so switch state
+                switch (state)
+                {
+                case START:
+                  if(mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb)
+                    state = FIRST;
+                  break;
+                case FIRST:
+                  if(mouse_is_valid_first_line_mov(tolerance)){  //check if movement is correct
+                      total_displacement_x += mouse_packet.delta_x;
+                   }
+                  else{ //if the movement is not right/up then go to the beginning
+                    state = START;
+                    total_displacement_x = 0;
+                  }
+                  if(!mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb && 
+                      total_displacement_x >= x_len)  //check the transition condition
+                      state = MIDDLE;
+                  break;
+                case MIDDLE:
+                  /* code */
+                  total_displacement_x = 0;
+                  if(mouse_packet.rb && !mouse_packet.mb && !mouse_packet.lb) //obs: falta limitar os movimentos 
+                    state = SECOND;
+                  else
+                    state = START; 
+                  break;
+                case SECOND:
+                   if(mouse_is_valid_second_line_mov(tolerance)){  //check if movement is correct
+                      total_displacement_x += mouse_packet.delta_x;
+                   }
+                  else{ //if the movement is not right/up then go to the beginning
+                    state = START;
+                    total_displacement_x = 0;
+                  }
+                  if(!mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb && 
+                      total_displacement_x >= x_len)  //check the transition condition
+                      state = FINISH;
+                  else{ //should enter here if we release the button before reaching the minimum x_len 
+                    state = START;
+                    total_displacement_x = 0;
+                  }
+                  break;
+                case FINISH:
+                  /* code */
+                  break;
+                default:
+                  break;
+                }
+                mouse_print_packet(&mouse_packet);
+            }
+          }
+          break;
+        default:
+          break; // no other notifications expected: do nothing
+      }
+    }
+    else { //received a standard message, not a notification
+      // no standard messages expected: do nothing
+    }
+  }
+
+  if (mouse_unsubscribe_int()) return 1; // unsubscribes interrupts
+  if (mouse_dis_data_report()) return 1;
+
+  return 0;
 }
 
 int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
