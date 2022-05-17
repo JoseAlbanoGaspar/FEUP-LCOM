@@ -175,4 +175,23 @@ int (mouse_dis_data_report)(){
   return 0;
 }
 
+int (mouse_is_valid_first_line_mov)(int tolerance){
+    if(((mouse_packet.delta_x > 1 && mouse_packet.delta_y > 1) ||   //the slope must be larger than 1
+        ( mouse_packet.delta_x <= 0 && abs(mouse_packet.delta_x) < tolerance)  ||  //check tolerance in x
+        ( mouse_packet.delta_y <= 1 && abs(mouse_packet.delta_y) < tolerance)) &&  //check tolerance in y
+       mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb)
 
+       return 1;
+    return 0;
+
+}
+
+int (mouse_is_valid_second_line_mov)(int tolerance){
+    if(((mouse_packet.delta_x > 1 && mouse_packet.delta_y < -1) ||
+      (mouse_packet.delta_x <= 0 && abs(mouse_packet.delta_x) < tolerance) ||
+      (mouse_packet.delta_y >= -1 && abs(mouse_packet.delta_y) < tolerance)) &&
+       !mouse_packet.lb && mouse_packet.mb && !mouse_packet.rb)
+
+       return 1;
+    return 0;
+}
