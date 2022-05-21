@@ -15,20 +15,16 @@ extern int count;
 extern int snakeCount;
 
 extern int snakeAdd;
-extern bool addToSnake;
 
 extern uint16_t scancode;
 extern int hook_id_timer;
 extern int hook_id_keyboard;
 extern int hook_id_mouse;
 uint16_t vg_mode;
-extern int direction;
-extern int mouseX;
-extern int mouseY;
-extern int lastMouseX;
-extern int lastMouseY;
 extern struct packet mouse_packet; // data packet of 3 bytes
 extern int mouseCount; //used to say in which byte of the mouse package we are in
+uint32_t backgroundColor = 0x000057FF;
+extern struct Snake snake;
 
 
 // Any header files included below this line should have been created by you
@@ -104,12 +100,7 @@ int (proj_main_loop)(int argc, char* argv[])
             }
             if (snakeCount == 20){
               snakeCount = 0;
-              moveSnake(direction);
-            }
-
-            if (snakeAdd == 120){
-              snakeAdd = 0;
-              addToSnake = true;
+              if (canMove(snake.direction)) moveSnake(snake.direction);
             }
           }
 
