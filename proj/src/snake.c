@@ -8,7 +8,7 @@ extern uint32_t backgroundColor;
 struct Snake snake;
 struct Apple apple;
 
-void startPosition(){
+void (startPosition)(){
     /* Initializes snake */
     snake.segments[0] = 120;
     snake.segments[1] = 120;
