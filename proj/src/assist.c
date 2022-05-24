@@ -49,23 +49,28 @@ void (changeDirection)(uint16_t scancode){
     {
     case RIGHT_ARROW:
         if (snake.direction == 1) break;
-        snake.direction = 0;
+        if (snake.canChangeDir) snake.direction = 0;
+        snake.canChangeDir = false;
         break;
     case LEFT_ARROW:
         if (snake.direction == 0) break;
-        snake.direction = 1;
+        if (snake.canChangeDir) snake.direction = 1;
+        snake.canChangeDir = false;
         break;
     case UP_ARROW:
         if (snake.direction == 3) break;
-        snake.direction = 2;
+        if (snake.canChangeDir) snake.direction = 2;
+        snake.canChangeDir = false;
         break;
     case DOWN_ARROW:
         if (snake.direction == 2) break;
-        snake.direction = 3;
+        if (snake.canChangeDir) snake.direction = 3;
+        snake.canChangeDir = false;
         break;
     default:
         break;
     }
+
 }
 
 void (drawMouse)(){
@@ -73,7 +78,7 @@ void (drawMouse)(){
     vg_draw_rectangle(abs(mouseX), abs(mouseY), 5, 5, 0x0008F300); //draw new mouse cursor
 }
 
-void updateMouse(){
+void (updateMouse)(){
     lastMouseX = mouseX;
     lastMouseY = mouseY;
     int increX = (int) mouse_packet.delta_x;

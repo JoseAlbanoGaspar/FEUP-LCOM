@@ -16,6 +16,6 @@ void (changeDirection)(uint16_t scancode);
 
 void (drawMouse)();
 
-void updateMouse();
+void (updateMouse)();
 
 
