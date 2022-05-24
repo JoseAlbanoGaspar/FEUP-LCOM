@@ -189,6 +189,7 @@ int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
   enum states {START , FIRST, MIDDLE, SECOND, FINISH}; 
   enum states state = START;
   uint8_t total_displacement_x = 0;
+
   while (state != FINISH) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
