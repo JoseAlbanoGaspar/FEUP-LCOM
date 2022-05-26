@@ -5,28 +5,14 @@ not got apple
 after apple
 not got apple
 after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CB
 not got apple
 after apple
 not got apple
@@ -37,54 +23,132 @@ not got apple
 after apple
 Scancode: E000
 Scancode: 4D
+not got apple
+after apple
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: C8
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
 Scancode: E000
 Scancode: 50
+Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: CB
+Scancode: E000
+Scancode: D0
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: C8
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4D
+not got apple
+after apple
 Scancode: E000
 Scancode: CD
 Scancode: E000
 Scancode: D0
 not got apple
 after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: D0
+not got apple
+after apple
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: CB
+Scancode: E000
+Scancode: C8
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 48
 not got apple
 after apple
 Scancode: E000
 Scancode: 4D
 Scancode: E000
-Scancode: 50
+Scancode: C8
 Scancode: E000
 Scancode: CD
-Scancode: E000
-Scancode: D0
-not got apple
-after apple
-Scancode: E000
-Scancode: 4D
-Scancode: E000
-Scancode: 50
-not got apple
-after apple
-Scancode: E000
-Scancode: CD
-Scancode: E000
-Scancode: D0
-Scancode: E000
-Scancode: 4D
-not got apple
-after apple
-Scancode: E000
-Scancode: CD
-Scancode: E000
-Scancode: 50
-Scancode: E000
-Scancode: D0
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
 not got apple
 after apple
 not got apple
@@ -106,52 +170,6 @@ Scancode: 48
 not got apple
 after apple
 Scancode: E000
-Scancode: CB
-Scancode: E000
-Scancode: C8
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-not got apple
-after apple
-Scancode: 4D
-Scancode: E000
-Scancode: C8
-Scancode: E000
-Scancode: CD
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-Scancode: 4B
-not got apple
-after apple
-Scancode: E000
 Scancode: C8
 Scancode: E000
 Scancode: CB
@@ -179,105 +197,23 @@ not got apple
 after apple
 not got apple
 after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-Scancode: 4B
-Scancode: E000
-Scancode: C8
-Scancode: E000
-Scancode: CB
 not got apple
 after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 4D
-Scancode: E000
-not got apple
-after apple
-Scancode: CD
 not got apple
 after apple
 Scancode: E000
 Scancode: 50
+Scancode: E000
+Scancode: 4D
 not got apple
 after apple
 Scancode: E000
 Scancode: D0
-not got apple
-after apple
-not got apple
-after apple
 Scancode: E000
-Scancode: 4B
-Scancode: E000
-Scancode: CB
+Scancode: CD
 not got apple
 after apple
 not got apple
-after apple
-Scancode: E000
-Scancode: 48
-not got apple
-after apple
-Scancode: E000
-Scancode: C8
-Scancode: E000
-Scancode: 4B
-not got apple
-after apple
-Scancode: E000
-Scancode: CB
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-Scancode: C8
-not got apple
-after apple
-Scancode: E000
-Scancode: 4B
-not got apple
-after apple
-Scancode: E000
-Scancode: CB
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-got apple
 after apple
 not got apple
 after apple
@@ -285,84 +221,12 @@ not got apple
 after apple
 Scancode: E000
 Scancode: 4D
-not got apple
-after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-Scancode: CD
-Scancode: E000
-Scancode: C8
-Scancode: E000
-Scancode: 4D
-not got apple
-after apple
-Scancode: E000
-Scancode: CD
-not got apple
-after apple
-Scancode: E000
-Scancode: 4D
-not got apple
-after apple
-Scancode: E000
-Scancode: CD
-not got apple
-after apple
-not got apple
-after apple
 Scancode: E000
 Scancode: 50
-Scancode: E000
-Scancode: D0
 not got apple
 after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 4D
 Scancode: E000
 Scancode: CD
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 48
-Scancode: E000
-Scancode: C8
-not got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 4B
-Scancode: E000
-Scancode: CB
-not got apple
-after apple
-not got apple
-after apple
-got apple
-after apple
-not got apple
-after apple
-Scancode: E000
-Scancode: 50
 Scancode: E000
 Scancode: D0
 not got apple
@@ -377,7 +241,135 @@ not got apple
 after apple
 not got apple
 after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CD
 not got apple
 after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4D
+not got apple
+after apple
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CD
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4B
+not got apple
+after apple
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CB
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: 4D
+not got apple
+after apple
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: CD
+not got apple
+after apple
+Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: 50
+not got apple
+after apple
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: D0
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: C8
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+not got apple
+after apple
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: CB
+not got apple
+after apple
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+not got apple
+after apple
+Scancode: E000
+Scancode: 4B
+not got apple
+after apple
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: C8
+Scancode: E000
+Scancode: CB
+Scancode: E000
+not got apple
+after apple
+Scancode: 4D
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: CB
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: C8
 Scancode: 1
 Scancode: 81

@@ -21,6 +21,7 @@ uint8_t blue_p;
 uint8_t memoryModel;
 phys_bytes phys_addr;
 
+int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t* info);
 void *(vg_init)(uint16_t mode);
 uint32_t getmask(int k);
 int(vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color);
