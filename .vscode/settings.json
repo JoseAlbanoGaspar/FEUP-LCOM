@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "register.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "snake.h": "c"
     }
 }

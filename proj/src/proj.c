@@ -27,7 +27,7 @@ uint32_t backgroundColor = 0x000057FF;
 extern struct Snake snake;
 
 int sel[] = {0,1}; //0 -> play; 1->exit
-
+int selected = 0;
 
 
 // Any header files included below this line should have been created by you
@@ -125,6 +125,23 @@ int (proj_main_loop)(int argc, char* argv[])
             case PAUSE:
               break;
             case MENU:
+              selected = selectedOpt(scancode,selected);
+              update_menu(selected);
+              //check if enter was pressed
+              if(scancode == ENTER){
+                switch (selected)
+                {
+                case 0:
+                  status = GAME;
+                  init_game();
+                  break;
+                case 1:
+                  scancode = ESC_KEY;
+                  break;
+                default:
+                  break;
+                }
+              }
               break;
             default:
               break;
@@ -149,10 +166,11 @@ int (proj_main_loop)(int argc, char* argv[])
                 case MENU:
                   updateMouse();
                   drawMouse();
-                  
+
                   if(isInOption(180,250,300,100)){ //checks play option
                     if(!isSel){
                       update_menu(sel[0]);
+                      selected = 0;
                       isSel = 1;
                     }
                     if(onPress()){
@@ -164,6 +182,7 @@ int (proj_main_loop)(int argc, char* argv[])
                   else if(isInOption(180,400,300,100)){  // checks exit option
                     if(!isSel){
                       update_menu(sel[1]);
+                      selected = 1;
                       isSel = 1;
                     }
                     if(onPress()){

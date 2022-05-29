@@ -1,8 +1,6 @@
-not got apple
-after apple
-not got apple
-after apple
-not got apple
-after apple
-Scancode: 1
-Scancode: 81
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: 1C
+Scancode: 9C

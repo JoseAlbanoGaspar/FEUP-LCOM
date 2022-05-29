@@ -124,7 +124,19 @@ void (changeDirection)(uint16_t scancode){
     }
 
 }
-
+int (selectedOpt)(uint16_t scan,int sel){
+    switch (scan)
+    {
+    case UP_ARROW:
+        if(sel == 1) sel = 0;
+        break;
+    case DOWN_ARROW:
+        if(sel == 0) sel = 1;
+    default:
+        break;
+    }
+    return sel;
+}
 void (drawMouse)(){
     vg_draw_rectangle(abs(lastMouseX), abs(lastMouseY), 5, 5, 0x000057FF); // erase previous mouse cursor
     vg_draw_rectangle(abs(mouseX), abs(mouseY), 5, 5, 0x0008F300); //draw new mouse cursor

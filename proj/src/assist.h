@@ -20,6 +20,8 @@ void (drawGame)();
 
 void (changeDirection)(uint16_t scancode);
 
+int (selectedOpt)(uint16_t scancode,int sel);
+
 void (drawMouse)();
 
 void (updateMouse)();
