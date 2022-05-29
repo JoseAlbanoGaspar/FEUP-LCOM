@@ -14,6 +14,8 @@ int (init_game)();
 
 int (init_menu)();
 
+int (update_menu)(int sel);
+
 void (drawGame)();
 
 void (changeDirection)(uint16_t scancode);
@@ -22,6 +24,8 @@ void (drawMouse)();
 
 void (updateMouse)();
 
-int (click_play)(int x, int y, int width, int height);
+int (isInOption)(int x, int y, int width, int height);
+
+int (onPress)();
 
 

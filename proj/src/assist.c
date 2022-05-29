@@ -13,6 +13,7 @@ extern struct packet mouse_packet;
 extern struct Snake snake;
 extern struct Apple apple;
 
+
 int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
   if (kbd_subscribe_int(&aux_keyboard) != OK ) return 1;
   if ( timer_subscribe_int(&aux_timer) != OK ) return 1;
@@ -62,10 +63,22 @@ int (init_menu)(){
 
     //filling some squares where the opitons will appear
     vg_draw_rectangle(180,250,300,100,0xFF0000);
-    vg_draw_rectangle(180,400,300,100,0xFF0000);
+    vg_draw_rectangle(180,400,300,100,0x00fffAfA);
     
     //DRAW PLAY
     //DRAW EXIT
+    return 0;
+}
+
+int update_menu(int sel){
+    if(sel == 0){
+        vg_draw_rectangle(180,250,300,100,0xFF0000);
+        vg_draw_rectangle(180,400,300,100,0x00fffAfA);
+    }
+    else{
+        vg_draw_rectangle(180,250,300,100,0x00fffAfA);
+        vg_draw_rectangle(180,400,300,100,0xFF0000);
+    }
     return 0;
 }
 
@@ -135,8 +148,9 @@ void (updateMouse)(){
     }
     
 }
-int click_play(int x, int y, int width, int height){
-    if(abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height && mouse_packet.lb)
-        return 1;
-    return 0;
+int (isInOption)(int x, int y, int width, int height){
+    return abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height;
+}
+int (onPress)(){
+    return mouse_packet.lb;
 }

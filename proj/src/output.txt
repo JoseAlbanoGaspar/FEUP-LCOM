@@ -2,5 +2,7 @@ not got apple
 after apple
 not got apple
 after apple
+not got apple
+after apple
 Scancode: 1
 Scancode: 81

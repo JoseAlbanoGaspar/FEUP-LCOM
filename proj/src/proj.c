@@ -26,6 +26,9 @@ extern int mouseCount; //used to say in which byte of the mouse package we are i
 uint32_t backgroundColor = 0x000057FF;
 extern struct Snake snake;
 
+int sel[] = {0,1}; //0 -> play; 1->exit
+
+
 
 // Any header files included below this line should have been created by you
 
@@ -58,6 +61,8 @@ int (proj_main_loop)(int argc, char* argv[])
 { 
   enum gameState {MENU,GAME,PAUSE};
   enum gameState status = MENU;
+  int isSel = 0;
+ 
   vg_mode = 0x0115;
   /* Wait for ESC key */
   //Here we select the bit in the hook_id needed to check if we got the right interruption
@@ -144,13 +149,29 @@ int (proj_main_loop)(int argc, char* argv[])
                 case MENU:
                   updateMouse();
                   drawMouse();
-                  if(click_play(180,250,300,100)){ //note: this should be variables: currently this coordenates are defined in assist.c init_menu()
-                    status = GAME;
-                    init_game();
+                  
+                  if(isInOption(180,250,300,100)){ //checks play option
+                    if(!isSel){
+                      update_menu(sel[0]);
+                      isSel = 1;
+                    }
+                    if(onPress()){
+                      status = GAME;
+                      init_game();
+                    }
+                    continue;
                   }
-                  if(click_play(180,400,300,100)){
-                    scancode = ESC_KEY;
+                  else if(isInOption(180,400,300,100)){  // checks exit option
+                    if(!isSel){
+                      update_menu(sel[1]);
+                      isSel = 1;
+                    }
+                    if(onPress()){
+                      scancode = ESC_KEY;
+                    }
+                    continue;
                   }
+                  else isSel = 0; //if it ends here the mouse is selecting nothing
 
                   break;
                 default:
