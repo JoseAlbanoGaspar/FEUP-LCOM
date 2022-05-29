@@ -1,5 +1,5 @@
 #include "assist.h"
-
+#include "sprite.h"
 
 extern int hook_id_timer;
 extern int hook_id_keyboard;
@@ -24,11 +24,50 @@ int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
 
   if (mouse_en_data_report()) return 1;
   vg_init(vg_mode);
-  vg_draw_rectangle(0, 0, 800, 600, 0x000057FF);
-  startPosition();
   return 0;
 }
 
+int (init_game)(){
+    vg_draw_rectangle(0, 0, 800, 600, 0x000057FF);
+    startPosition();
+    return 0;
+}
+
+int (init_menu)(){
+    vg_draw_rectangle(0, 0, 800, 600, 0x00fffAfA);
+    //DRAW TITLE
+    //S
+    vg_draw_rectangle(150,50,90,20,0xff0000);
+    vg_draw_rectangle(150,70,20,30,0xff0000);
+    vg_draw_rectangle(150,90,90,20,0xff0000);
+    vg_draw_rectangle(220,100,20,30,0xff0000);
+    vg_draw_rectangle(150,130,90,20,0xff0000);
+    //N
+    vg_draw_rectangle(260,50,20,100,0xff0000);
+    int x = 280;
+    int y = 50;
+    for(int i = 0; i < 4; i++){
+        vg_draw_rectangle(x,y,15,25,0xff0000);
+        x+=15;
+        y += 25;
+    }
+    vg_draw_rectangle(340,50,20,100,0xff0000);
+    //A
+    vg_draw_rectangle(380,50,20,100,0xff0000);
+    vg_draw_rectangle(400,50,20,20,0xff0000);
+    vg_draw_rectangle(420,50,20,100,0xff0000);
+    vg_draw_rectangle(400,100,20,20,0xff0000);
+    //K
+    //...
+
+    //filling some squares where the opitons will appear
+    vg_draw_rectangle(180,250,300,100,0xFF0000);
+    vg_draw_rectangle(180,400,300,100,0xFF0000);
+    
+    //DRAW PLAY
+    //DRAW EXIT
+    return 0;
+}
 
 int (unsubscribe_all)(){
   if (  kbd_unsubscribe_int() != OK ) return 1;
@@ -96,4 +135,8 @@ void (updateMouse)(){
     }
     
 }
-
+int click_play(int x, int y, int width, int height){
+    if(abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height && mouse_packet.lb)
+        return 1;
+    return 0;
+}
