@@ -154,7 +154,7 @@ int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step)
 int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
 {
     // Can be XPM_INDEXED, XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
-    enum xpm_image_type type = XPM_INDEXED;
+    enum xpm_image_type type = XPM_8_8_8_8;
     xpm_image_t img;
     uint8_t *map = xpm_load(xpm, type, &img);
     if(map == NULL) {
