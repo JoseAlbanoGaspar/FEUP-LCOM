@@ -118,7 +118,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
 int (init_menu)(){
     
-    /*vg_draw_rectangle(0, 0, 800, 600, 0x00fffAfA);
+    vg_draw_rectangle(0, 0, 800, 600, 0x00fffAfA);
     //DRAW TITLE
     //S
     vg_draw_rectangle(150,50,90,20,0xff0000);
@@ -140,13 +140,14 @@ int (init_menu)(){
     vg_draw_rectangle(380,50,20,100,0xff0000);
     vg_draw_rectangle(400,50,20,20,0xff0000);
     vg_draw_rectangle(420,50,20,100,0xff0000);
-    vg_draw_rectangle(400,100,20,20,0xff0000);*/
+    vg_draw_rectangle(400,100,20,20,0xff0000);
     //K
     //...
-    vg_draw_pixmap(cursor_xpm,50,50);
+    
+    //vg_draw_pixmap(cursor_xpm,50,50);
     //filling some squares where the opitons will appear
-    /*vg_draw_rectangle(180,250,300,100,0xFF0000);
-    vg_draw_rectangle(180,400,300,100,0x00fffAfA);*/
+    vg_draw_rectangle(180,250,300,100,0xFF0000);
+    vg_draw_rectangle(180,400,300,100,0x00fffAfA);
     
     //DRAW PLAY
     //DRAW EXIT
