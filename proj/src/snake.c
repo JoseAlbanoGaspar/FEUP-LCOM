@@ -2,53 +2,77 @@
 
 
 bool addToSnake = false;
-extern uint32_t backgroundColor;
-
+extern uint16_t h_res;
+extern uint16_t v_res;
+int arena_x = 0;
+int arena_y = 0;
+uint16_t video_mode;
 
 struct Snake snake;
 struct Apple apple;
 
-void (startPosition)(){
+void (startPosition)(uint16_t vbe_mode){
     /* Initializes snake */
-    snake.segments[0] = 120;
-    snake.segments[1] = 120;
-    snake.segments[2] = 100;
-    snake.segments[3] = 120;
-    snake.segments[4] = 80;
-    snake.segments[5] = 120;
-    snake.segments[6] = 60;
-    snake.segments[7] = 120;
-    snake.segments[8] = 40;
-    snake.segments[9] = 120;
+    for (int i = 0; i < 9; i+=2) snake.segments[i] = 120 - (i*10);
+    for (int j = 1; j < 10; j+=2) snake.segments[j] = 120;
     snake.direction = 0;
-    snake.color =  0x002ADF23;
-    snake.headColor = 0x00179B12;
-    snake.contourColor  = 0x0018AB18;
     snake.segments_len = 5;
     snake.addToSnake = false;
     snake.canChangeDir = true;
-
+    arena_x = (int) h_res;
+    arena_y = ((int) v_res) - 80;
+    video_mode = vbe_mode;
+ 
     /* Initializes apple */
     apple.x = 300;
     apple.y = 200;
-    apple.color = 0x00DC1717;
     srand(time(NULL));  //initialize the randum number generator 
 }
 
 void (drawBackground)(){
   /* Draw Rectangle */
-  vg_draw_rectangle(snake.segments[2*(snake.segments_len-1)], snake.segments[2*(snake.segments_len-1)+1], 20, 20, backgroundColor); //0x000057FF
+  uint32_t color = 0x0;
+  if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
+  else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
+  else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
+  else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
+  
+  vg_draw_rectangle(snake.segments[2*(snake.segments_len-1)], snake.segments[2*(snake.segments_len-1)+1], 20, 20, color); //0x000057FF
 }
 
 void (drawSnake)(){
-    uint32_t snakeEyesColor = 0x00090B09;
     int pos1X = snake.segments[0];
     int pos1Y = snake.segments[1];
     int pos2X = snake.segments[0];
     int pos2Y = snake.segments[1];
+    uint32_t snake_head_color = 0x0, snake_eye_color = 0x0, snake_contour_color = 0x0, snake_color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) {
+        snake_head_color = SNAKE_HEAD_COLOR;
+        snake_eye_color = SNAKE_EYE_COLOR;
+        snake_contour_color = SNAKE_CONTOUR_COLOR;
+        snake_color = SNAKE_COLOR;
+    }
+    else if (video_mode == 0x110) {
+        snake_head_color = SNAKE_HEAD_COLOR_110;
+        snake_eye_color = SNAKE_EYE_COLOR_110;
+        snake_contour_color = SNAKE_CONTOUR_COLOR_110;
+        snake_color = SNAKE_COLOR_110;
+    }
+    else if (video_mode == 0x105) {
+        snake_head_color = SNAKE_HEAD_COLOR_105;
+        snake_eye_color = SNAKE_EYE_COLOR_105;
+        snake_contour_color = SNAKE_CONTOUR_COLOR_105;
+        snake_color = SNAKE_COLOR_105;
+    }
+    else if (video_mode == 0x11A) {
+        snake_head_color = SNAKE_HEAD_COLOR_11A;
+        snake_eye_color = SNAKE_EYE_COLOR_11A;
+        snake_contour_color = SNAKE_CONTOUR_COLOR_11A;
+        snake_color = SNAKE_COLOR_11A;
+    }
     for (int i = 0; i < snake.segments_len*2; i += 2){
-        if (i == 0) { //draw the head of the snake
-            vg_draw_rectangle(snake.segments[i], snake.segments[i+1], 20, 20, snake.headColor);
+        if (i == 0) { //draw the head of the snake 
+            vg_draw_rectangle(snake.segments[i], snake.segments[i+1], 20, 20, snake_head_color);
             switch (snake.direction)
             {
             case 0: //RIGHT
@@ -78,12 +102,12 @@ void (drawSnake)(){
             default:
                 break;
             }
-            vg_draw_rectangle(pos1X, pos1Y, 4, 4, snakeEyesColor);
-            vg_draw_rectangle(pos2X, pos2Y, 4, 4, snakeEyesColor);
+            vg_draw_rectangle(pos1X, pos1Y, 4, 4, snake_eye_color);
+            vg_draw_rectangle(pos2X, pos2Y, 4, 4, snake_eye_color);
         }
         else {
-            vg_draw_rectangle(snake.segments[i], snake.segments[i+1], 20, 20, snake.contourColor);
-            vg_draw_rectangle(snake.segments[i]+2, snake.segments[i+1]+2, 15, 15, snake.color);
+            vg_draw_rectangle(snake.segments[i], snake.segments[i+1], 20, 20, snake_contour_color);
+            vg_draw_rectangle(snake.segments[i]+2, snake.segments[i+1]+2, 15, 15, snake_color);
         }
     }
 }
@@ -95,19 +119,19 @@ bool (canMove)(int dir){
     switch (dir)
     {
     case 0: //RIGHT
-        if (snakeX + 20 < 800) snakeX += 20;
+        if (snakeX + 20 < arena_x) snakeX += 20;
         else snakeX = 0;
         break;
     case 1: //LEFT
         if (snakeX - 20 >= 0) snakeX -= 20;
-        else snakeX = 780;
+        else snakeX = arena_x-20;
         break;
     case 2: //UP
         if (snakeY - 20 >= 0) snakeY -= 20;
-        else snakeY = 580;
+        else snakeY = arena_y-20;
         break;
     case 3: //DOWN
-        if (snakeY + 20 < 600) snakeY += 20;
+        if (snakeY + 20 < arena_y) snakeY += 20;
         else snakeY = 0;
         break;
     default:
@@ -135,19 +159,19 @@ void (moveSnake)(int dir){
     switch (dir)
     {
     case 0: //RIGHT
-        if (snakeX + 20 < 800) snakeX += 20;
+        if (snakeX + 20 < arena_x) snakeX += 20;
         else snakeX = 0;
         break;
     case 1: //LEFT
         if (snakeX - 20 >= 0) snakeX -= 20;
-        else snakeX = 780;
+        else snakeX = arena_x-20;
         break;
     case 2: //UP
         if (snakeY - 20 >= 0) snakeY -= 20;
-        else snakeY = 580;
+        else snakeY = arena_y-20;
         break;
     case 3: //DOWN
-        if (snakeY + 20 < 600) snakeY += 20;
+        if (snakeY + 20 < arena_y) snakeY += 20;
         else snakeY = 0;
         break;
     default:
@@ -155,13 +179,10 @@ void (moveSnake)(int dir){
     }
     snake.segments[0] = snakeX;
     snake.segments[1] = snakeY;
-    if (snake.addToSnake) printf("got apple\n");
-    else printf("not got apple\n");
     if (snake.addToSnake){
         incrementSnake(snakeTailX, snakeTailY);
         snake.addToSnake = false;
     }
-    printf("after apple\n");
 }
 
 void (moveSegments)(){
@@ -179,12 +200,20 @@ void (incrementSnake)(int tailX, int tailY){
 }
 
 void (drawApple)(){
-     vg_draw_rectangle(apple.x, apple.y, 20, 20, apple.color);
+    uint32_t apple_color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) apple_color = APPLE_COLOR;
+    else if (video_mode == 0x110) apple_color = APPLE_COLOR_110;
+    else if (video_mode == 0x105) apple_color = APPLE_COLOR_105;
+    else if (video_mode == 0x11A) apple_color = APPLE_COLOR_11A;  
+    vg_draw_rectangle(apple.x, apple.y, 20, 20, apple_color);
 }
 
 void updateApple(){
-    apple.x = (rand() % 40) * 20;
-    apple.y = (rand() % 30) * 20;
+    apple.x = (rand() % (arena_x/20)) * 20;
+    apple.y = (rand() % (arena_y/20)) * 20;
+    for (int i = 0; i < snake.segments_len*2; i+=2){
+        if (apple.x == snake.segments[i] && apple.y == snake.segments[i+1]) updateApple();
+    }
 }
 
 void (changeDirection)(uint16_t scancode){

@@ -10,7 +10,7 @@ extern bool game;
 extern int hook_id_timer;
 extern int hook_id_keyboard;
 extern int hook_id_mouse;
-uint16_t vg_mode;
+extern uint16_t mode;
 
 // Any header files included below this line should have been created by you
 
@@ -40,10 +40,6 @@ int main(int argc, char *argv[])
 }
 
 int (ready_devices)(){
-  vg_mode = 0x0115;
-  /* Wait for ESC key */
-  //Here we select the bit in the hook_id needed to check if we got the right interruption
-  
   //keyboard
   uint8_t aux_keyboard = (uint8_t)hook_id_keyboard;
   //mouse
@@ -52,6 +48,7 @@ int (ready_devices)(){
   uint8_t aux_timer = (uint8_t)hook_id_timer;
 
   if (subscribe_all(aux_timer, aux_keyboard, aux_mouse) != OK) return 1;
+  
   return 0;
 }
 
@@ -62,16 +59,18 @@ int (shutdown_devices)(){
 
 int (proj_main_loop)(int argc, char* argv[])
 { 
+  mode = 0x115;
   uint32_t irq_set_keyboard = BIT(hook_id_keyboard);
   uint32_t irq_set_mouse = BIT(hook_id_mouse);
   uint32_t irq_set_timer = BIT(hook_id_timer);
   if (ready_devices() != OK) return 1;
 
-  
+
   while(running){
     menu_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
     //game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
-    if (game) game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
+    //game = true;
+    if (game) game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer, mode);
     running = false;
   }
   if (shutdown_devices() != OK) return 1;
