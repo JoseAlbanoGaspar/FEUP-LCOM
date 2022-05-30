@@ -1,6 +1,6 @@
-Scancode: E000
-Scancode: 50
-Scancode: E000
-Scancode: D0
-Scancode: 1C
+keyboard interrupt
 Scancode: 9C
+keyboard interrupt
+Scancode: 1
+keyboard interrupt
+Scancode: 81

@@ -27,6 +27,8 @@ void (startPosition)();
 
 void (drawSnake)();
 
+void (changeDirection)(uint16_t scancode);
+
 bool (canMove)(int dir);
 
 void (moveSnake)(int dir);

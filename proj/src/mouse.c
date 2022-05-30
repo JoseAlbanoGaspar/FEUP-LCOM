@@ -63,6 +63,7 @@ void parse()
     switch (mouseCount)
     {
     case 0:
+        memset(mouse_packet.bytes, 0, sizeof(mouse_packet.bytes));
         mouse_packet.bytes[0] = packet_byte;
         //printf("packet_byte 1: 0x%x", packet_byte);
         mouse_packet.lb = (packet_byte & MOUSE_LB_PRESSED);

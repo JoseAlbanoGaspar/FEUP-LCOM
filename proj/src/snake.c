@@ -187,3 +187,32 @@ void updateApple(){
     apple.y = (rand() % 30) * 20;
 }
 
+void (changeDirection)(uint16_t scancode){
+    switch (scancode)
+    {
+    case RIGHT_ARROW:
+        if (snake.direction == 1) break;
+        if (snake.canChangeDir) snake.direction = 0;
+        snake.canChangeDir = false;
+        break;
+    case LEFT_ARROW:
+        if (snake.direction == 0) break;
+        if (snake.canChangeDir) snake.direction = 1;
+        snake.canChangeDir = false;
+        break;
+    case UP_ARROW:
+        if (snake.direction == 3) break;
+        if (snake.canChangeDir) snake.direction = 2;
+        snake.canChangeDir = false;
+        break;
+    case DOWN_ARROW:
+        if (snake.direction == 2) break;
+        if (snake.canChangeDir) snake.direction = 3;
+        snake.canChangeDir = false;
+        break;
+    default:
+        break;
+    }
+
+}
+

@@ -1,21 +1,6 @@
 #include "vbe.h"
 
 
-int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t* info){
-    reg86_t reg86;
-    memset(&reg86, 0, sizeof(reg86)); // Zero the structure
-    reg86.ax = 0x4F01;                // VBE call, function 02: set VBE mode
-    reg86.cx = mode;   
-    reg86.ebp = *info;
-    reg86.intno = 0x10;
-    if (sys_int86(&reg86) != OK){
-        printf("vbe_mode_info: sys_int86() failed \n");
-        return 1;
-    }
-
-    return 0;
-}
-
 void *(vg_init)(uint16_t mode)
 {
     /* */
