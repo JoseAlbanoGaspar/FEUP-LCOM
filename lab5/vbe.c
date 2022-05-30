@@ -1,4 +1,4 @@
-#include <vbe.h>
+#include "vbe.h"
 
 void *(vg_init)(uint16_t mode)
 {
@@ -8,7 +8,7 @@ void *(vg_init)(uint16_t mode)
     if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
         panic("sys_privctl (ADD_MEM) failed: %d\n", r);
     vbe_mode_info_t info;
-    vbe_get_mode_info(mode, &info);
+    vg_get_mode_info(mode, &info);
     phys_addr = (phys_bytes)info.PhysBasePtr;
     h_res = info.XResolution;
     v_res = info.YResolution;
@@ -53,6 +53,31 @@ void *(vg_init)(uint16_t mode)
 
     return video_mem;
 }
+
+#define MODEINFO_SIZE		256
+
+int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p){
+    mmap_t map;
+
+    lm_alloc(MODEINFO_SIZE, &map);
+
+    reg86_t reg86;
+    memset(&reg86, 0, sizeof(reg86));
+    reg86.intno = 0x10;
+    reg86.ax = 0x4F01;
+    reg86.cx = mode;
+    reg86.es = PB2BASE(map.phys);
+    reg86.di = PB2OFF(map.phys);
+    if (sys_int86(&reg86) != OK) return 1;
+
+    memcpy(vmi_p, map.virt, MODEINFO_SIZE);
+
+    lm_free(&map);
+
+    return 0;
+}
+
+
 uint32_t getmask(int k){
   uint32_t mask = 0xFF << 8*k;
   return mask; 
