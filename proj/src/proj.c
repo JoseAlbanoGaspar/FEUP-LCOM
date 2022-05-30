@@ -26,6 +26,9 @@ extern int mouseCount; //used to say in which byte of the mouse package we are i
 uint32_t backgroundColor = 0x000057FF;
 extern struct Snake snake;
 
+int sel[] = {0,1}; //0 -> play; 1->exit
+int selected = 0;
+
 
 // Any header files included below this line should have been created by you
 
@@ -56,6 +59,10 @@ int main(int argc, char *argv[])
 
 int (proj_main_loop)(int argc, char* argv[])
 { 
+  enum gameState {MENU,GAME,PAUSE};
+  enum gameState status = MENU;
+  int isSel = 0;
+ 
   vg_mode = 0x0115;
   /* Wait for ESC key */
   //Here we select the bit in the hook_id needed to check if we got the right interruption
@@ -72,6 +79,7 @@ int (proj_main_loop)(int argc, char* argv[])
 
 
   if (subscribe_all(aux_timer, aux_keyboard, aux_mouse) != OK) return 1;
+  init_menu();
 
 //--------------------------------
   int ipc_status;
@@ -93,21 +101,51 @@ int (proj_main_loop)(int argc, char* argv[])
 
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_timer) { // subscribed timer interrupt
-            timer_int_handler();
-            if (count == 5) {
-              count = 0;
-              drawGame();
-            }
-            if (snakeCount == 20){
-              snakeCount = 0;
-              if (canMove(snake.direction)) moveSnake(snake.direction);
+            if(status == GAME ){
+              timer_int_handler();
+              if (count == 5) {
+                count = 0;
+                drawGame();
+              }
+              if (snakeCount == 20){
+                snakeCount = 0;
+                if (canMove(snake.direction)) moveSnake(snake.direction);
+              }
             }
           }
 
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_keyboard) { // subscribed keyboard interrupt
             kbc_ih();
-            changeDirection(scancode);
+            switch (status)
+            {
+            case GAME:
+              changeDirection(scancode);
+              break;
+            case PAUSE:
+              break;
+            case MENU:
+              selected = selectedOpt(scancode,selected);
+              update_menu(selected);
+              //check if enter was pressed
+              if(scancode == ENTER){
+                switch (selected)
+                {
+                case 0:
+                  status = GAME;
+                  init_game();
+                  break;
+                case 1:
+                  scancode = ESC_KEY;
+                  break;
+                default:
+                  break;
+                }
+              }
+              break;
+            default:
+              break;
+            }
             kbc_reset_scancode();
           }
 
@@ -117,8 +155,48 @@ int (proj_main_loop)(int argc, char* argv[])
             mouseCount++; //received another packet
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
-                updateMouse();
-                drawMouse();
+                switch (status)
+                {
+                case GAME:
+                  updateMouse();
+                  drawMouse();
+                  break;
+                case PAUSE:
+                  break;
+                case MENU:
+                  updateMouse();
+                  drawMouse();
+
+                  if(isInOption(180,250,300,100)){ //checks play option
+                    if(!isSel){
+                      update_menu(sel[0]);
+                      selected = 0;
+                      isSel = 1;
+                    }
+                    if(onPress()){
+                      status = GAME;
+                      init_game();
+                    }
+                    continue;
+                  }
+                  else if(isInOption(180,400,300,100)){  // checks exit option
+                    if(!isSel){
+                      update_menu(sel[1]);
+                      selected = 1;
+                      isSel = 1;
+                    }
+                    if(onPress()){
+                      scancode = ESC_KEY;
+                    }
+                    continue;
+                  }
+                  else isSel = 0; //if it ends here the mouse is selecting nothing
+
+                  break;
+                default:
+                  break;
+                }
+                
             }
           }
           break;

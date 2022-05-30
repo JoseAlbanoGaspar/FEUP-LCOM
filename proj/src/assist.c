@@ -1,5 +1,5 @@
 #include "assist.h"
-
+#include "sprite.h"
 
 extern int hook_id_timer;
 extern int hook_id_keyboard;
@@ -13,6 +13,7 @@ extern struct packet mouse_packet;
 extern struct Snake snake;
 extern struct Apple apple;
 
+
 int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
   if (kbd_subscribe_int(&aux_keyboard) != OK ) return 1;
   if ( timer_subscribe_int(&aux_timer) != OK ) return 1;
@@ -24,11 +25,62 @@ int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
 
   if (mouse_en_data_report()) return 1;
   vg_init(vg_mode);
-  vg_draw_rectangle(0, 0, 800, 600, 0x000057FF);
-  startPosition();
   return 0;
 }
 
+int (init_game)(){
+    vg_draw_rectangle(0, 0, 800, 600, 0x000057FF);
+    startPosition();
+    return 0;
+}
+
+int (init_menu)(){
+    vg_draw_rectangle(0, 0, 800, 600, 0x00fffAfA);
+    //DRAW TITLE
+    //S
+    vg_draw_rectangle(150,50,90,20,0xff0000);
+    vg_draw_rectangle(150,70,20,30,0xff0000);
+    vg_draw_rectangle(150,90,90,20,0xff0000);
+    vg_draw_rectangle(220,100,20,30,0xff0000);
+    vg_draw_rectangle(150,130,90,20,0xff0000);
+    //N
+    vg_draw_rectangle(260,50,20,100,0xff0000);
+    int x = 280;
+    int y = 50;
+    for(int i = 0; i < 4; i++){
+        vg_draw_rectangle(x,y,15,25,0xff0000);
+        x+=15;
+        y += 25;
+    }
+    vg_draw_rectangle(340,50,20,100,0xff0000);
+    //A
+    vg_draw_rectangle(380,50,20,100,0xff0000);
+    vg_draw_rectangle(400,50,20,20,0xff0000);
+    vg_draw_rectangle(420,50,20,100,0xff0000);
+    vg_draw_rectangle(400,100,20,20,0xff0000);
+    //K
+    //...
+
+    //filling some squares where the opitons will appear
+    vg_draw_rectangle(180,250,300,100,0xFF0000);
+    vg_draw_rectangle(180,400,300,100,0x00fffAfA);
+    
+    //DRAW PLAY
+    //DRAW EXIT
+    return 0;
+}
+
+int update_menu(int sel){
+    if(sel == 0){
+        vg_draw_rectangle(180,250,300,100,0xFF0000);
+        vg_draw_rectangle(180,400,300,100,0x00fffAfA);
+    }
+    else{
+        vg_draw_rectangle(180,250,300,100,0x00fffAfA);
+        vg_draw_rectangle(180,400,300,100,0xFF0000);
+    }
+    return 0;
+}
 
 int (unsubscribe_all)(){
   if (  kbd_unsubscribe_int() != OK ) return 1;
@@ -49,31 +101,48 @@ void (changeDirection)(uint16_t scancode){
     {
     case RIGHT_ARROW:
         if (snake.direction == 1) break;
-        snake.direction = 0;
+        if (snake.canChangeDir) snake.direction = 0;
+        snake.canChangeDir = false;
         break;
     case LEFT_ARROW:
         if (snake.direction == 0) break;
-        snake.direction = 1;
+        if (snake.canChangeDir) snake.direction = 1;
+        snake.canChangeDir = false;
         break;
     case UP_ARROW:
         if (snake.direction == 3) break;
-        snake.direction = 2;
+        if (snake.canChangeDir) snake.direction = 2;
+        snake.canChangeDir = false;
         break;
     case DOWN_ARROW:
         if (snake.direction == 2) break;
-        snake.direction = 3;
+        if (snake.canChangeDir) snake.direction = 3;
+        snake.canChangeDir = false;
         break;
     default:
         break;
     }
-}
 
+}
+int (selectedOpt)(uint16_t scan,int sel){
+    switch (scan)
+    {
+    case UP_ARROW:
+        if(sel == 1) sel = 0;
+        break;
+    case DOWN_ARROW:
+        if(sel == 0) sel = 1;
+    default:
+        break;
+    }
+    return sel;
+}
 void (drawMouse)(){
     vg_draw_rectangle(abs(lastMouseX), abs(lastMouseY), 5, 5, 0x000057FF); // erase previous mouse cursor
     vg_draw_rectangle(abs(mouseX), abs(mouseY), 5, 5, 0x0008F300); //draw new mouse cursor
 }
 
-void updateMouse(){
+void (updateMouse)(){
     lastMouseX = mouseX;
     lastMouseY = mouseY;
     int increX = (int) mouse_packet.delta_x;
@@ -91,4 +160,9 @@ void updateMouse(){
     }
     
 }
-
+int (isInOption)(int x, int y, int width, int height){
+    return abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height;
+}
+int (onPress)(){
+    return mouse_packet.lb;
+}

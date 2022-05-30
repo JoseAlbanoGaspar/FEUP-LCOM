@@ -1,6 +1,6 @@
 #include "mouse.h"
 
-extern struct packet mouse_packet;
+//extern struct packet mouse_packet;
 uint8_t mouse_status;
 int count = 0;
 int bit_no_global_mouse;

@@ -12,6 +12,7 @@ struct Snake {
     int segments_len;
     int segments[2400];
     bool addToSnake;
+    bool canChangeDir;
 };
 
 
@@ -22,7 +23,7 @@ struct Apple {
 };
 
 
-void startPosition();
+void (startPosition)();
 
 void (drawSnake)();
 

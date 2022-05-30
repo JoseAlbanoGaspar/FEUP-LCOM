@@ -26,6 +26,7 @@ void (startPosition)(){
     snake.contourColor  = 0x0018AB18;
     snake.segments_len = 5;
     snake.addToSnake = false;
+    snake.canChangeDir = true;
 
     /* Initializes apple */
     apple.x = 300;
@@ -124,6 +125,7 @@ bool (canMove)(int dir){
 
 void (moveSnake)(int dir){
     int snakeX, snakeY, snakeTailX, snakeTailY;
+    snake.canChangeDir = true;
     if (!addToSnake) drawBackground();
     snakeX = snake.segments[0];
     snakeY = snake.segments[1];

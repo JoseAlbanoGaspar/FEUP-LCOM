@@ -21,6 +21,7 @@ uint8_t blue_p;
 uint8_t memoryModel;
 phys_bytes phys_addr;
 
+int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t* info);
 void *(vg_init)(uint16_t mode);
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p);
 uint32_t getmask(int k);
