@@ -1,5 +1,6 @@
 #include <lcom/lcf.h>
 #include "macros/i8042.h"
+#include "macros/constants.h"
 #include "keyboard.h"
 #include "mouse.h"
 #include "vbe.h"

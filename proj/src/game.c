@@ -6,17 +6,18 @@ extern int snakeCount;
 extern int snakeAdd;
 
 extern uint16_t scancode;
-uint16_t vg_mode;
+extern uint16_t mode;
 extern struct packet mouse_packet; // data packet of 3 bytes
 extern int mouseCount; //used to say in which byte of the mouse package we are in
-uint32_t backgroundColor = 0x000057FF;
 extern struct Snake snake;
+extern int arena_x;
+extern int arena_y;
 
 
 
-int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer)
+int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode)
 { 
-  vg_mode = 0x0115;
+  mode = vg_mode;
   /* Wait for ESC key */
   //Here we select the bit in the hook_id needed to check if we got the right interruption
   
@@ -85,14 +86,37 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
 
 int (start_game)(){
-    vg_draw_rectangle(0, 0, 800, 600, 0x000057FF);
-    startPosition();
-    return 0;
+  startPosition(mode);
+  uint32_t arena_bg = 0x0, trim = 0x0, score = 0x0;
+  if (mode == 0x115 || mode == 0x14C){
+    arena_bg = ARENA_BACKGROUND_COLOR;
+    trim = SCORE_BAR_TRIM_COLOR;
+    score = SCORE_BAR_COLOR;
+  }
+  else if (mode == 0x110){
+    arena_bg = ARENA_BACKGROUND_COLOR_110;
+    trim = SCORE_BAR_TRIM_COLOR_110;
+    score = SCORE_BAR_COLOR_110;
+  }
+  else if (mode == 0x105){
+    arena_bg = ARENA_BACKGROUND_COLOR_105;
+    trim = SCORE_BAR_TRIM_COLOR_105;
+    score = SCORE_BAR_COLOR_105;
+  }
+  else if (mode == 0x11A){
+    arena_bg = ARENA_BACKGROUND_COLOR_11A;
+    trim = SCORE_BAR_TRIM_COLOR_11A;
+    score = SCORE_BAR_COLOR_11A ;
+  }
+  vg_draw_rectangle(0, 0, arena_x, arena_y, arena_bg);
+  vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
+  vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
+  return 0;
 }
 
 void (drawGame)(){
-    drawSnake();
-    drawApple();
+  drawSnake();
+  drawApple();
 }
 
 

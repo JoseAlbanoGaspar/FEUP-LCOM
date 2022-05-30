@@ -2,13 +2,11 @@
 #include <time.h>
 #include <stdlib.h>
 #include "macros/i8042.h"
+#include "macros/constants.h"
 
 
 struct Snake {
     int direction; //0 right, 1 left, 2 up, 3 down
-    uint32_t color;
-    uint32_t headColor;
-    uint32_t contourColor;
     int segments_len;
     int segments[2400];
     bool addToSnake;
@@ -19,11 +17,10 @@ struct Snake {
 struct Apple {
     int x;
     int y;
-    uint32_t color;
 };
 
 
-void (startPosition)();
+void (startPosition)(uint16_t vbe_mode);
 
 void (drawSnake)();
 
