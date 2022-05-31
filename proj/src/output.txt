@@ -1,3 +1,11 @@
-Mode: 115
+Mode: 11a
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: C8
 Scancode: 1
 Scancode: 81

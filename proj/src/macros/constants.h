@@ -27,6 +27,11 @@
 /* Enemy */
 #define ENEMY_COLOR 0x009A13B5
 
+/* Menu Colors */
+
+#define MENU_BACKGORUND 0x00FFFAFA
+#define MENU_OPTION 0x00FF0000
+
 
 /* ---------------------------------------------------- */
 
@@ -54,6 +59,11 @@
 /* Enemy */
 #define ENEMY_COLOR_105 0x21
 
+/* Menu Colors */
+
+#define MENU_BACKGORUND_105 0x3f
+#define MENU_OPTION_105 0x24
+
 /* ---------------------------------------------------- */
 
 /* ------------------ MODES 110 ----------------------- */
@@ -79,6 +89,11 @@
 
 /* Enemy */
 #define ENEMY_COLOR_110 0x441F //0x3C13
+
+/* Menu Colors */
+
+#define MENU_BACKGORUND_110 0x7FFF
+#define MENU_OPTION_110 0x7c00
 
 /* ---------------------------------------------------- */
 
@@ -106,6 +121,11 @@
 
 /* Enemy */
 #define ENEMY_COLOR_11A 0xB015
+
+/* Menu Colors */
+
+#define MENU_BACKGORUND_11A 0xffff
+#define MENU_OPTION_11A 0xf800
 
 /* ---------------------------------------------------- */
 /* ----------------MENU SIZE BOXES--------------------- */

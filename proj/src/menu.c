@@ -10,6 +10,8 @@ extern int mouseCount; //used to say in which byte of the mouse package we are i
 extern int mouseX;
 extern int mouseY;
 
+extern uint16_t mode;
+
 extern uint16_t h_res;
 extern uint16_t v_res;
 
@@ -122,7 +124,25 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
 
 int (init_menu)(){
-    vg_draw_rectangle(0, 0, h_res, v_res, 0x00fffAfA);
+    uint32_t background_col=0X0,opt_color=0X0;
+    if (mode == 0x115 || mode == 0x14C){
+      background_col = MENU_BACKGORUND;
+      opt_color = MENU_OPTION;
+  }
+  else if (mode == 0x110){
+      background_col = MENU_BACKGORUND_110;
+      opt_color = MENU_OPTION_110;
+  }
+  else if (mode == 0x105){   
+      background_col = MENU_BACKGORUND_105;
+      opt_color = MENU_OPTION_105;  
+    }
+  else if (mode == 0x11A){
+      background_col = MENU_BACKGORUND_11A;
+      opt_color = MENU_OPTION_11A;
+  }
+
+    vg_draw_rectangle(0, 0, h_res, v_res, background_col);
     //DRAW TITLE
     /*
     //S
@@ -148,12 +168,12 @@ int (init_menu)(){
     vg_draw_rectangle(400,100,20,20,0xff0000);
     //K
     //...*/
-    vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,0xff0000);
+    vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,opt_color);
     
     //vg_draw_pixmap(cursor_xpm,50,50);
     //filling some squares where the opitons will appear
-    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xFF0000);
-    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
     
     //DRAW PLAY
     //DRAW EXIT
@@ -161,13 +181,31 @@ int (init_menu)(){
 }
 
 int update_menu(int sel){
+  uint32_t background_col=0X0,opt_color=0X0;
+    if (mode == 0x115 || mode == 0x14C){
+      background_col = MENU_BACKGORUND;
+      opt_color = MENU_OPTION;
+  }
+  else if (mode == 0x110){
+      background_col = MENU_BACKGORUND_110;
+      opt_color = MENU_OPTION_110;
+  }
+  else if (mode == 0x105){   
+      background_col = MENU_BACKGORUND_105;
+      opt_color = MENU_OPTION_105;  
+    }
+  else if (mode == 0x11A){
+      background_col = MENU_BACKGORUND_11A;
+      opt_color = MENU_OPTION_11A;
+  }
+    
     if(sel == 0){
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xFF0000);
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
     }
     else{
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xff0000);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
     }
     return 0;
 }
