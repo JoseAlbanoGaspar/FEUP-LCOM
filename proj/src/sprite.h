@@ -59,9 +59,9 @@ static xpm_row_t const shipXPM[] = {
     ".........................."};
 
 static xpm_row_t const sprite1[] = {
-    "30 22 2 1",
-    "   c 0x00ff00",
-    ".  c 0xFF0000",
+    "30 22 2",
+    "  00ff00",
+    ". FF0000",
     "     ...              ...     ",
     "     ...              ...     ",
     "     ...              ...     ",
@@ -136,3 +136,6 @@ static xpm_row_t const sprite3[] = {
     "     ...              ...     ",
     "     ...              ...     ",
     "                              "};
+
+
+

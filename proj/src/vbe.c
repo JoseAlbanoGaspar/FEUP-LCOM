@@ -154,7 +154,7 @@ int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step)
 int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
 {
     // Can be XPM_INDEXED, XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
-    enum xpm_image_type type = XPM_8_8_8_8;
+    enum xpm_image_type type = XPM_8_8_8;
     xpm_image_t img;
     uint8_t *map = xpm_load(xpm, type, &img);
     if(map == NULL) {
@@ -170,6 +170,60 @@ int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
         }
     }
     /* */
+    return 0;
+}
+int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode,uint16_t width, uint16_t height){
+    static char map[12][30] = {
+    "          ...........         ",
+    "      ..................      ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "     ......         ......    ",
+    "      ...................     ",
+    "       .................      "
+};
+    enum xpm_image_type type = XPM_INDEXED;
+    switch (mode)
+    {
+    case 0x110:
+        type = XPM_1_5_5_5;
+        break;
+    case 0x11A:
+        type = XPM_5_6_5;
+        break;
+    case 0x115:
+        type = XPM_8_8_8;
+        break;
+    case 0x14C:
+        type = XPM_8_8_8_8;
+        break;
+    default:
+        break;
+    }
+    for (unsigned int i = 0; i < height; i++)
+    {
+        for (unsigned int j = 0; j < width; j++)
+        {
+            uint32_t color = 0;
+            switch (map[i][j])
+            {
+            case '.':
+                color = 0xff0000;
+                break;
+            case ' ':
+                color = 0xffffff;
+                break;
+            default:
+                break;
+            }
+            vg_draw_pixel(x + j, y + i, color);
+        }
+    }
     return 0;
 }
 
