@@ -3,13 +3,12 @@
 extern int count;
 extern int snakeCount;
 
-extern int snakeAdd;
-
 extern uint16_t scancode;
 extern uint16_t mode;
 extern struct packet mouse_packet; // data packet of 3 bytes
 extern int mouseCount; //used to say in which byte of the mouse package we are in
 extern struct Snake snake;
+extern struct Enemy enemy;
 extern int arena_x;
 extern int arena_y;
 
@@ -18,6 +17,7 @@ extern int arena_y;
 int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode)
 { 
   mode = vg_mode;
+  int enemyCount = 0;
   /* Wait for ESC key */
   //Here we select the bit in the hook_id needed to check if we got the right interruption
   
@@ -26,11 +26,12 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
   message msg;
   //1 is true
   int r;
+  bool ready_to_update = false;
 
   start_game();
   //Main loop variable
   //bool running = true;
-  while (scancode != ESC_KEY) {
+  while (scancode != ESC_KEY && snake.alive) {
     // Get a request message
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -43,13 +44,22 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_timer) { // subscribed timer interrupt
             timer_int_handler();
+            enemyCount++;
+            if (enemyCount == (60*5)){
+              enemyCount = 0;
+              if (!enemy.active) spawnEnemy();
+            }
             if (count == 5) {
               count = 0;
               drawGame();
+              if (ready_to_update){  
+                if (checkClickEnemy(enemy.x, enemy.y)) killEnemy();
+              }
             }
             if (snakeCount == 20){
               snakeCount = 0;
               if (canMove(snake.direction)) moveSnake(snake.direction);
+              if (enemy.active) moveEnemy();
             }
           }
 
@@ -63,10 +73,11 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_mouse) { // subscribed mouse interrupt
             mouse_ih();
+            ready_to_update = false;
             mouseCount++; //received another packet
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
-            
+                ready_to_update = true;
                 updateMouse();
                 drawMouse();
             }
@@ -117,6 +128,7 @@ int (start_game)(){
 void (drawGame)(){
   drawSnake();
   drawApple();
+  if (enemy.active) drawEnemy();
 }
 
 

@@ -11,6 +11,16 @@ struct Snake {
     int segments[2400];
     bool addToSnake;
     bool canChangeDir;
+    bool alive;
+};
+
+
+struct Enemy {
+    int x;
+    int y;
+    int lastX;
+    int lastY;
+    bool active;
 };
 
 
@@ -38,5 +48,18 @@ void (incrementSnake)(int tailX, int tailY);
 
 void (drawApple)();
 
-void updateApple();
+void (updateApple)();
+
+void (spawnEnemy)();
+
+void (moveEnemy)();
+
+void (eraseEnemyTrail)();
+
+void (damageSnake)();
+
+void (drawEnemy)();
+
+void (killEnemy)();
+
 

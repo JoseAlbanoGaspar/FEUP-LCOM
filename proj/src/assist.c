@@ -63,6 +63,14 @@ void (drawMouse)(){
     vg_draw_rectangle(abs(mouseX), abs(mouseY), 5, 5, mouse_cursor_color); //draw new mouse cursor
 }
 
+int (isInOption)(int x, int y, int width, int height){
+    return abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height;
+}
+
+bool (checkClickEnemy)(int enemyX, int enemyY){
+    return isInOption(enemyX, enemyY, 20, 20) && mouse_packet.lb;
+}
+
 void (updateMouse)(){
     lastMouseX = mouseX;
     lastMouseY = mouseY;

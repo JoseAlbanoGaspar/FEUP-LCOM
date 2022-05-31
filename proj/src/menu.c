@@ -179,9 +179,7 @@ int (selectedOpt)(uint16_t scan,int sel){
     return sel;
 }
 
-int (isInOption)(int x, int y, int width, int height){
-    return abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height;
-}
+
 int (onPress)(){
     return mouse_packet.lb;
 }

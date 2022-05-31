@@ -10,6 +10,7 @@ uint16_t video_mode;
 
 struct Snake snake;
 struct Apple apple;
+struct Enemy enemy;
 
 void (startPosition)(uint16_t vbe_mode){
     /* Initializes snake */
@@ -22,7 +23,7 @@ void (startPosition)(uint16_t vbe_mode){
     arena_x = (int) h_res;
     arena_y = ((int) v_res) - 80;
     video_mode = vbe_mode;
- 
+    snake.alive = true;
     /* Initializes apple */
     apple.x = 300;
     apple.y = 200;
@@ -142,7 +143,10 @@ bool (canMove)(int dir){
         return true;
     }
     for (int i = 2; i < snake.segments_len*2; i += 2) {
-        if (snakeX == snake.segments[i] && snakeY == snake.segments[i+1]) return false;
+        if (snakeX == snake.segments[i] && snakeY == snake.segments[i+1]){
+            snake.alive = false;
+            return false;
+        } 
     }
     return true;
 }
@@ -219,21 +223,25 @@ void updateApple(){
 void (changeDirection)(uint16_t scancode){
     switch (scancode)
     {
+    case D_KEY:
     case RIGHT_ARROW:
         if (snake.direction == 1) break;
         if (snake.canChangeDir) snake.direction = 0;
         snake.canChangeDir = false;
         break;
+    case A_KEY:
     case LEFT_ARROW:
         if (snake.direction == 0) break;
         if (snake.canChangeDir) snake.direction = 1;
         snake.canChangeDir = false;
         break;
+    case W_KEY:
     case UP_ARROW:
         if (snake.direction == 3) break;
         if (snake.canChangeDir) snake.direction = 2;
         snake.canChangeDir = false;
         break;
+    case S_KEY:
     case DOWN_ARROW:
         if (snake.direction == 2) break;
         if (snake.canChangeDir) snake.direction = 3;
@@ -244,4 +252,118 @@ void (changeDirection)(uint16_t scancode){
     }
 
 }
+
+void (spawnEnemy)(){
+    int i = rand() % 3;
+    enemy.lastX = -50;
+    enemy.lastY = -50;
+    switch (i)
+    {
+    case 0:
+        enemy.x = (rand() % (arena_x/20)) * 20;
+        enemy.y = 0;
+        break;
+    case 1:
+        enemy.x = arena_x-20;
+        enemy.y = (rand() % (arena_y/20)) * 20;
+        /* code */
+        break;
+    case 2:
+        enemy.x = (rand() % (arena_x/20)) * 20;
+        enemy.y = arena_y-20;
+        /* code */
+        break;
+    case 3:
+        enemy.x = 0;
+        enemy.y = (rand() % (arena_x/20)) * 20;
+        /* code */
+        break;
+    
+    default:
+        break;
+    }
+    enemy.active = true;
+}
+
+void (moveEnemy)(){
+    enemy.lastX = enemy.x;
+    enemy.lastY = enemy.y;
+    if (abs(snake.segments[0] - enemy.x) > abs(snake.segments[1] - enemy.y)){
+        if (snake.segments[0] > enemy.x) enemy.x += 20;
+        else enemy.x -= 20;
+    }
+    else {
+        if (snake.segments[1] > enemy.y) enemy.y += 20;
+        else enemy.y -= 20;
+    }
+    for (int i = 0; i < snake.segments_len*2; i+=2){
+        if (enemy.x == snake.segments[i] && enemy.y == snake.segments[i+1]) {
+            damageSnake();
+            eraseEnemyTrail();
+            break;
+        }
+    }
+}
+
+void (eraseEnemyTrail)(){
+    uint32_t color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
+    else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
+    else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
+    else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
+    vg_draw_rectangle(enemy.lastX,enemy.lastY, 20, 20, color);
+}
+
+void (damageSnake)(){
+    enemy.active = false;
+    uint32_t color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
+    else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
+    else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
+    else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
+    if (snake.segments_len > 2){
+        vg_draw_rectangle(snake.segments[snake.segments_len*2-2],snake.segments[snake.segments_len*2-1], 20, 20, color);
+        snake.segments[snake.segments_len*2-1] = 0;
+        snake.segments[snake.segments_len*2-2] = 0;
+        snake.segments_len--;
+    } 
+}
+
+void (drawEnemy)(){
+    eraseEnemyTrail();
+    uint32_t apple_color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) apple_color = APPLE_COLOR;
+    else if (video_mode == 0x110) apple_color = APPLE_COLOR_110;
+    else if (video_mode == 0x105) apple_color = APPLE_COLOR_105;
+    else if (video_mode == 0x11A) apple_color = APPLE_COLOR_11A;  
+    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, apple_color);
+}
+
+void (killEnemy)(){
+    enemy.active = false;
+    uint32_t death_color = 0x0, color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C){
+        death_color = APPLE_COLOR;
+        color = ARENA_BACKGROUND_COLOR;
+    } 
+    else if (video_mode == 0x110) {
+        death_color = APPLE_COLOR_110;
+        color = ARENA_BACKGROUND_COLOR_110;
+    }
+    else if (video_mode == 0x105) {
+        death_color = APPLE_COLOR_105;
+        color = ARENA_BACKGROUND_COLOR_105;
+    }
+    else if (video_mode == 0x11A) {
+        death_color = APPLE_COLOR_11A; 
+        color = ARENA_BACKGROUND_COLOR_11A;
+    } 
+    death_color = 0x00FFFFFF;
+    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
+    sleep(0.5);
+    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, color);
+}
+
+
+
 

@@ -15,7 +15,5 @@ int (update_menu)(int sel);
 
 int (selectedOpt)(uint16_t scancode,int sel);
 
-int (isInOption)(int x, int y, int width, int height);
-
 int (onPress)();
 

@@ -13,8 +13,6 @@ int snakeCount = 0;
 int hook_id_timer = 0;
 
 
-int snakeAdd = 0;
-
 //implement for timer_test_time_base
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   /* To be implemented by the students */
@@ -93,7 +91,6 @@ void (timer_int_handler)() {
   /* To be implemented by the students */
   count++;
   snakeCount++;
-  snakeAdd++;
 }
 
 

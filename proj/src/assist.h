@@ -16,6 +16,10 @@ void (drawMouse)();
 
 void (updateMouse)();
 
+int (isInOption)(int x, int y, int width, int height);
+
+bool (checkClickEnemy)(int enemyX, int enemyY);
+
 
 
 
