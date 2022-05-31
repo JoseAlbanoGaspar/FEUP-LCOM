@@ -108,6 +108,11 @@
 #define ENEMY_COLOR_11A 0xB015
 
 /* ---------------------------------------------------- */
+/* ----------------MENU SIZE BOXES--------------------- */
+
+#define TITLE_WIDTH 400
+#define OPTIONS_WIDTH 375
+
 
 #endif /* _LCOM_CONST_H */
 

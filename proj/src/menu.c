@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "sprite.h"
+#include "macros/constants.h"
 
 
 extern int count;
@@ -8,6 +9,10 @@ extern struct packet mouse_packet; // data packet of 3 bytes
 extern int mouseCount; //used to say in which byte of the mouse package we are in
 extern int mouseX;
 extern int mouseY;
+
+extern uint16_t h_res;
+extern uint16_t v_res;
+
 int sel[] = {0,1}; //0 -> play; 1->exit
 int selected = 0;
 
@@ -75,7 +80,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 updateMouse();
                 drawMouse();
 
-                if(isInOption(180,250,300,100)){ //checks play option
+                if(isInOption(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 )){ //checks play option
                   if(!isSel){
                       update_menu(sel[0]);
                       selected = 0;
@@ -87,7 +92,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                   }
                   continue;
                 }
-                else if(isInOption(180,400,300,100)){  // checks exit option
+                else if(isInOption(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 )){  // checks exit option
                   if(!isSel){
                       update_menu(sel[1]);
                       selected = 1;
@@ -117,9 +122,9 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
 
 int (init_menu)(){
-    
-    vg_draw_rectangle(0, 0, 800, 600, 0x00fffAfA);
+    vg_draw_rectangle(0, 0, h_res, v_res, 0x00fffAfA);
     //DRAW TITLE
+    /*
     //S
     vg_draw_rectangle(150,50,90,20,0xff0000);
     vg_draw_rectangle(150,70,20,30,0xff0000);
@@ -142,12 +147,13 @@ int (init_menu)(){
     vg_draw_rectangle(420,50,20,100,0xff0000);
     vg_draw_rectangle(400,100,20,20,0xff0000);
     //K
-    //...
+    //...*/
+    vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,0xff0000);
     
     //vg_draw_pixmap(cursor_xpm,50,50);
     //filling some squares where the opitons will appear
-    vg_draw_rectangle(180,250,300,100,0xFF0000);
-    vg_draw_rectangle(180,400,300,100,0x00fffAfA);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xFF0000);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
     
     //DRAW PLAY
     //DRAW EXIT
@@ -156,12 +162,12 @@ int (init_menu)(){
 
 int update_menu(int sel){
     if(sel == 0){
-        vg_draw_rectangle(180,250,300,100,0xFF0000);
-        vg_draw_rectangle(180,400,300,100,0x00fffAfA);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xFF0000);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
     }
     else{
-        vg_draw_rectangle(180,250,300,100,0x00fffAfA);
-        vg_draw_rectangle(180,400,300,100,0xFF0000);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xfffafa);
+        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,0xff0000);
     }
     return 0;
 }
