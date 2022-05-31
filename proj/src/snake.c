@@ -331,12 +331,12 @@ void (damageSnake)(){
 
 void (drawEnemy)(){
     eraseEnemyTrail();
-    uint32_t apple_color = 0x0;
-    if (video_mode == 0x115 || video_mode == 0x14C) apple_color = APPLE_COLOR;
-    else if (video_mode == 0x110) apple_color = APPLE_COLOR_110;
-    else if (video_mode == 0x105) apple_color = APPLE_COLOR_105;
-    else if (video_mode == 0x11A) apple_color = APPLE_COLOR_11A;  
-    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, apple_color);
+    uint32_t enemy_color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) enemy_color = ENEMY_COLOR;
+    else if (video_mode == 0x110) enemy_color = ENEMY_COLOR_110;
+    else if (video_mode == 0x105) enemy_color = ENEMY_COLOR_105;
+    else if (video_mode == 0x11A) enemy_color = ENEMY_COLOR_11A;  
+    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, enemy_color);
 }
 
 void (killEnemy)(){

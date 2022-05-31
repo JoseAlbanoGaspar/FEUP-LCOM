@@ -59,7 +59,18 @@ int (shutdown_devices)(){
 
 int (proj_main_loop)(int argc, char* argv[])
 { 
+  /* Available modes:  */
+  //mode = 0x105;
+  //mode = 0x110;
   mode = 0x115;
+  //mode = 0x11A;
+  //mode = 0x14C;
+  /* ------------------ */
+  /* 
+  To choose a different mode just uncomment the mode you wish to use, comment the previous
+  and recompile the code.  
+  */
+  /* ------------------ */
   uint32_t irq_set_keyboard = BIT(hook_id_keyboard);
   uint32_t irq_set_mouse = BIT(hook_id_mouse);
   uint32_t irq_set_timer = BIT(hook_id_timer);
