@@ -24,6 +24,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 { 
   int isSel = 0;
   init_menu();
+  swapBuffer();
 
 //--------------------------------
   int ipc_status;
@@ -55,6 +56,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
             selected = selectedOpt(scancode,selected);
             update_menu(selected);
+            swapBuffer();
             //check if enter was pressed
             if(scancode == ENTER && ctn > 60){
                 switch (selected)
@@ -81,12 +83,14 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 mouseCount = 0;
                 updateMouse();
                 drawMouse();
+                swapBuffer();
 
                 if(isInOption(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 )){ //checks play option
                   if(!isSel){
                       update_menu(sel[0]);
                       selected = 0;
                       isSel = 1;
+                      swapBuffer();
                   }
                   if(onPress()){
                       game = true; 
@@ -99,6 +103,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                       update_menu(sel[1]);
                       selected = 1;
                       isSel = 1;
+                      swapBuffer();
                   }
                   if(onPress()){
                       game = false;
