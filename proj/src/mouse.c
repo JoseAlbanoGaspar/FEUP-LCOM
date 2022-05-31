@@ -6,10 +6,10 @@ int bit_no_global_mouse;
 int hook_id_mouse = MOUSE_IRQ;
 uint8_t packet_byte;
 struct packet mouse_packet;
-int mouseX = 400;
-int mouseY = 400;
-int lastMouseX = 400;
-int lastMouseY = 400;
+int mouseX = 300;
+int mouseY = 300;
+int lastMouseX = 300;
+int lastMouseY = 300;
 int mouseCount = 0;
 
 int (mouse_subscribe_int)(uint8_t *bit_no){
@@ -63,6 +63,7 @@ void parse()
     switch (mouseCount)
     {
     case 0:
+        memset(mouse_packet.bytes, 0, sizeof(mouse_packet.bytes));
         mouse_packet.bytes[0] = packet_byte;
         //printf("packet_byte 1: 0x%x", packet_byte);
         mouse_packet.lb = (packet_byte & MOUSE_LB_PRESSED);

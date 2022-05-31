@@ -95,6 +95,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
+            if (scancode != ESC_KEY) kbc_reset_scancode();
           }
           break;
         default:
@@ -154,6 +155,7 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
         { /* subscribed interrupt */
           /* process it */
           kbc_ih();
+          if (scancode != ESC_KEY) kbc_reset_scancode();
         }
         break;
       default:
@@ -215,6 +217,7 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
             printf("scancode: 0x%x\n",scancode);
+            if (scancode != ESC_KEY) kbc_reset_scancode();
           }
           break;
         default:
@@ -277,7 +280,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set) { // subscribed interrupt
             kbc_ih();
-            kbc_reset_scancode();
+            if (scancode != ESC_KEY) kbc_reset_scancode();
           }
 
           if (msg.m_notify.interrupts & irq_set1) { // subscribed interrupt

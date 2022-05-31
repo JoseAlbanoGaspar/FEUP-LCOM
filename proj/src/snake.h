@@ -2,29 +2,39 @@
 #include <time.h>
 #include <stdlib.h>
 #include "macros/i8042.h"
+#include "macros/constants.h"
 
 
 struct Snake {
     int direction; //0 right, 1 left, 2 up, 3 down
-    uint32_t color;
-    uint32_t headColor;
-    uint32_t contourColor;
     int segments_len;
     int segments[2400];
     bool addToSnake;
+    bool canChangeDir;
+    bool alive;
+};
+
+
+struct Enemy {
+    int x;
+    int y;
+    int lastX;
+    int lastY;
+    bool active;
 };
 
 
 struct Apple {
     int x;
     int y;
-    uint32_t color;
 };
 
 
-void startPosition();
+void (startPosition)(uint16_t vbe_mode);
 
 void (drawSnake)();
+
+void (changeDirection)(uint16_t scancode);
 
 bool (canMove)(int dir);
 
@@ -38,5 +48,18 @@ void (incrementSnake)(int tailX, int tailY);
 
 void (drawApple)();
 
-void updateApple();
+void (updateApple)();
+
+void (spawnEnemy)();
+
+void (moveEnemy)();
+
+void (eraseEnemyTrail)();
+
+void (damageSnake)();
+
+void (drawEnemy)();
+
+void (killEnemy)();
+
 

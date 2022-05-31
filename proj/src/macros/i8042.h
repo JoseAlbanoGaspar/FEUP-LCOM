@@ -19,6 +19,11 @@
 #define DOWN_ARROW 0x50
 #define RIGHT_ARROW 0x4D
 #define LEFT_ARROW 0x4B
+#define W_KEY 0x91
+#define A_KEY 0x9E
+#define S_KEY 0x9F
+#define D_KEY 0xA0
+#define ENTER 0x9C
 //KBC Status register
 #define KBC_PARE BIT(7)  /**< @brief Status register parity error */
 #define KBC_TIMEO BIT(6) /**< @brief Status register timeout error */
