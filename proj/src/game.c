@@ -122,6 +122,7 @@ int (start_game)(){
   vg_draw_rectangle(0, 0, arena_x, arena_y, arena_bg);
   vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
   vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
+  vg_ultimate_pixmap_handler(35,arena_y + 20,115,147,14);
   return 0;
 }
 

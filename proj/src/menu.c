@@ -168,10 +168,10 @@ int (init_menu)(){
     vg_draw_rectangle(400,100,20,20,0xff0000);
     //K
     //...*/
-    vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,opt_color);
-    
+    //vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,opt_color);
+    vg_ultimate_pixmap_handler(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8,115,409,37);
     //vg_draw_pixmap(sprite2,50,50);
-    vg_ultimate_pixmap_handler(50,50,115,30,12);
+    //vg_ultimate_pixmap_handler(50,50,115,49,30);
     //filling some squares where the opitons will appear
     vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
     vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
