@@ -1,5 +1,0 @@
-Mode: 115
-Scancode: 1C
-Scancode: 9C
-Scancode: 1
-Scancode: 81

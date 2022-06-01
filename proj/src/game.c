@@ -29,6 +29,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
   bool ready_to_update = false;
 
   start_game();
+  swapBuffer();
   //Main loop variable
   //bool running = true;
   while (scancode != ESC_KEY && snake.alive) {
@@ -52,6 +53,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             if (count == 5) {
               count = 0;
               drawGame();
+              swapBuffer();
               if (ready_to_update){  
                 if (checkClickEnemy(enemy.x, enemy.y)) killEnemy();
               }
@@ -80,6 +82,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 ready_to_update = true;
                 updateMouse();
                 drawMouse();
+                swapBuffer();
             }
           }
           break;

@@ -5,8 +5,7 @@ void *(vg_init)(uint16_t mode)
     /* */
     mr.mr_base = 0;
     mr.mr_limit = 1048576;
-    if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
-        panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+
     vbe_mode_info_t info;
     vg_get_mode_info(mode, &info);
     phys_addr = (phys_bytes)info.PhysBasePtr;
@@ -23,7 +22,12 @@ void *(vg_init)(uint16_t mode)
     blue_s = info.BlueMaskSize;
     blue_p = info.BlueFieldPosition;
     memoryModel = info.MemoryModel;
+    vram_size = h_res * v_res * bytesPerPixel;
+    vram_base = info.PhysBasePtr;
     /* */
+
+    //Double Buffer
+    double_buffer = malloc(vram_size);
 
     /* Allow memory mapping */
     mr.mr_base = phys_addr;
@@ -33,7 +37,7 @@ void *(vg_init)(uint16_t mode)
     /* */
 
     /* Map memory */
-    video_mem = vm_map_phys(SELF, (void *)mr.mr_base, (h_res * v_res * bytesPerPixel));
+    video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
     if (video_mem == MAP_FAILED)
         panic("couldn’t map video memory");
     /* */
@@ -87,7 +91,7 @@ int(vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color)
 {
     if (x < h_res && y < v_res)
     {
-      char* init_address = (char*) video_mem + (y * h_res + x)* bytesPerPixel;
+      char* init_address = (char*) double_buffer + (y * h_res + x)* bytesPerPixel;
       
       for(int k = 0; k < bytesPerPixel; k++){ 
        init_address[k] = (color & getmask(k)) >> (8*k);
@@ -367,3 +371,11 @@ int(vg_erase_sprite)(uint8_t *sprite, xpm_image_t img, uint16_t x, uint16_t y)
     }
     return 0;
 }
+
+void (swapBuffer)(){
+    memcpy(video_mem, double_buffer, h_res*v_res*bytesPerPixel);
+}
+
+
+
+

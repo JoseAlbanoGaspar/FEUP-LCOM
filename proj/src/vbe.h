@@ -7,7 +7,7 @@ int r;
 struct minix_mem_range mr; /* Physical memory range */
 unsigned int vram_base;    /* VRAM's physical addresss */
 unsigned int vram_size;    /* VRAM's size, but you can use the frame-buffer size, instead */
-uint8_t *video_mem;        /* Frame-buffer VM address */
+static void *video_mem;        /* Frame-buffer VM address */
 uint16_t h_res;            /* Horizontal resolution in pixels */
 uint16_t v_res;            /* Vertical resolution in pixels */
 uint16_t bitsPerPixel;
@@ -20,6 +20,7 @@ uint8_t blue_s;
 uint8_t blue_p;
 uint8_t memoryModel;
 phys_bytes phys_addr;
+static void *double_buffer;
 
 void *(vg_init)(uint16_t mode);
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p);
@@ -35,7 +36,7 @@ void(vg_erase_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 uint8_t *(vg_create_sprite)(xpm_map_t xpm, xpm_image_t *img);
 int(vg_draw_sprite)(uint8_t *sprite, xpm_image_t img, uint16_t x, uint16_t y);
 int(vg_erase_sprite)(uint8_t *sprite, xpm_image_t img, uint16_t x, uint16_t y);
-
+void (swapBuffer)();
 
 
 
