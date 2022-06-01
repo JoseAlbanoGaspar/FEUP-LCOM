@@ -360,7 +360,7 @@ void (killEnemy)(){
     } 
     death_color = 0x00FFFFFF;
     vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
-    sleep(0.5);
+    swapBuffer();
     vg_draw_rectangle(enemy.x, enemy.y, 20, 20, color);
 }
 

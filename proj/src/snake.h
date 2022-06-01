@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "macros/i8042.h"
 #include "macros/constants.h"
+#include "vbe.h"
 
 
 struct Snake {
