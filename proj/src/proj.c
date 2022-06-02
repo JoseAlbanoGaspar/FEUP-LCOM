@@ -69,7 +69,7 @@ int (proj_main_loop)(int argc, char* argv[])
   /* ------------------ */
   /* 
   To choose a different mode just uncomment the mode you wish to use, comment the previous
-  and recompile the code.  
+  one and recompile the code.  
   */
   /* ------------------ */
   uint32_t irq_set_keyboard = BIT(hook_id_keyboard);
