@@ -1,5 +1,4 @@
 #include "mouse.h"
-#include <math.h>
 
 //extern struct packet mouse_packet;
 uint8_t mouse_status;
@@ -177,17 +176,18 @@ int (mouse_dis_data_report)(){
 }
 
 int (mouse_is_valid_first_line_mov)(int tolerance){
-    if((sqrt(mouse_packet.delta_x * mouse_packet.delta_x + mouse_packet.delta_y * mouse_packet.delta_y) > 1 ||   //the slope must be larger than 1
+    if(((mouse_packet.delta_x > 1 && mouse_packet.delta_y > 1) ||   //the slope must be larger than 1
         ( mouse_packet.delta_x <= 0 && abs(mouse_packet.delta_x) < tolerance)  ||  //check tolerance in x
         ( mouse_packet.delta_y <= 1 && abs(mouse_packet.delta_y) < tolerance)) &&  //check tolerance in y
-       mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb) //check if the button was released
+       mouse_packet.lb && !mouse_packet.mb && !mouse_packet.rb)
 
        return 1;
     return 0;
+
 }
 
 int (mouse_is_valid_second_line_mov)(int tolerance){
-    if(((abs(sqrt(mouse_packet.delta_x * mouse_packet.delta_x + mouse_packet.delta_y * mouse_packet.delta_y)) > 1 ||
+    if(((mouse_packet.delta_x > 1 && mouse_packet.delta_y < -1) ||
       (mouse_packet.delta_x <= 0 && abs(mouse_packet.delta_x) < tolerance) ||
       (mouse_packet.delta_y >= -1 && abs(mouse_packet.delta_y) < tolerance)) &&
        !mouse_packet.lb && mouse_packet.mb && !mouse_packet.rb)

@@ -1,3 +1,0 @@
-Mode: 115
-Scancode: 1
-Scancode: 81
