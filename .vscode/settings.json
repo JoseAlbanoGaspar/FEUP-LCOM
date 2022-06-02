@@ -2,6 +2,21 @@
     "files.associations": {
         "register.h": "c",
         "cstdlib": "c",
-        "snake.h": "c"
+        "snake.h": "c",
+        "chrono": "c",
+        "compare": "c",
+        "functional": "c",
+        "memory": "c",
+        "ratio": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "xmemory": "c",
+        "xtr1common": "c",
+        "xutility": "c",
+        "__functional_base": "c",
+        "__functional_base_03": "c",
+        "__tuple": "c",
+        "limits": "c"
     }
 }

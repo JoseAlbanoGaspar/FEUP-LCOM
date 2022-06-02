@@ -9,35 +9,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac732ba4-42c9-4639-b203-628b3c2ecaf1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.vscode/settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab2.c" beforeDir="false" afterPath="$PROJECT_DIR$/lab2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab4/lab4.c" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/lab4.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab4/mouse.c" beforeDir="false" afterPath="$PROJECT_DIR$/../lab4/mouse.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab5/lab5.c" beforeDir="false" afterPath="$PROJECT_DIR$/../lab5/lab5.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab5/vbe.c" beforeDir="false" afterPath="$PROJECT_DIR$/../lab5/vbe.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lab5/vbe.h" beforeDir="false" afterPath="$PROJECT_DIR$/../lab5/vbe.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/assist.c" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/assist.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/assist.h" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/assist.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/game.c" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/game.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/game.h" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/menu.c" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/menu.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/output.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/proj.c" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/proj.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/snake.c" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/snake.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/snake.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proj/src/trace.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../proj/src/trace.txt" afterDir="false" />
-    </list>
+    <list default="true" id="ac732ba4-42c9-4639-b203-628b3c2ecaf1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MakefileLocalSettings">
     <option name="projectSyncType">
@@ -47,7 +26,6 @@
     </option>
   </component>
   <component name="ProjectId" id="26kg3Am0Y05ZYrQrhUySkayvdj3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,18 +35,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="cf.advertisement.text.overridden" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab3" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -79,7 +47,6 @@
       <option name="presentableId" value="Default" />
       <updated>1647972800388</updated>
       <workItem from="1647972802757" duration="29000" />
-      <workItem from="1654118858884" duration="178000" />
     </task>
     <servers />
   </component>
