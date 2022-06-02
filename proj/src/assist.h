@@ -22,4 +22,3 @@ bool (checkClickEnemy)(int enemyX, int enemyY);
 
 
 
-

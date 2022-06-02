@@ -2,6 +2,7 @@
 #define __VBE_H
 
 #include <lcom/lcf.h>
+#include "macros/constants.h"
 
 int r;
 struct minix_mem_range mr; /* Physical memory range */
@@ -21,6 +22,7 @@ uint8_t blue_p;
 uint8_t memoryModel;
 phys_bytes phys_addr;
 static void *double_buffer;
+enum pixmap{SCORE, TITLE, CROSSHAIR, ENEMY, DEAD_ENEMY, APPLE};
 
 void *(vg_init)(uint16_t mode);
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p);
@@ -30,7 +32,8 @@ int(vg_draw_vline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color);
 int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color);
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color);
 int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
-int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode,uint16_t width, uint16_t height);
+int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype);
+int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype);
 int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 void(vg_erase_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 uint8_t *(vg_create_sprite)(xpm_map_t xpm, xpm_image_t *img);

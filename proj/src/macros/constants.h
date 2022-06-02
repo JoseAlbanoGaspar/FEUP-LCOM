@@ -26,6 +26,8 @@
 
 /* Enemy */
 #define ENEMY_COLOR 0x009A13B5
+#define ENEMY_EYE_COLOR 0x00000000
+#define DEATH_COLOR 0x00FFFFFF
 
 /* Menu Colors */
 
@@ -58,6 +60,8 @@
 
 /* Enemy */
 #define ENEMY_COLOR_105 0x21
+#define ENEMY_EYE_COLOR_105 0x00
+#define DEATH_COLOR_105 0x3F
 
 /* Menu Colors */
 
@@ -89,6 +93,8 @@
 
 /* Enemy */
 #define ENEMY_COLOR_110 0x441F //0x3C13
+#define ENEMY_EYE_COLOR_110 0x0000
+#define DEATH_COLOR_110 0xFFFF
 
 /* Menu Colors */
 
@@ -121,6 +127,8 @@
 
 /* Enemy */
 #define ENEMY_COLOR_11A 0xB015
+#define ENEMY_EYE_COLOR_11A 0x0000
+#define DEATH_COLOR_11A 0xFFFF
 
 /* Menu Colors */
 

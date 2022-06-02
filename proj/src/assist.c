@@ -33,38 +33,21 @@ int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
 
 
 int (unsubscribe_all)(){
-  if (mouse_dis_data_report()) return 1;
   if (  kbd_unsubscribe_int() != OK ) return 1;
   if (timer_unsubscribe_int() != OK ) return 1;
   if (mouse_unsubscribe_int() != OK ) return 1;
+  if (mouse_dis_data_report()) return 1;
   vg_exit();
   return 0;
 }
 
 void (drawMouse)(){
-    uint32_t arena_color = 0x0000, mouse_cursor_color = 0x0000;
-    if (mode == 0x115 || mode == 0x14C) {
-        arena_color = ARENA_BACKGROUND_COLOR;
-        mouse_cursor_color = MOUSE_CURSOR_COLOR;
-    }
-    else if (mode == 0x110) {
-        arena_color = ARENA_BACKGROUND_COLOR_110;
-        mouse_cursor_color = MOUSE_CURSOR_COLOR_110;
-    }
-    else if (mode == 0x105) {
-        arena_color = ARENA_BACKGROUND_COLOR_105;
-        mouse_cursor_color = MOUSE_CURSOR_COLOR_105;
-    }
-    else if (mode == 0x11A) {
-        arena_color = ARENA_BACKGROUND_COLOR_11A;
-        mouse_cursor_color = MOUSE_CURSOR_COLOR_11A;
-    }
-    vg_draw_rectangle(abs(lastMouseX), abs(lastMouseY), 5, 5, arena_color); // erase previous mouse cursor
-    vg_draw_rectangle(abs(mouseX), abs(mouseY), 5, 5, mouse_cursor_color); //draw new mouse cursor
+    vg_ultimate_pixmap_eraser(abs(lastMouseX), abs(lastMouseY), mode, CROSSHAIR);
+    vg_ultimate_pixmap_handler(abs(mouseX), abs(mouseY), mode, CROSSHAIR);
 }
 
 int (isInOption)(int x, int y, int width, int height){
-    return abs(mouseX) >= x && abs(mouseX) <= x + width && abs(mouseY) >= y && abs(mouseY) <= y + height;
+    return abs(mouseX+6) >= x && abs(mouseX+6) <= x + width && abs(mouseY-6) >= y && abs(mouseY-6) <= y + height;
 }
 
 bool (checkClickEnemy)(int enemyX, int enemyY){

@@ -204,12 +204,8 @@ void (incrementSnake)(int tailX, int tailY){
 }
 
 void (drawApple)(){
-    uint32_t apple_color = 0x0;
-    if (video_mode == 0x115 || video_mode == 0x14C) apple_color = APPLE_COLOR;
-    else if (video_mode == 0x110) apple_color = APPLE_COLOR_110;
-    else if (video_mode == 0x105) apple_color = APPLE_COLOR_105;
-    else if (video_mode == 0x11A) apple_color = APPLE_COLOR_11A;  
-    vg_draw_rectangle(apple.x, apple.y, 20, 20, apple_color);
+    //vg_draw_rectangle(apple.x, apple.y, 20, 20, apple_color);
+    vg_ultimate_pixmap_handler(apple.x, apple.y, video_mode, APPLE);
 }
 
 void updateApple(){
@@ -305,15 +301,6 @@ void (moveEnemy)(){
     }
 }
 
-void (eraseEnemyTrail)(){
-    uint32_t color = 0x0;
-    if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
-    else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
-    else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
-    else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
-    vg_draw_rectangle(enemy.lastX,enemy.lastY, 20, 20, color);
-}
-
 void (damageSnake)(){
     enemy.active = false;
     uint32_t color = 0x0;
@@ -329,6 +316,16 @@ void (damageSnake)(){
     } 
 }
 
+void (eraseEnemyTrail)(){
+    uint32_t color = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
+    else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
+    else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
+    else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
+    //vg_draw_rectangle(enemy.lastX,enemy.lastY, 20, 20, color);
+    vg_ultimate_pixmap_eraser(enemy.lastX, enemy.lastY, video_mode, ENEMY);
+}
+
 void (drawEnemy)(){
     eraseEnemyTrail();
     uint32_t enemy_color = 0x0;
@@ -336,32 +333,16 @@ void (drawEnemy)(){
     else if (video_mode == 0x110) enemy_color = ENEMY_COLOR_110;
     else if (video_mode == 0x105) enemy_color = ENEMY_COLOR_105;
     else if (video_mode == 0x11A) enemy_color = ENEMY_COLOR_11A;  
-    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, enemy_color);
+    //vg_draw_rectangle(enemy.x, enemy.y, 20, 20, enemy_color);
+    vg_ultimate_pixmap_handler(enemy.x, enemy.y, video_mode, ENEMY);
 }
 
 void (killEnemy)(){
     enemy.active = false;
-    uint32_t death_color = 0x0, color = 0x0;
-    if (video_mode == 0x115 || video_mode == 0x14C){
-        death_color = APPLE_COLOR;
-        color = ARENA_BACKGROUND_COLOR;
-    } 
-    else if (video_mode == 0x110) {
-        death_color = APPLE_COLOR_110;
-        color = ARENA_BACKGROUND_COLOR_110;
-    }
-    else if (video_mode == 0x105) {
-        death_color = APPLE_COLOR_105;
-        color = ARENA_BACKGROUND_COLOR_105;
-    }
-    else if (video_mode == 0x11A) {
-        death_color = APPLE_COLOR_11A; 
-        color = ARENA_BACKGROUND_COLOR_11A;
-    } 
-    death_color = 0x00FFFFFF;
-    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
+    //vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
+    vg_ultimate_pixmap_handler(enemy.x, enemy.y, video_mode, DEAD_ENEMY);
     swapBuffer();
-    vg_draw_rectangle(enemy.x, enemy.y, 20, 20, color);
+    vg_ultimate_pixmap_eraser(enemy.x, enemy.y, video_mode, ENEMY);
 }
 
 
