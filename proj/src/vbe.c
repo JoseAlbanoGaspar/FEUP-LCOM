@@ -199,7 +199,8 @@ int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
     return 0;
 }
 int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype){
-    uint32_t title_color = 0, score_color = 0, cursor_color = 0, enemy_color = 0, enemy_eye_color = 0, death_color = 0, apple_color = 0, number_color = 0;
+    uint32_t title_color = 0, score_color = 0, cursor_color = 0, enemy_color = 0,
+     enemy_eye_color = 0, death_color = 0, apple_color = 0, number_color = 0,background_color = 0;
     
     switch (mode)
     {
@@ -211,7 +212,8 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_110;
         death_color = DEATH_COLOR_110;
         apple_color = APPLE_COLOR_110;
-        number_color = SCORE_COLOR_110;
+        number_color = SCORE_BAR_COLOR_110;
+        background_color = MENU_BACKGORUND_110;
         break;
     case 0x11A:
         title_color = SCORE_BAR_COLOR_11A;
@@ -221,7 +223,8 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_11A;
         death_color = DEATH_COLOR_11A;
         apple_color = APPLE_COLOR_11A;
-        number_color = SCORE_COLOR_11A;
+        number_color = SCORE_BAR_COLOR_11A;
+        background_color = MENU_BACKGORUND_11A;
         break;
     case 0x115:
     case 0x14C:
@@ -232,7 +235,8 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR;
         death_color = DEATH_COLOR;
         apple_color = APPLE_COLOR;
-        number_color = SCORE_COLOR;
+        number_color = SCORE_BAR_COLOR;
+        background_color = MENU_BACKGORUND;
         break;
     case 0x105:
         title_color = SCORE_BAR_COLOR_105;
@@ -242,7 +246,8 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_105;
         death_color = DEATH_COLOR_105;
         apple_color = APPLE_COLOR_105;
-        number_color = SCORE_COLOR_105;
+        number_color = SCORE_BAR_COLOR_105;
+        background_color = MENU_BACKGORUND_105;
         break;
     default:
         break;
@@ -281,9 +286,15 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
 
             if (pixtype == GAMEOVER) if (gameOver[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
 
-            if (pixtype == PLAY) if (play[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
+            if (pixtype == PLAY){
+                if (play[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
+                else if(play[i][j] == '0') vg_draw_pixel(x + j, y + i, background_color);
+            }
 
-            if (pixtype == EXIT) if (exitPix[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
+            if (pixtype == EXIT){
+                if (exitPix[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
+                else if(exitPix[i][j] == '0') vg_draw_pixel(x + j, y + i, background_color);
+            }
 
             if (pixtype == CROSSHAIR) if (crosshair[i][j] == '.') {
                 memcpy(&mouse_array[i][j], (char*) double_buffer + ((y+i) * h_res + (x+j))*bytesPerPixel, bytesPerPixel);
