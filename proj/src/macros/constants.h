@@ -11,6 +11,7 @@
 /* Score bar */
 #define SCORE_BAR_TRIM_COLOR 0x00D85E18
 #define SCORE_BAR_COLOR 0x00525252
+#define SCORE_COLOR 0x000000
 
 /* Snake */
 #define SNAKE_COLOR 0x002ADF23 
@@ -45,6 +46,7 @@
 /* Score bar */
 #define SCORE_BAR_TRIM_COLOR_105 0x03
 #define SCORE_BAR_COLOR_105 0x07 //38 07
+#define SCORE_COLOR_105 0x00
 
 /* Snake */
 #define SNAKE_COLOR_105 0x12 //0x12 22
@@ -78,6 +80,7 @@
 /* Score bar */
 #define SCORE_BAR_TRIM_COLOR_110 0x3CC0
 #define SCORE_BAR_COLOR_110 0x3DEF
+#define SCORE_COLOR_110 0x0000
 
 /* Snake */
 #define SNAKE_COLOR_110 0x02E0 
@@ -112,6 +115,7 @@
 /* Score bar */
 #define SCORE_BAR_TRIM_COLOR_11A 0x38E3
 #define SCORE_BAR_COLOR_11A 0x7BCF   //0x4189
+#define SCORE_COLOR_11A 0x0000
 
 /* Snake */
 #define SNAKE_COLOR_11A 0x07C0 

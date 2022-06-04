@@ -3,6 +3,7 @@
 
 #include <lcom/lcf.h>
 #include "macros/constants.h"
+#include "sprite.h"
 
 int r;
 struct minix_mem_range mr; /* Physical memory range */
@@ -22,7 +23,10 @@ uint8_t blue_p;
 uint8_t memoryModel;
 phys_bytes phys_addr;
 static void *double_buffer;
-enum pixmap{SCORE, TITLE, CROSSHAIR, ENEMY, DEAD_ENEMY, APPLE};
+
+enum pixmap{SCORE, TITLE, CROSSHAIR, ENEMY, DEAD_ENEMY, APPLE, NUMBER0, NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5, NUMBER6, NUMBER7, NUMBER8, NUMBER9, GAMEOVER, EXIT, PLAY};
+
+
 
 void *(vg_init)(uint16_t mode);
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p);

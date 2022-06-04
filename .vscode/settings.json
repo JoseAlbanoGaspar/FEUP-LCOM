@@ -17,6 +17,7 @@
         "__functional_base": "c",
         "__functional_base_03": "c",
         "__tuple": "c",
-        "limits": "c"
+        "limits": "c",
+        "lcf.h": "c"
     }
 }
