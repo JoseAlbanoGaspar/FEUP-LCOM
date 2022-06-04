@@ -1,0 +1,23 @@
+Mode: 11a
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: C8
+Scancode: 1C
+Scancode: 9C
+Scancode: 1
+Scancode: 81
+Today is 4/6/2022
+The hour of the death was 15 hours 33 minutes and 2 seconds
+Today is 4/6/2022
+The hour of the death was 15 hours 33 minutes and 2 seconds
+Today is 4/6/2022
+The hour of the death was 15 hours 33 minutes and 2 seconds
+Today is 4/6/2022
+The hour of the death was 15 hours 33 minutes and 2 seconds
+Today is 4/6/2022
+The hour of the death was 15 hours 33 minutes and 2 seconds
