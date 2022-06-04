@@ -18,6 +18,7 @@ extern char gameOver[37][234];
 extern char exitPix[37][207];
 extern char play[37][271];
 extern char crosshair[12][12];
+static uint32_t mouse_array[12][12];
 
 
 
@@ -204,44 +205,44 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
     {
     case 0x110:
         title_color = SCORE_BAR_COLOR_110;
-        score_color = SCORE_BAR_COLOR_110;
+        score_color = SCORE_COLOR_110;
         cursor_color = MOUSE_CURSOR_COLOR_110;
         enemy_color = ENEMY_COLOR_110;
         enemy_eye_color = ENEMY_EYE_COLOR_110;
         death_color = DEATH_COLOR_110;
         apple_color = APPLE_COLOR_110;
-        number_color = SCORE_BAR_COLOR_110;
+        number_color = SCORE_COLOR_110;
         break;
     case 0x11A:
         title_color = SCORE_BAR_COLOR_11A;
-        score_color = SCORE_BAR_COLOR_11A;
+        score_color = SCORE_COLOR_11A;
         cursor_color = MOUSE_CURSOR_COLOR_11A;
         enemy_color = ENEMY_COLOR_11A;
         enemy_eye_color = ENEMY_EYE_COLOR_11A;
         death_color = DEATH_COLOR_11A;
         apple_color = APPLE_COLOR_11A;
-        number_color = SCORE_BAR_COLOR_11A;
+        number_color = SCORE_COLOR_11A;
         break;
     case 0x115:
     case 0x14C:
         title_color = SCORE_BAR_COLOR;
-        score_color = SCORE_BAR_COLOR;
+        score_color = SCORE_COLOR;
         cursor_color = MOUSE_CURSOR_COLOR;
         enemy_color = ENEMY_COLOR;
         enemy_eye_color = ENEMY_EYE_COLOR;
         death_color = DEATH_COLOR;
         apple_color = APPLE_COLOR;
-        number_color = SCORE_BAR_COLOR;
+        number_color = SCORE_COLOR;
         break;
     case 0x105:
         title_color = SCORE_BAR_COLOR_105;
-        score_color = SCORE_BAR_COLOR_105;
+        score_color = SCORE_COLOR_105;
         cursor_color = MOUSE_CURSOR_COLOR_105;
         enemy_color = ENEMY_COLOR_105;
         enemy_eye_color = ENEMY_EYE_COLOR_105;
         death_color = DEATH_COLOR_105;
         apple_color = APPLE_COLOR_105;
-        number_color = SCORE_BAR_COLOR_105;
+        number_color = SCORE_COLOR_105;
         break;
     default:
         break;
@@ -284,7 +285,11 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
 
             if (pixtype == EXIT) if (exitPix[i][j] == '.') vg_draw_pixel(x + j, y + i, title_color);
 
-            if (pixtype == CROSSHAIR) if (crosshair[i][j] == '.') vg_draw_pixel(x + j, y + i, cursor_color);
+            if (pixtype == CROSSHAIR) if (crosshair[i][j] == '.') {
+                memcpy(&mouse_array[i][j], (char*) double_buffer + ((y+i) * h_res + (x+j))*bytesPerPixel, bytesPerPixel);
+                
+                vg_draw_pixel(x + j, y + i, cursor_color);
+            }
 
             if (pixtype == ENEMY){
                 if (enemyPix[i][j] == '.') vg_draw_pixel(x + j, y + i, enemy_color);
@@ -312,7 +317,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
     return 0;
 }
 
-int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype){
+int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype, bool mouse){
     uint32_t arena_color = 0, board_color = 0;
     
     switch (mode)
@@ -355,7 +360,10 @@ int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixma
     {
         for (unsigned int j = 0; j < width; j++)
         {
-            if (pixtype == CROSSHAIR) if (crosshair[i][j] == '.')  vg_draw_pixel(x + j, y + i, arena_color);
+            if (pixtype == CROSSHAIR) if (crosshair[i][j] == '.') {
+                if (!mouse) vg_draw_pixel(x + j, y + i, mouse_array[i][j]);
+                else vg_draw_pixel(x + j, y + i, arena_color);
+            } 
 
             if (pixtype == ENEMY) if (enemyPix[i][j] == '.' || enemyPix[i][j] == '0') vg_draw_pixel(x + j, y + i, arena_color);
 

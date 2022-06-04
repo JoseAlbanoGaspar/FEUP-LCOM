@@ -18,6 +18,7 @@ void (startPosition)(uint16_t vbe_mode){
     for (int j = 1; j < 10; j+=2) snake.segments[j] = 120;
     snake.direction = 0;
     snake.segments_len = 5;
+    snake.score = 0;
     snake.addToSnake = false;
     snake.canChangeDir = true;
     arena_x = (int) h_res;
@@ -39,6 +40,72 @@ void (drawBackground)(){
   else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
   
   vg_draw_rectangle(snake.segments[2*(snake.segments_len-1)], snake.segments[2*(snake.segments_len-1)+1], 20, 20, color); //0x000057FF
+}
+
+void (drawScore)(){
+    uint32_t score = 0x0, trim = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C){
+        score = SCORE_BAR_COLOR;
+        trim = SCORE_BAR_TRIM_COLOR;
+    } 
+    else if (video_mode == 0x110) {
+        score = SCORE_BAR_COLOR_110;
+        trim = SCORE_BAR_TRIM_COLOR_110;
+    }
+    else if (video_mode == 0x105) {
+        score = SCORE_BAR_COLOR_105;
+        trim = SCORE_BAR_TRIM_COLOR_105;
+    }
+    else if (video_mode == 0x11A) {
+        score = SCORE_BAR_COLOR_11A;
+        trim = SCORE_BAR_TRIM_COLOR_11A;
+    }
+    vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
+    vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
+    vg_ultimate_pixmap_handler(20,arena_y + 30,video_mode, SCORE);
+    int y = arena_y + 30;
+    int x = 265;
+    if (snake.score > 9999) snake.score = 9999;
+    int value = snake.score;
+    for (int i = 0; i < 4; i++){
+        switch (value % 10)
+        {
+        case 0:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER0);
+            break;
+        case 1:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER1);
+            break;
+        case 2:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER2);
+            break;
+        case 3:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER3);
+            break;
+        case 4:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER4);
+            break;
+        case 5:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER5);
+            break;
+        case 6:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER6);
+            break;
+        case 7:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER7);
+            break;
+        case 8:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER8);
+            break;
+        case 9:
+            vg_ultimate_pixmap_handler(x, y, video_mode, NUMBER9);
+            break;
+        default:
+            break;
+        }
+        value = floor(value / 10);
+        x -= 25;
+    }
 }
 
 void (drawSnake)(){
@@ -198,6 +265,7 @@ void (moveSegments)(){
 
 void (incrementSnake)(int tailX, int tailY){
     snake.segments_len++;
+    snake.score += 10;
     snake.segments[snake.segments_len*2-2] = tailX;
     snake.segments[snake.segments_len*2-1] = tailY;
     updateApple();
@@ -303,6 +371,11 @@ void (moveEnemy)(){
 
 void (damageSnake)(){
     enemy.active = false;
+    snake.score -= 50;
+    if (snake.score < 0) {
+        snake.score = 0;
+        snake.alive = false;
+    }
     uint32_t color = 0x0;
     if (video_mode == 0x115 || video_mode == 0x14C) color = ARENA_BACKGROUND_COLOR;
     else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
@@ -323,7 +396,7 @@ void (eraseEnemyTrail)(){
     else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
     else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
     //vg_draw_rectangle(enemy.lastX,enemy.lastY, 20, 20, color);
-    vg_ultimate_pixmap_eraser(enemy.lastX, enemy.lastY, video_mode, ENEMY);
+    vg_ultimate_pixmap_eraser(enemy.lastX, enemy.lastY, video_mode, ENEMY, false);
 }
 
 void (drawEnemy)(){
@@ -339,10 +412,11 @@ void (drawEnemy)(){
 
 void (killEnemy)(){
     enemy.active = false;
+    snake.score += 5;
     //vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
     vg_ultimate_pixmap_handler(enemy.x, enemy.y, video_mode, DEAD_ENEMY);
     swapBuffer();
-    vg_ultimate_pixmap_eraser(enemy.x, enemy.y, video_mode, ENEMY);
+    vg_ultimate_pixmap_eraser(enemy.x, enemy.y, video_mode, ENEMY, false);
 }
 
 

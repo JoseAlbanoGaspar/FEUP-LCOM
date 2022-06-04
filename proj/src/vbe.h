@@ -37,7 +37,7 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color);
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color);
 int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype);
-int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype);
+int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype, bool mouse);
 int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 void(vg_erase_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 uint8_t *(vg_create_sprite)(xpm_map_t xpm, xpm_image_t *img);

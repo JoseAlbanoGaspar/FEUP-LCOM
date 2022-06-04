@@ -42,8 +42,11 @@ int (unsubscribe_all)(){
 }
 
 void (drawMouse)(){
-    vg_ultimate_pixmap_eraser(abs(lastMouseX), abs(lastMouseY), mode, CROSSHAIR);
     vg_ultimate_pixmap_handler(abs(mouseX), abs(mouseY), mode, CROSSHAIR);
+}
+
+void (eraseMouse)(bool mouse){
+    vg_ultimate_pixmap_eraser(abs(lastMouseX), abs(lastMouseY), mode, CROSSHAIR, mouse);
 }
 
 int (isInOption)(int x, int y, int width, int height){
@@ -54,7 +57,11 @@ bool (checkClickEnemy)(int enemyX, int enemyY){
     return isInOption(enemyX, enemyY, 20, 20) && mouse_packet.lb;
 }
 
-void (updateMouse)(){
+bool (checkMouseEnemy)(int enemyX, int enemyY){
+    return isInOption(enemyX, enemyY, 20, 20);
+}
+
+void (updateGameMouse)(){
     lastMouseX = mouseX;
     lastMouseY = mouseY;
     int y_res = (int) v_res - 80, x_res = (int) h_res;
@@ -66,11 +73,29 @@ void (updateMouse)(){
         if ((mouse_packet.delta_y & 0xFF00) == 0xFF) increY = 0 - ((int) mouse_packet.delta_x);
         mouseX += increX;
         mouseY += increY;
-        if (mouseX >= x_res-5) mouseX = x_res - 5;
-        if (mouseY <= -(y_res-5)) mouseY = -(y_res-5);
+        if (mouseX >= x_res-11) mouseX = x_res - 11;
+        if (mouseY <= -(y_res-12)) mouseY = -(y_res-12);
         if (mouseX <= 0) mouseX = 0;
         if (mouseY >= 0) mouseY = 0;
     }
 }
 
+
+void (updateMouse)(){
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    int increX = (int) mouse_packet.delta_x;
+    int increY = (int) mouse_packet.delta_y;
+    if (mouse_packet.x_ov || mouse_packet.y_ov) {/*printf("mouse overflow\n");*/} 
+    else {
+        if ((mouse_packet.delta_x & 0xFF00) == 0xFF) increX = 0 - ((int) mouse_packet.delta_x);
+        if ((mouse_packet.delta_y & 0xFF00) == 0xFF) increY = 0 - ((int) mouse_packet.delta_x);
+        mouseX += increX;
+        mouseY += increY;
+        if (mouseX >= (int) h_res-11) mouseX = (int) h_res - 11;
+        if (mouseY <= - ((int) v_res-12)) mouseY = -((int) v_res - 12);
+        if (mouseX <= 0) mouseX = 0;
+        if (mouseY >= 0) mouseY = 0;
+    }
+}
 

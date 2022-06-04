@@ -14,9 +14,15 @@ void (drawGame)();
 
 void (drawMouse)();
 
+void (eraseMouse)(bool mouse);
+
 void (updateMouse)();
 
+void (updateGameMouse)();
+
 int (isInOption)(int x, int y, int width, int height);
+
+bool (checkMouseEnemy)(int enemyX, int enemyY);
 
 bool (checkClickEnemy)(int enemyX, int enemyY);
 

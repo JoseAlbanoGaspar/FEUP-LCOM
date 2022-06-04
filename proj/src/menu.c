@@ -82,6 +82,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
                 updateMouse();
+                eraseMouse(false);
                 drawMouse();
                 swapBuffer();
 

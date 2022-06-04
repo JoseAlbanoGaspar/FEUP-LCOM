@@ -27,6 +27,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
   //1 is true
   int r;
   bool ready_to_update = false;
+  bool first_mouse = true;
 
   start_game();
   swapBuffer();
@@ -80,7 +81,15 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
                 ready_to_update = true;
-                updateMouse();
+                updateGameMouse();
+                if (first_mouse){
+                  drawMouse();
+                  first_mouse = false;
+                }
+                if (enemy.active && checkMouseEnemy(enemy.x, enemy.y)) eraseMouse(true);
+                else {
+                  eraseMouse(false);
+                }
                 drawMouse();
                 swapBuffer();
             }
@@ -125,11 +134,12 @@ int (start_game)(){
   vg_draw_rectangle(0, 0, arena_x, arena_y, arena_bg);
   vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
   vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
-  vg_ultimate_pixmap_handler(20,arena_y + 30,115, SCORE);
+  vg_ultimate_pixmap_handler(20,arena_y + 30,mode, SCORE);
   return 0;
 }
 
 void (drawGame)(){
+  drawScore();
   drawSnake();
   drawApple();
   if (enemy.active) drawEnemy();

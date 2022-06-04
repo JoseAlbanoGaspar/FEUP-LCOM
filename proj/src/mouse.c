@@ -6,10 +6,10 @@ int bit_no_global_mouse;
 int hook_id_mouse = MOUSE_IRQ;
 uint8_t packet_byte;
 struct packet mouse_packet;
-int mouseX = 300;
-int mouseY = 300;
-int lastMouseX = 300;
-int lastMouseY = 300;
+int mouseX = 2000;
+int mouseY = 2000;
+int lastMouseX = 2000;
+int lastMouseY = 2000;
 int mouseCount = 0;
 
 int (mouse_subscribe_int)(uint8_t *bit_no){

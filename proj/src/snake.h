@@ -1,6 +1,7 @@
 #include <lcom/lcf.h>
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 #include "macros/i8042.h"
 #include "macros/constants.h"
 #include "vbe.h"
@@ -13,6 +14,7 @@ struct Snake {
     bool addToSnake;
     bool canChangeDir;
     bool alive;
+    int score;
 };
 
 
@@ -42,6 +44,8 @@ bool (canMove)(int dir);
 void (moveSnake)(int dir);
 
 void (drawBackground)();
+
+void (drawScore)();
 
 void (moveSegments)();
 
