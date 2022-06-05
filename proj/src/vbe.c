@@ -1,24 +1,7 @@
 #include "vbe.h"
 
-extern char applePix[20][20];
-extern char enemyPix[20][20];
-extern char number9[15][26];
-extern char number8[15][26];
-extern char number7[15][26];
-extern char number6[15][26];
-extern char number5[15][26];
-extern char number4[15][26];
-extern char number3[15][26];
-extern char number2[15][26];
-extern char number1[15][26];
-extern char number0[15][26];
-extern char score[14][154];
-extern char title[37][409];
-extern char gameOver[37][234];
-extern char exitPix[37][207];
-extern char play[37][271];
-extern char crosshair[12][12];
-static uint32_t mouse_array[12][12];
+
+uint32_t mouse_array[12][12];
 
 
 
@@ -80,7 +63,7 @@ void *(vg_init)(uint16_t mode)
     return video_mem;
 }
 
-#define MODEINFO_SIZE		256
+
 
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p){
     mmap_t map;
@@ -212,7 +195,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_110;
         death_color = DEATH_COLOR_110;
         apple_color = APPLE_COLOR_110;
-        number_color = SCORE_BAR_COLOR_110;
+        number_color = SCORE_COLOR_110;
         background_color = MENU_BACKGORUND_110;
         break;
     case 0x11A:
@@ -223,7 +206,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_11A;
         death_color = DEATH_COLOR_11A;
         apple_color = APPLE_COLOR_11A;
-        number_color = SCORE_BAR_COLOR_11A;
+        number_color = SCORE_COLOR_11A;
         background_color = MENU_BACKGORUND_11A;
         break;
     case 0x115:
@@ -235,7 +218,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR;
         death_color = DEATH_COLOR;
         apple_color = APPLE_COLOR;
-        number_color = SCORE_BAR_COLOR;
+        number_color = SCORE_COLOR;
         background_color = MENU_BACKGORUND;
         break;
     case 0x105:
@@ -246,7 +229,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_105;
         death_color = DEATH_COLOR_105;
         apple_color = APPLE_COLOR_105;
-        number_color = SCORE_BAR_COLOR_105;
+        number_color = SCORE_COLOR_105;
         background_color = MENU_BACKGORUND_105;
         break;
     default:

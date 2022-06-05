@@ -11,6 +11,7 @@ extern struct Snake snake;
 extern struct Enemy enemy;
 extern int arena_x;
 extern int arena_y;
+bool menu = false;
 
 
 
@@ -28,7 +29,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
   int r;
   bool ready_to_update = false;
   bool first_mouse = true;
-
+  scancode = 0x0000;
   start_game();
   swapBuffer();
   //Main loop variable
@@ -82,15 +83,20 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 mouseCount = 0;
                 ready_to_update = true;
                 updateGameMouse();
+                bool transition = false; //variable used to ensure the drawMouse function isn't called twice
                 if (first_mouse){
                   drawMouse();
                   first_mouse = false;
+                  transition = true;
                 }
                 if (enemy.active && checkMouseEnemy(enemy.x, enemy.y)) eraseMouse(true);
                 else {
                   eraseMouse(false);
                 }
-                drawMouse();
+                if (!transition){
+                  drawMouse();
+                  transition = false;
+                } 
                 swapBuffer();
             }
           }
@@ -103,6 +109,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
       // no standard messages expected: do nothing
     }
   }
+  if (scancode == ESC_KEY) menu = true;
   scancode = 0x0000;
   return 0;
 }

@@ -69,7 +69,7 @@ int (isValidStatus)(){
 void (kbc_ih)(void) {
   if(isValidStatus()){
     kbd_read_buffer(&scancode);
-    printf("Scancode: %X\n", scancode);
+    //printf("Scancode: %X\n", scancode);
   }
 }
 

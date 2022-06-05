@@ -9,6 +9,7 @@
 
 bool running = true;
 extern bool game;
+extern bool menu;
 extern int hook_id_timer;
 extern int hook_id_keyboard;
 extern int hook_id_mouse;
@@ -84,8 +85,9 @@ int (proj_main_loop)(int argc, char* argv[])
     menu_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
     
     if (game) game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer, mode);
-
+    if (menu) continue;
     gameOver_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer,mode);
+    if (menu) continue;
     running = false;
 
     

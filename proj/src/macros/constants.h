@@ -164,6 +164,11 @@
 #define SCORE_WIDTH 154
 #define SCORE_HEIGHT 14
 
+
+
+
+#define MODEINFO_SIZE		256
+
 #endif /* _LCOM_CONST_H */
 
 
