@@ -11,6 +11,7 @@ extern struct Snake snake;
 extern struct Enemy enemy;
 extern int arena_x;
 extern int arena_y;
+bool menu = false;
 
 
 
@@ -103,6 +104,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
       // no standard messages expected: do nothing
     }
   }
+  if (scancode == ESC_KEY) menu = true;
   scancode = 0x0000;
   return 0;
 }

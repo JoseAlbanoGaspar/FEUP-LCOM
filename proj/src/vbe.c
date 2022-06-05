@@ -212,7 +212,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_110;
         death_color = DEATH_COLOR_110;
         apple_color = APPLE_COLOR_110;
-        number_color = SCORE_BAR_COLOR_110;
+        number_color = SCORE_COLOR_110;
         background_color = MENU_BACKGORUND_110;
         break;
     case 0x11A:
@@ -223,7 +223,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_11A;
         death_color = DEATH_COLOR_11A;
         apple_color = APPLE_COLOR_11A;
-        number_color = SCORE_BAR_COLOR_11A;
+        number_color = SCORE_COLOR_11A;
         background_color = MENU_BACKGORUND_11A;
         break;
     case 0x115:
@@ -235,7 +235,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR;
         death_color = DEATH_COLOR;
         apple_color = APPLE_COLOR;
-        number_color = SCORE_BAR_COLOR;
+        number_color = SCORE_COLOR;
         background_color = MENU_BACKGORUND;
         break;
     case 0x105:
@@ -246,7 +246,7 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         enemy_eye_color = ENEMY_EYE_COLOR_105;
         death_color = DEATH_COLOR_105;
         apple_color = APPLE_COLOR_105;
-        number_color = SCORE_BAR_COLOR_105;
+        number_color = SCORE_COLOR_105;
         background_color = MENU_BACKGORUND_105;
         break;
     default:

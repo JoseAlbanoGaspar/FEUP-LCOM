@@ -11,6 +11,7 @@ extern int mouseX;
 extern int mouseY;
 
 extern uint16_t mode;
+extern bool menu;
 
 extern uint16_t h_res;
 extern uint16_t v_res;
@@ -23,6 +24,10 @@ bool mouse = false;
 
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer)
 { 
+  bool transition;
+  if (menu == true) transition = true;
+  else transition = false;
+  menu = false;
   int isSel = 0;
   init_menu();
   swapBuffer();
@@ -54,7 +59,10 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_keyboard) { // subscribed keyboard interrupt
             kbc_ih();
-
+            if (scancode == ESC_KEY) {
+              game = false;
+              menu = false;
+            }
             selected = selectedOpt(scancode,selected);
             update_menu(selected);
             swapBuffer();
@@ -83,8 +91,9 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
                 updateMouse();
-                if (!mouse) eraseMouse(false);
+                if (!mouse && !transition) eraseMouse(false);
                 else mouse = false;
+                if (transition) transition = false;
                 drawMouse();
                 swapBuffer();
 
@@ -94,7 +103,6 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                           eraseMouse(false);
                           mouse = true;
                       }
-                      
                       update_menu(sel[0]);
                       selected = 0;
                       isSel = 1;
