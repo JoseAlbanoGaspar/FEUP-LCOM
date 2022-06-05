@@ -11,7 +11,10 @@ extern int lastMouseY;
 extern struct packet mouse_packet;
 extern uint16_t h_res;
 extern uint16_t v_res;
+extern uint16_t bitsPerPixel;
+extern uint16_t bytesPerPixel;
 uint16_t mode = 0x0000;
+extern uint32_t mouse_array[12][12];
 
 
 

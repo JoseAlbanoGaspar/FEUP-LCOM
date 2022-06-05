@@ -18,7 +18,7 @@ extern char gameOver[37][234];
 extern char exitPix[37][207];
 extern char play[37][271];
 extern char crosshair[12][12];
-static uint32_t mouse_array[12][12];
+uint32_t mouse_array[12][12];
 
 
 

@@ -19,6 +19,7 @@ int sel[] = {0,1}; //0 -> play; 1->exit
 int selected = 0;
 
 bool game = false;
+bool mouse = false;
 
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer)
 { 
@@ -63,11 +64,11 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 {
                 case 0:
                     game = true;
-                    scancode = ESC_KEY;
+                    scancode = ESC_KEY; //force end of while loop
                     break;
                 case 1:
                     game = false;
-                    scancode = ESC_KEY;
+                    scancode = ESC_KEY; //force end of while loop
                     break;
                 default:
                     break;
@@ -82,12 +83,18 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             if (mouseCount == 3){ //upon receiving the 3rd byte of a mouse packet, the program should parse it and print it on the console
                 mouseCount = 0;
                 updateMouse();
-                eraseMouse(false);
+                if (!mouse) eraseMouse(false);
+                else mouse = false;
                 drawMouse();
                 swapBuffer();
 
                 if(isInOption(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 )){ //checks play option
                   if(!isSel){
+                      if (selected != 0){
+                          eraseMouse(false);
+                          mouse = true;
+                      }
+                      
                       update_menu(sel[0]);
                       selected = 0;
                       isSel = 1;
@@ -101,6 +108,11 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                 }
                 else if(isInOption(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 )){  // checks exit option
                   if(!isSel){
+                      if (selected != 1){
+                          eraseMouse(false);
+                          mouse = true;
+                      }
+                      
                       update_menu(sel[1]);
                       selected = 1;
                       isSel = 1;
@@ -130,115 +142,90 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
 
 
 int (init_menu)(){
-    uint32_t background_col=0X0,opt_color=0X0;
-    if (mode == 0x115 || mode == 0x14C){
-      background_col = MENU_BACKGORUND;
-      opt_color = MENU_OPTION;
+  uint32_t background_col=0X0,opt_color=0X0;
+  if (mode == 0x115 || mode == 0x14C){
+    background_col = MENU_BACKGORUND;
+    opt_color = MENU_OPTION;
   }
   else if (mode == 0x110){
-      background_col = MENU_BACKGORUND_110;
-      opt_color = MENU_OPTION_110;
+    background_col = MENU_BACKGORUND_110;
+    opt_color = MENU_OPTION_110;
   }
   else if (mode == 0x105){   
-      background_col = MENU_BACKGORUND_105;
-      opt_color = MENU_OPTION_105;  
-    }
-  else if (mode == 0x11A){
-      background_col = MENU_BACKGORUND_11A;
-      opt_color = MENU_OPTION_11A;
+    background_col = MENU_BACKGORUND_105;
+    opt_color = MENU_OPTION_105;  
   }
-
-    vg_draw_rectangle(0, 0, h_res, v_res, background_col);
-    //DRAW TITLE
-    /*
-    //S
-    vg_draw_rectangle(150,50,90,20,0xff0000);
-    vg_draw_rectangle(150,70,20,30,0xff0000);
-    vg_draw_rectangle(150,90,90,20,0xff0000);
-    vg_draw_rectangle(220,100,20,30,0xff0000);
-    vg_draw_rectangle(150,130,90,20,0xff0000);
-    //N
-    vg_draw_rectangle(260,50,20,100,0xff0000);
-    int x = 280;
-    int y = 50;
-    for(int i = 0; i < 4; i++){
-        vg_draw_rectangle(x,y,15,25,0xff0000);
-        x+=15;
-        y += 25;
-    }
-    vg_draw_rectangle(340,50,20,100,0xff0000);
-    //A
-    vg_draw_rectangle(380,50,20,100,0xff0000);
-    vg_draw_rectangle(400,50,20,20,0xff0000);
-    vg_draw_rectangle(420,50,20,100,0xff0000);
-    vg_draw_rectangle(400,100,20,20,0xff0000);
-    //K
-    //...*/
-    //vg_draw_rectangle(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8, TITLE_WIDTH, v_res / 7,opt_color);
-    vg_ultimate_pixmap_handler(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8,mode, TITLE);
-    //vg_draw_pixmap(sprite2,50,50);
-    //vg_ultimate_pixmap_handler(50,50,115,49,30);
-    //filling some squares where the opitons will appear
-    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
-    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
-    
-    //DRAW PLAY
-    vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/7), 4* (v_res / 8) + ((v_res / 7)/4), mode, PLAY);
-    //DRAW EXIT
-    vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/4), 6* (v_res / 8) + ((v_res / 7)/4), mode, EXIT);
-    return 0;
+  else if (mode == 0x11A){
+    background_col = MENU_BACKGORUND_11A;
+    opt_color = MENU_OPTION_11A;
+  }
+  //DRAW BACKGROUND
+  vg_draw_rectangle(0, 0, h_res, v_res, background_col);
+  //DRAW TITLE
+  vg_ultimate_pixmap_handler(h_res / 2 - (TITLE_WIDTH / 2), v_res / 8,mode, TITLE);
+  //DRAW GAME OPTIONS
+  vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
+  vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
+  
+  //DRAW PLAY
+  vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/7), 4* (v_res / 8) + ((v_res / 7)/4), mode, PLAY);
+  //DRAW EXIT
+  vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/4), 6* (v_res / 8) + ((v_res / 7)/4), mode, EXIT);
+  return 0;
 }
 
 int update_menu(int sel){
   uint32_t background_col=0X0,opt_color=0X0;
-    if (mode == 0x115 || mode == 0x14C){
-      background_col = MENU_BACKGORUND;
-      opt_color = MENU_OPTION;
+  if (mode == 0x115 || mode == 0x14C){
+    background_col = MENU_BACKGORUND;
+    opt_color = MENU_OPTION;
   }
   else if (mode == 0x110){
-      background_col = MENU_BACKGORUND_110;
-      opt_color = MENU_OPTION_110;
+    background_col = MENU_BACKGORUND_110;
+    opt_color = MENU_OPTION_110;
   }
   else if (mode == 0x105){   
-      background_col = MENU_BACKGORUND_105;
-      opt_color = MENU_OPTION_105;  
-    }
-  else if (mode == 0x11A){
-      background_col = MENU_BACKGORUND_11A;
-      opt_color = MENU_OPTION_11A;
+    background_col = MENU_BACKGORUND_105;
+    opt_color = MENU_OPTION_105;  
   }
+  else if (mode == 0x11A){
+    background_col = MENU_BACKGORUND_11A;
+    opt_color = MENU_OPTION_11A;
+  }
+  //DRAW BACKGROUND
+  vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2) - 20, 4* (v_res / 8), h_res, v_res-(4* (v_res / 8)) , background_col);
     
-    if(sel == 0){
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
-    }
-    else{
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
-        vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
-    }
-    //DRAW PLAY
-    vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/7), 4* (v_res / 8) + ((v_res / 7)/4), mode, PLAY);
-    //DRAW EXIT
-    vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/4), 6* (v_res / 8) + ((v_res / 7)/4), mode, EXIT);
-    return 0;
+  if(sel == 0){
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
+  }
+  else{
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 4* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,background_col);
+    vg_draw_rectangle(h_res / 2 - (OPTIONS_WIDTH / 2), 6* (v_res / 8) ,OPTIONS_WIDTH,v_res / 7 ,opt_color);
+  }
+  //DRAW PLAY
+  vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/7), 4* (v_res / 8) + ((v_res / 7)/4), mode, PLAY);
+  //DRAW EXIT
+  vg_ultimate_pixmap_handler(h_res / 2 - (OPTIONS_WIDTH / 2) + (OPTIONS_WIDTH/4), 6* (v_res / 8) + ((v_res / 7)/4), mode, EXIT);
+  return 0;
 }
 
 int (selectedOpt)(uint16_t scan,int sel){
-    switch (scan)
-    {
-    case UP_ARROW:
-        if(sel == 1) sel = 0;
-        break;
-    case DOWN_ARROW:
-        if(sel == 0) sel = 1;
-    default:
-        break;
-    }
-    return sel;
+  switch (scan)
+  {
+  case UP_ARROW:
+      if(sel == 1) sel = 0;
+      break;
+  case DOWN_ARROW:
+      if(sel == 0) sel = 1;
+  default:
+      break;
+  }
+  return sel;
 }
 
 
 int (onPress)(){
-    return mouse_packet.lb;
+  return mouse_packet.lb;
 }
 
