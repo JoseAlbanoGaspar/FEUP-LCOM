@@ -62,7 +62,6 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
             kbc_ih();
             if (scancode == ESC_KEY) {
               game = false;
-              exitOpt = true;
               menu = false;
               if(scancode == ESC_KEY) exitOpt = true;
             }
