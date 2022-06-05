@@ -70,7 +70,8 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
           // hardware interrupt notification
           if (msg.m_notify.interrupts & irq_set_keyboard) { // subscribed keyboard interrupt
             kbc_ih();
-            changeDirection(scancode);
+            if(scancode == P_KEY) pause_loop(irq_set_keyboard);
+            else changeDirection(scancode);
             kbc_reset_scancode();
           }
 

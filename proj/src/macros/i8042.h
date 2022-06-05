@@ -25,6 +25,7 @@
 #define D_KEY 0xA0
 #define Q_KEY 0x90
 #define ENTER 0x9C
+#define P_KEY 0x99
 //KBC Status register
 #define KBC_PARE BIT(7)  /**< @brief Status register parity error */
 #define KBC_TIMEO BIT(6) /**< @brief Status register timeout error */
