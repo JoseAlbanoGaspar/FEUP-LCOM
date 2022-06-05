@@ -21,6 +21,7 @@ int selected = 0;
 
 bool game = false;
 bool mouse = false;
+bool exitOpt = false;
 
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer)
 { 
@@ -76,6 +77,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                     break;
                 case 1:
                     game = false;
+                    exitOpt = true;
                     scancode = ESC_KEY; //force end of while loop
                     break;
                 default:
@@ -128,6 +130,7 @@ int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                   }
                   if(onPress()){
                       game = false;
+                      exitOpt = true;
                       scancode = ESC_KEY;
                   }
                   continue;

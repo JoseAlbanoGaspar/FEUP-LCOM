@@ -1,1 +1,8 @@
 Mode: 115
+Scancode: 9C
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: 1C
+Scancode: 9C

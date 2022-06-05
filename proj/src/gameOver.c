@@ -5,10 +5,12 @@ extern uint16_t mode;
 extern int arena_x;
 extern int arena_y;
 extern struct Snake snake;
+extern bool menu;
 
 int (gameOver_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode)
 { 
   mode = vg_mode;
+  scancode = 0x0000;
   start_gameOver();
   swapBuffer();
 
@@ -35,7 +37,7 @@ int (gameOver_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t 
             kbc_ih();
             
 
-            if(scancode != Q_KEY) kbc_reset_scancode();
+            if(scancode != Q_KEY) scancode = 0x0000;
           }
 
         default:
@@ -46,6 +48,7 @@ int (gameOver_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t 
       // no standard messages expected: do nothing
     }
   }
+  menu = true;
   scancode = 0x0000;
   return 0;
 }
