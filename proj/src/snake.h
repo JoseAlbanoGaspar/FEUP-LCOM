@@ -1,3 +1,4 @@
+#pragma once
 #include <lcom/lcf.h>
 #include <time.h>
 #include <stdlib.h>
@@ -44,6 +45,8 @@ bool (canMove)(int dir);
 void (moveSnake)(int dir);
 
 void (drawBackground)();
+
+void (drawNumbers)(int value,int x, int y, int digit_len);
 
 void (drawScore)();
 

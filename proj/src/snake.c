@@ -41,33 +41,8 @@ void (drawBackground)(){
   
   vg_draw_rectangle(snake.segments[2*(snake.segments_len-1)], snake.segments[2*(snake.segments_len-1)+1], 20, 20, color); //0x000057FF
 }
-
-void (drawScore)(){
-    uint32_t score = 0x0, trim = 0x0;
-    if (video_mode == 0x115 || video_mode == 0x14C){
-        score = SCORE_BAR_COLOR;
-        trim = SCORE_BAR_TRIM_COLOR;
-    } 
-    else if (video_mode == 0x110) {
-        score = SCORE_BAR_COLOR_110;
-        trim = SCORE_BAR_TRIM_COLOR_110;
-    }
-    else if (video_mode == 0x105) {
-        score = SCORE_BAR_COLOR_105;
-        trim = SCORE_BAR_TRIM_COLOR_105;
-    }
-    else if (video_mode == 0x11A) {
-        score = SCORE_BAR_COLOR_11A;
-        trim = SCORE_BAR_TRIM_COLOR_11A;
-    }
-    vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
-    vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
-    vg_ultimate_pixmap_handler(20,arena_y + 30,video_mode, SCORE);
-    int y = arena_y + 30;
-    int x = 265;
-    if (snake.score > 9999) snake.score = 9999;
-    int value = snake.score;
-    for (int i = 0; i < 4; i++){
+void (drawNumbers)(int value, int x, int y, int digit_len){
+    for (int i = 0; i < digit_len; i++){
         switch (value % 10)
         {
         case 0:
@@ -106,6 +81,33 @@ void (drawScore)(){
         value = floor(value / 10);
         x -= 25;
     }
+}
+void (drawScore)(){
+    uint32_t score = 0x0, trim = 0x0;
+    if (video_mode == 0x115 || video_mode == 0x14C){
+        score = SCORE_BAR_COLOR;
+        trim = SCORE_BAR_TRIM_COLOR;
+    } 
+    else if (video_mode == 0x110) {
+        score = SCORE_BAR_COLOR_110;
+        trim = SCORE_BAR_TRIM_COLOR_110;
+    }
+    else if (video_mode == 0x105) {
+        score = SCORE_BAR_COLOR_105;
+        trim = SCORE_BAR_TRIM_COLOR_105;
+    }
+    else if (video_mode == 0x11A) {
+        score = SCORE_BAR_COLOR_11A;
+        trim = SCORE_BAR_TRIM_COLOR_11A;
+    }
+    vg_draw_rectangle(0, arena_y, arena_x, 80, trim);
+    vg_draw_rectangle(5, arena_y+5, arena_x-10, 70, score);
+    vg_ultimate_pixmap_handler(20,arena_y + 30,video_mode, SCORE);
+    int y = arena_y + 30;
+    int x = 265;
+    if (snake.score > 9999) snake.score = 9999;
+    drawNumbers(snake.score,x,y,4);
+    
 }
 
 void (drawSnake)(){

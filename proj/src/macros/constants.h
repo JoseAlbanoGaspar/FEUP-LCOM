@@ -145,6 +145,24 @@
 #define TITLE_WIDTH 400
 #define OPTIONS_WIDTH 375
 
+/* ---------------------------------------------------- */
+/* --------------GAMEOVER SIZE PIXMAPS----------------- */
+
+#define GAMEOVER_WIDTH 234
+#define GAME_O_BACK_1_WIDTH 246
+#define GAME_O_BACK_2_WIDTH 360
+
+/* ---------------------------------------------------- */
+/* --------------------NUMBER SIZES-------------------- */
+
+#define NUMBER_WIDTH 26
+#define NUMBER_HEIGHT 15
+
+/* ---------------------------------------------------- */
+/* --------------------SCORE  SIZES-------------------- */
+
+#define SCORE_WIDTH 154
+#define SCORE_HEIGHT 14
 
 #endif /* _LCOM_CONST_H */
 
