@@ -4,11 +4,13 @@
 #include <stdio.h>
 #include "menu.h"
 #include "game.h"
-#include "rtc.h"
+#include "gameOver.h"
+
 
 bool running = true;
 extern bool game;
 extern bool menu;
+extern bool exitOpt;
 extern int hook_id_timer;
 extern int hook_id_keyboard;
 extern int hook_id_mouse;
@@ -92,37 +94,16 @@ int (proj_main_loop)(int argc, char* argv[])
   uint32_t irq_set_timer = BIT(hook_id_timer);
   if (ready_devices() != OK) return 1;
 
-  unsigned long *day = (unsigned long*) malloc(sizeof(unsigned long));
-  unsigned long *month = (unsigned long*) malloc(sizeof(unsigned long));
-  unsigned long *year = (unsigned long*) malloc(sizeof(unsigned long));
-
-  unsigned long *hours = (unsigned long*) malloc(sizeof(unsigned long));
-  unsigned long *minutes = (unsigned long*) malloc(sizeof(unsigned long));
-  unsigned long *seconds = (unsigned long*) malloc(sizeof(unsigned long));
+  
 
   while(running){
     menu_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
-    //game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
-    //game = true;
+    
     if (game) game_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer, mode);
     if (menu) continue;
-    running = false;
-
-    int i = 0;
-    while (i < 5) {
-      if (isRTCUpdating()) {
-        printf("RTC UPDATING\n");
-      } else {
-        getDate(day, month, year);
-        getHour(hours, minutes, seconds);
-        //printf("Hello world for the x%d time\n",i);
-        printf("Today is %d/%d/%d\n", *day, *month, *year);
-        printf("The hour of the death was %d hours %d minutes and %d seconds\n", *hours,
-               *minutes, *seconds);
-      }
-
-      i++;
-    }
+    if (!exitOpt) gameOver_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer,mode);
+    if (menu) continue;
+    running = false;    
   }
   if (shutdown_devices() != OK) return 1;
 

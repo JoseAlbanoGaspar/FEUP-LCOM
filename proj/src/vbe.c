@@ -1,23 +1,6 @@
 #include "vbe.h"
 
-extern char applePix[20][20];
-extern char enemyPix[20][20];
-extern char number9[15][26];
-extern char number8[15][26];
-extern char number7[15][26];
-extern char number6[15][26];
-extern char number5[15][26];
-extern char number4[15][26];
-extern char number3[15][26];
-extern char number2[15][26];
-extern char number1[15][26];
-extern char number0[15][26];
-extern char score[14][154];
-extern char title[37][409];
-extern char gameOver[37][234];
-extern char exitPix[37][207];
-extern char play[37][271];
-extern char crosshair[12][12];
+
 uint32_t mouse_array[12][12];
 
 
@@ -80,7 +63,7 @@ void *(vg_init)(uint16_t mode)
     return video_mem;
 }
 
-#define MODEINFO_SIZE		256
+
 
 int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p){
     mmap_t map;
@@ -266,7 +249,8 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
         width = 20;
     }
     if (pixtype == NUMBER0 || pixtype == NUMBER1 || pixtype == NUMBER2 || pixtype == NUMBER3 || 
-        pixtype == NUMBER4 || pixtype == NUMBER5 || pixtype == NUMBER6 || pixtype == NUMBER7 || pixtype == NUMBER8 || pixtype == NUMBER9){
+        pixtype == NUMBER4 || pixtype == NUMBER5 || pixtype == NUMBER6 || pixtype == NUMBER7 ||
+        pixtype == NUMBER8 || pixtype == NUMBER9 || pixtype == TWO_POINTS || pixtype == SLASH){
             height = 15;
             width = 26;
     }
@@ -275,6 +259,15 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
     if (pixtype == GAMEOVER) width = 234;
     if (pixtype == PLAY) width = 271;
     if (pixtype == TITLE) width = 409;
+
+    if(pixtype == GO_BACK_1){
+        width = 246;
+        height = 16;
+    }
+    else if(pixtype == GO_BACK_2){
+        width = 360;
+        height = 16;
+    }
     
     for (unsigned int i = 0; i < height; i++)
     {
@@ -323,6 +316,15 @@ int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixm
             if (pixtype == NUMBER7) if (number7[i][j] == '.') vg_draw_pixel(x + j, y + i, number_color);
             if (pixtype == NUMBER8) if (number8[i][j] == '.') vg_draw_pixel(x + j, y + i, number_color);
             if (pixtype == NUMBER9) if (number9[i][j] == '.') vg_draw_pixel(x + j, y + i, number_color);
+            if (pixtype == TWO_POINTS) if (doublePoint[i][j] == '.') vg_draw_pixel(x + j, y + i, number_color);
+            if (pixtype == SLASH) if (slash[i][j] == '.') vg_draw_pixel(x + j, y + i, number_color);
+
+            if (pixtype == GO_BACK_1){
+                if (gameOverGoBack[i][j] == '.') vg_draw_pixel(x + j, y + i, apple_color);
+            }
+            if (pixtype == GO_BACK_2){
+                if (gameOverGoBack2[i][j] == '.') vg_draw_pixel(x + j, y + i, apple_color);
+            }
         }
     }
     return 0;

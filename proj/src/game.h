@@ -5,7 +5,7 @@
 #include "macros/constants.h"
 #include "assist.h"
 #include "snake.h"
-
+#include "pause.h"
 
 int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode);
 
