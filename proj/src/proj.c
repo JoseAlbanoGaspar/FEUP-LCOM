@@ -41,6 +41,10 @@ int main(int argc, char *argv[])
   return 0;
 }
 
+/**
+ * makes the subscrition of all the devices
+ * @return
+ */
 int (ready_devices)(){
   //keyboard
   uint8_t aux_keyboard = (uint8_t)hook_id_keyboard;
@@ -54,11 +58,21 @@ int (ready_devices)(){
   return 0;
 }
 
+/**
+ * unsubscribes all the devices
+ * @return
+ */
 int (shutdown_devices)(){
   if (unsubscribe_all() != OK) return 1;
   return 0;
 }
 
+/**
+ * main function of the project
+ * @param argc
+ * @param argv
+ * @return
+ */
 int (proj_main_loop)(int argc, char* argv[])
 { 
   /* Available modes:  */
