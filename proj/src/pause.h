@@ -5,4 +5,4 @@
 #include "keyboard.h"
 
 
-int pause_loop(uint32_t irq_set_keyboard);
+int pause_loop(uint32_t irq_set_keyboard,uint32_t irq_set_mouse);
