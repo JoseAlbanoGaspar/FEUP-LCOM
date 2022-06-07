@@ -7,6 +7,13 @@
 #include "vbe.h"
 #include "assist.h"
 
+/**
+ *
+ * @param irq_set_keyboard
+ * @param irq_set_mouse
+ * @param irq_set_timer
+ * @return
+ */
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer);
 
 int (init_menu)();

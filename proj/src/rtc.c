@@ -63,7 +63,7 @@ void getHour(unsigned long *hour, unsigned long *minutes,
 
   if (isBCD()) {
     (*hour) = BCDtoBin(hour);
-    (*minutes) = BCDtoBin(minutes);
+    (*minutes) = BCDtoBin(minutes)+29;
     (*seconds) = BCDtoBin(seconds);
   }
 

@@ -87,6 +87,7 @@ int (start_gameOver)(){
       } else {
         getDate(day, month, year);
         getHour(hours, minutes, seconds);
+        printf("Hour of death: %lu:%lu\n", *hours, *minutes);
       }
       i++;
     }

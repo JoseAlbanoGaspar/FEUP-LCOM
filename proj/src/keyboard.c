@@ -119,14 +119,4 @@ void (kbc_print)(){
   kbc_reset_scancode();
 }
 
-int (kbc_commandByte)(uint8_t commandByte){
-  sys_outb(STATUS_REG, READ_CMD_B);
-  //uint32_t commandByte;
-  util_sys_inb(OUT_BUF, &commandByte);
-  sys_outb(STATUS_REG, WRITE_CMD_B);
-  commandByte = commandByte | BIT(0);
-  sys_outb(OUT_BUF, commandByte);
-  return 1;
-}
-
 

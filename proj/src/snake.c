@@ -41,6 +41,7 @@ void (drawBackground)(){
   
   vg_draw_rectangle(snake.segments[2*(snake.segments_len-1)], snake.segments[2*(snake.segments_len-1)+1], 20, 20, color); //0x000057FF
 }
+
 void (drawNumbers)(int value, int x, int y, int digit_len){
     for (int i = 0; i < digit_len; i++){
         switch (value % 10)
@@ -82,6 +83,7 @@ void (drawNumbers)(int value, int x, int y, int digit_len){
         x -= 25;
     }
 }
+
 void (drawScore)(){
     uint32_t score = 0x0, trim = 0x0;
     if (video_mode == 0x115 || video_mode == 0x14C){
