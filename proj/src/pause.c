@@ -2,7 +2,7 @@
 
 extern uint16_t scancode;
 
-int pause_loop(uint32_t irq_set_keyboard){
+int pause_loop(uint32_t irq_set_keyboard,uint32_t irq_set_mouse){
 
   int ipc_status;
   message msg;
@@ -25,6 +25,9 @@ int pause_loop(uint32_t irq_set_keyboard){
             kbc_ih();
             if(scancode != P_KEY) scancode = 0;
             
+          }
+          if (msg.m_notify.interrupts & irq_set_mouse) { // subscribed keyboard interrupt
+            mouse_ih();
           }
           // hardware interrupt notification
          
