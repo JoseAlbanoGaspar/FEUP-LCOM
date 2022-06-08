@@ -8,19 +8,33 @@
 #include "assist.h"
 
 /**
- *
+ * @brief creates all the menu  
  * @param irq_set_keyboard
  * @param irq_set_mouse
  * @param irq_set_timer
  * @return
  */
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer);
-
+/**
+ * @brief initializes menu screen
+ * @return
+ */
 int (init_menu)();
-
+/**
+ * @brief updates menu scrren
+ * @param sel selected option
+ */
 int (update_menu)(int sel);
-
+/**
+ * @brief detects the option that is selected and changes it if its necessary
+ * @param scancode scancode of the key that was pressed
+ * @param sel option that is selected
+ * @return the sel to be highlighted
+ */
 int (selectedOpt)(uint16_t scancode,int sel);
-
+/**
+ * @brief detects if we click in an option
+ * @return returns 0 if we do not click, non 0 otherwise
+ */
 int (onPress)();
 
