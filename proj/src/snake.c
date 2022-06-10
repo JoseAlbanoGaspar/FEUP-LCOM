@@ -217,7 +217,7 @@ bool (canMove)(int dir){
         if (snakeX == snake.segments[i] && snakeY == snake.segments[i+1]){
             snake.alive = false;
             return false;
-        } 
+        }
     }
     return true;
 }
@@ -276,7 +276,6 @@ void (incrementSnake)(int tailX, int tailY){
 }
 
 void (drawApple)(){
-    //vg_draw_rectangle(apple.x, apple.y, 20, 20, apple_color);
     vg_ultimate_pixmap_handler(apple.x, apple.y, video_mode, APPLE);
 }
 
@@ -399,7 +398,6 @@ void (eraseEnemyTrail)(){
     else if (video_mode == 0x110) color = ARENA_BACKGROUND_COLOR_110;
     else if (video_mode == 0x105) color = ARENA_BACKGROUND_COLOR_105;
     else if (video_mode == 0x11A) color = ARENA_BACKGROUND_COLOR_11A;
-    //vg_draw_rectangle(enemy.lastX,enemy.lastY, 20, 20, color);
     vg_ultimate_pixmap_eraser(enemy.lastX, enemy.lastY, video_mode, ENEMY, false);
 }
 
@@ -417,7 +415,6 @@ void (drawEnemy)(){
 void (killEnemy)(){
     enemy.active = false;
     snake.score += 5;
-    //vg_draw_rectangle(enemy.x, enemy.y, 20, 20, death_color);
     vg_ultimate_pixmap_handler(enemy.x, enemy.y, video_mode, DEAD_ENEMY);
     swapBuffer();
     vg_ultimate_pixmap_eraser(enemy.x, enemy.y, video_mode, ENEMY, false);

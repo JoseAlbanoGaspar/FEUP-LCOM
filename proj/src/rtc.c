@@ -17,10 +17,8 @@ int isBCD(){
   sys_outb(RTC_ADDR_REG, REGB);
   util_sys_inb_RTC(RTC_DATA_REG, &regB);
 
-
   return (!(regB & REGB_BIN));
 }
-
 
 unsigned long BCDtoBin(unsigned long* bcd){
   /* From:
@@ -66,17 +64,16 @@ void getHour(unsigned long *hour, unsigned long *minutes,
     (*minutes) = BCDtoBin(minutes);
     (*seconds) = BCDtoBin(seconds);
   }
-
+/*
   if (*minutes <= 30) *minutes += 29;
   else{
     *minutes = 29 - (60 - *minutes);
     if (*hour == 23) *hour = 0;
     else *hour += 1;
   }
-
+*/
 }
 
-//nao faz sentido usar porque estamos a perder bits
 int(util_sys_inb_RTC)(int port, unsigned long *value) {
   uint32_t value2 = 0x00000000;
   if (sys_inb(port, &value2) == OK)

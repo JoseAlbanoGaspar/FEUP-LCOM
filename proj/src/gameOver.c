@@ -121,7 +121,3 @@ int (start_gameOver)(){
   return 0;
 }
 
-void (drawGameOver)(){
-  
-  
-}

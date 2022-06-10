@@ -1,4 +1,5 @@
 Mode: 115
+Scancode: 1C
 Scancode: 9C
 Scancode: 1C
 Scancode: 9C
@@ -11,6 +12,14 @@ Scancode: 50
 Scancode: E000
 Scancode: D0
 Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: E000
 Scancode: 4B
 Scancode: E000
 Scancode: CB
@@ -18,13 +27,21 @@ Scancode: E000
 Scancode: 48
 Scancode: E000
 Scancode: C8
-Hour of death: 1:25
-Hour of death: 1:25
-Hour of death: 1:25
-Hour of death: 1:25
-Hour of death: 1:25
+Hour of death: 15:39
+Hour of death: 15:39
+Hour of death: 15:39
+Hour of death: 15:39
+Hour of death: 15:39
+Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: CD
 Scancode: 10
 Scancode: 90
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
 Scancode: E000
 Scancode: 50
 Scancode: E000

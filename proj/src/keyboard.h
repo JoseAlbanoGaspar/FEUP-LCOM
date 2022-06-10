@@ -26,18 +26,16 @@ int (kbd_read_buffer)(uint16_t * data);
 /**
  * @brief reads status byte from kbc controller
  * @param *status Pointer to unsigned long variable that will store new status byte
- * return Return 0 upon success and non-zero otherwise
+ * @return Return 0 upon success and non-zero otherwise
  */
 int (kbd_read_status)(uint8_t * status);
 /**
- * after read the status register, check if there was some communications errors
+ * @brief after read the status register, check if there was some communications errors
  * @return Return 0 upon success and non-zero otherwise
  */
 int (isValidStatus)();
-
 /**
  * @brief reads the scancodes from the KBC using interrupts
- *
  */
 void (kbc_ih)(void);
 /**
@@ -45,14 +43,14 @@ void (kbc_ih)(void);
  */
 void (kbc_reset_scancode)(void);
 /**
- * @brief prints the scancode
- */
-void (kbc_print)();
-/**
  * @brief reads the scancodes from the KBC using polling
  * @return Return 0 upon success and non-zero otherwise
  */
 int (kbc_poll)();
+/**
+ * @brief prints the scancode
+ */
+void (kbc_print)();
 
 
 #endif /* _LCOM_KEYBOARD_H_ */

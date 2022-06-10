@@ -120,10 +120,6 @@ void(mouse_ih)()
     }
 }
 
-int(re_enable_mouse_interrupts)()
-{
-    return 0;
-}
 
 int (mouse_reset)(){
     uint8_t ack;
@@ -131,7 +127,7 @@ int (mouse_reset)(){
     if (util_sys_inb(MOUSE_OUT_BUF, &ack) == 1) return 1;
     else {
         if (ack == MOUSE_OK) return 0;
-        else if (ack == MOUSE_NACK) //If a NACK 0xFE is received, the command should be retried fromthe start
+        else if (ack == MOUSE_NACK) //If a NACK 0xFE is received, the command should be retried from the start
           return mouse_reset();
         else if (ack == MOUSE_ACK_ERROR) return 1;
     }
