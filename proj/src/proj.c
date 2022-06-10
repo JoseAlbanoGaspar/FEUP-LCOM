@@ -94,8 +94,6 @@ int (proj_main_loop)(int argc, char* argv[])
   uint32_t irq_set_timer = BIT(hook_id_timer);
   if (ready_devices() != OK) return 1;
 
-  
-
   while(running){
     menu_loop(irq_set_keyboard, irq_set_mouse, irq_set_timer);
     

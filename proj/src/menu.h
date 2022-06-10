@@ -8,10 +8,10 @@
 #include "assist.h"
 
 /**
- * @brief creates all the menu  
- * @param irq_set_keyboard
- * @param irq_set_mouse
- * @param irq_set_timer
+ * @brief creates all the menu
+ * @param irq_set_keyboard irq line of keyboard
+ * @param irq_set_mouse irq line of mouse
+ * @param irq_set_timer irq line of timer
  * @return
  */
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer);
