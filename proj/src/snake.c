@@ -333,17 +333,14 @@ void (spawnEnemy)(){
     case 1:
         enemy.x = arena_x-20;
         enemy.y = (rand() % (arena_y/20)) * 20;
-        /* code */
         break;
     case 2:
         enemy.x = (rand() % (arena_x/20)) * 20;
         enemy.y = arena_y-20;
-        /* code */
         break;
     case 3:
         enemy.x = 0;
         enemy.y = (rand() % (arena_x/20)) * 20;
-        /* code */
         break;
     
     default:
