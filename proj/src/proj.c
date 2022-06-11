@@ -80,8 +80,8 @@ int (proj_main_loop)(int argc, char* argv[])
   /* Available modes:  */
   //mode = 0x105;
   //mode = 0x110;
-  mode = 0x115;
-  //mode = 0x11A;
+  //mode = 0x115;
+  mode = 0x11A;
   //mode = 0x14C;
   /* ------------------ */
   /* 
