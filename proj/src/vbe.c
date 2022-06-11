@@ -1,66 +1,60 @@
 #include "vbe.h"
 
-
 uint32_t mouse_array[12][12];
 
 
+void *(vg_init)(uint16_t mode) {
+  mr.mr_base = 0;
+  mr.mr_limit = 1048576;
 
-void *(vg_init)(uint16_t mode)
-{
-    /* */
-    mr.mr_base = 0;
-    mr.mr_limit = 1048576;
+  vbe_mode_info_t info;
+  vg_get_mode_info(mode, &info);
+  phys_addr = (phys_bytes)info.PhysBasePtr;
+  h_res = info.XResolution;
+  v_res = info.YResolution;
+  bitsPerPixel = info.BitsPerPixel;
+  bytesPerPixel = bitsPerPixel / 8;
 
-    vbe_mode_info_t info;
-    vg_get_mode_info(mode, &info);
-    phys_addr = (phys_bytes)info.PhysBasePtr;
-    h_res = info.XResolution;
-    v_res = info.YResolution;
-    bitsPerPixel = info.BitsPerPixel;
-    bytesPerPixel = bitsPerPixel / 8;
-    if (bitsPerPixel % 8 != 0)
-        bytesPerPixel++;
-    red_s = info.RedMaskSize;
-    red_p = info.RedFieldPosition;
-    green_s = info.GreenMaskSize;
-    green_p = info.GreenFieldPosition;
-    blue_s = info.BlueMaskSize;
-    blue_p = info.BlueFieldPosition;
-    memoryModel = info.MemoryModel;
-    vram_size = h_res * v_res * bytesPerPixel;
-    vram_base = info.PhysBasePtr;
-    /* */
+  if (bitsPerPixel % 8 != 0)
+      bytesPerPixel++;
 
-    //Double Buffer
-    double_buffer = malloc(vram_size);
+  red_s = info.RedMaskSize;
+  red_p = info.RedFieldPosition;
+  green_s = info.GreenMaskSize;
+  green_p = info.GreenFieldPosition;
+  blue_s = info.BlueMaskSize;
+  blue_p = info.BlueFieldPosition;
+  memoryModel = info.MemoryModel;
+  vram_size = h_res * v_res * bytesPerPixel;
+  vram_base = info.PhysBasePtr;
 
-    /* Allow memory mapping */
-    mr.mr_base = phys_addr;
-    mr.mr_limit = phys_addr + (h_res * v_res * bytesPerPixel);
-    if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
-        panic("sys_privctl (ADD_MEM) failed: %d\n", r);
-    /* */
+  //Double Buffer
+  double_buffer = malloc(vram_size);
 
-    /* Map memory */
-    video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-    if (video_mem == MAP_FAILED)
-        panic("couldn’t map video memory");
-    /* */
+  /* Allow memory mapping */
+  mr.mr_base = phys_addr;
+  mr.mr_limit = phys_addr + (h_res * v_res * bytesPerPixel);
+  if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+      panic("sys_privctl (ADD_MEM) failed: %d\n", r);
 
-    /* Set VBE graphics mode */
-    reg86_t reg86;
-    memset(&reg86, 0, sizeof(reg86)); // Zero the structure
-    reg86.ax = 0x4F02;                // VBE call, function 02: set VBE mode
-    reg86.bx = 1 << 14 | mode;        // Set bit 14: linear framebuffer
-    reg86.intno = 0x10;
-    if (sys_int86(&reg86) != OK)
-    {
-        printf("set_vbe_mode: sys_int86() failed \n");
-        return NULL;
-    }
-    /* */
+  /* Map memory */
+  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
+  if (video_mem == MAP_FAILED)
+      panic("couldn’t map video memory");
 
-    return video_mem;
+  /* Set VBE graphics mode */
+  reg86_t reg86;
+  memset(&reg86, 0, sizeof(reg86)); // Zero the structure
+  reg86.ax = 0x4F02;                // VBE call, function 02: set VBE mode
+  reg86.bx = 1 << 14 | mode;        // Set bit 14: linear framebuffer
+  reg86.intno = 0x10;
+
+  if (sys_int86(&reg86) != OK) {
+      printf("set_vbe_mode: sys_int86() failed \n");
+      return NULL;
+  }
+
+  return video_mem;
 }
 
 
@@ -85,7 +79,6 @@ int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p){
 
     return 0;
 }
-
 
 uint32_t getmask(int k){
   uint32_t mask = 0xFF << 8*k;
@@ -181,6 +174,7 @@ int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
     /* */
     return 0;
 }
+
 int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype){
     uint32_t title_color = 0, score_color = 0, cursor_color = 0, enemy_color = 0,
      enemy_eye_color = 0, death_color = 0, apple_color = 0, number_color = 0,background_color = 0;

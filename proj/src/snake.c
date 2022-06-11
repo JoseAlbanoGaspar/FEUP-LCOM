@@ -1,6 +1,5 @@
 #include "snake.h"
 
-
 bool addToSnake = false;
 extern uint16_t h_res;
 extern uint16_t v_res;
@@ -11,6 +10,7 @@ uint16_t video_mode;
 struct Snake snake;
 struct Apple apple;
 struct Enemy enemy;
+
 
 void (startPosition)(uint16_t vbe_mode){
     /* Initializes snake */
@@ -28,7 +28,7 @@ void (startPosition)(uint16_t vbe_mode){
     /* Initializes apple */
     apple.x = 300;
     apple.y = 200;
-    srand(time(NULL));  //initialize the randum number generator 
+    srand(time(NULL));
 }
 
 void (drawBackground)(){

@@ -18,7 +18,6 @@ struct Snake {
     int score;
 };
 
-
 struct Enemy {
     int x;
     int y;
@@ -26,7 +25,6 @@ struct Enemy {
     int lastY;
     bool active;
 };
-
 
 struct Apple {
     int x;

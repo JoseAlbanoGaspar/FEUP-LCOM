@@ -1,7 +1,4 @@
 #include "menu.h"
-#include "sprite.h"
-#include "macros/constants.h"
-
 
 extern int count;
 extern uint16_t scancode;

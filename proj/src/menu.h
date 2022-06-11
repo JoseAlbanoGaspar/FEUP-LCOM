@@ -6,6 +6,8 @@
 #include "mouse.h"
 #include "vbe.h"
 #include "assist.h"
+#include "sprite.h"
+#include "macros/constants.h"
 
 /**
  * @brief creates all the menu

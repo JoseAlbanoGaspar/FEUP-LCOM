@@ -1,6 +1,5 @@
 #include "rtc.h"
 
-
 int isRTCUpdating(){
   unsigned long regA;
 

@@ -2,7 +2,6 @@
 
 extern int count;
 extern int snakeCount;
-
 extern uint16_t scancode;
 extern uint16_t mode;
 extern struct packet mouse_packet; // data packet of 3 bytes
@@ -13,10 +12,7 @@ extern int arena_x;
 extern int arena_y;
 bool menu = false;
 
-
-
-int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode)
-{ 
+int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode) {
   mode = vg_mode;
   int enemyCount = 0;
   /* Wait for ESC key */

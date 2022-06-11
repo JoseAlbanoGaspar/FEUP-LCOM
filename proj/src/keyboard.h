@@ -2,9 +2,7 @@
 #define _LCOM_KEYBOARD_H_
 
 #include <lcom/lcf.h>
-
 #include <stdint.h>
-
 #include "macros/i8042.h"
 
 /**

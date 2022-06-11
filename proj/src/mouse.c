@@ -1,7 +1,6 @@
 #include "mouse.h"
 
 uint8_t mouse_status;
-//int count_packets = 0;
 int bit_no_global_mouse;
 int hook_id_mouse = MOUSE_IRQ;
 uint8_t packet_byte;

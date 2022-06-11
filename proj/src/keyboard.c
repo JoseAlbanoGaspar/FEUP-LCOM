@@ -1,6 +1,3 @@
-#include <lcom/lcf.h>
-
-#include <stdint.h>
 #include "keyboard.h"
 
 uint8_t status;
@@ -78,8 +75,8 @@ void(kbc_reset_scancode)(void){
 }
 
 int (kbc_poll)(){
-
-  util_sys_inb(STATUS_REG, &status);
+  if (!util_sys_inb(STATUS_REG, &status))
+    return 1;
 
   if ((status & (KBC_TIMEO | KBC_PARE | KBC_AUXB)) == 0){
     if (status & KBC_OUTB){
@@ -94,6 +91,7 @@ int (kbc_poll)(){
     else return 0;
   }
   else return 1;
+
 }
 
 void (kbc_print)(){
