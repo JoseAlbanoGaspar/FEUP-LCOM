@@ -2,7 +2,6 @@
 
 uint32_t mouse_array[12][12];
 
-
 void *(vg_init)(uint16_t mode) {
   mr.mr_base = 0;
   mr.mr_limit = 1048576;
@@ -79,6 +78,7 @@ int (vg_get_mode_info)(uint16_t mode, vbe_mode_info_t * vmi_p){
 
     return 0;
 }
+
 
 uint32_t getmask(int k){
   uint32_t mask = 0xFF << 8*k;
@@ -174,7 +174,6 @@ int(vg_draw_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y)
     /* */
     return 0;
 }
-
 int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype){
     uint32_t title_color = 0, score_color = 0, cursor_color = 0, enemy_color = 0,
      enemy_eye_color = 0, death_color = 0, apple_color = 0, number_color = 0,background_color = 0;
