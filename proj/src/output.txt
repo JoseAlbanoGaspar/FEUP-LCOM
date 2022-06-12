@@ -1,0 +1,35 @@
+Mode: 105
+Scancode: 9C
+Scancode: 1C
+Scancode: 9C
+Scancode: 1C
+Scancode: 9C
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: E000
+Scancode: 4D
+Scancode: E000
+Scancode: CD
+Scancode: E000
+Scancode: 48
+Scancode: E000
+Scancode: C8
+Scancode: E000
+Scancode: 4B
+Scancode: E000
+Scancode: CB
+Hour of death: 3:9
+Hour of death: 3:9
+Hour of death: 3:9
+Hour of death: 3:9
+Hour of death: 3:9
+Scancode: 10
+Scancode: 90
+Scancode: E000
+Scancode: 50
+Scancode: E000
+Scancode: D0
+Scancode: 1C
+Scancode: 9C

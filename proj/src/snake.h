@@ -7,7 +7,9 @@
 #include "macros/constants.h"
 #include "vbe.h"
 
-
+/**
+ * @brief stores all the stuff related to the snake
+ */
 struct Snake {
     int direction; //0 right, 1 left, 2 up, 3 down
     int segments_len;
@@ -17,7 +19,10 @@ struct Snake {
     bool alive;
     int score;
 };
-
+/**
+ * @brief stores the initial and final horizontal and vertical positions of the enemy,
+ * and still stores if he's current active or not
+ */
 struct Enemy {
     int x;
     int y;
@@ -25,7 +30,9 @@ struct Enemy {
     int lastY;
     bool active;
 };
-
+/**
+ * @brief stores the horizontal and vertical positions of the apple
+ */
 struct Apple {
     int x;
     int y;

@@ -17,7 +17,6 @@ uint16_t mode = 0x0000;
 extern uint32_t mouse_array[12][12];
 
 
-
 int (subscribe_all)(uint8_t aux_timer, uint8_t aux_keyboard, uint8_t aux_mouse){
   if (mouse_en_data_report()) return 1;
   if (timer_set_frequency(0, 60) != OK) return 1;

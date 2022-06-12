@@ -24,6 +24,9 @@ uint8_t memoryModel;
 phys_bytes phys_addr;
 static void *double_buffer;
 
+/**
+ * @brief pixmap to be displayed on the screen
+ */
 enum pixmap {SCORE, TITLE, CROSSHAIR, ENEMY, DEAD_ENEMY, APPLE, NUMBER0, NUMBER1, NUMBER2, NUMBER3, NUMBER4, NUMBER5,
               NUMBER6, NUMBER7, NUMBER8, NUMBER9, GAMEOVER, EXIT, PLAY, GO_BACK_1, GO_BACK_2,TWO_POINTS,SLASH};
 
