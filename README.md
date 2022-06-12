@@ -1,6 +1,6 @@
 # LCOM Project
 
-LCOM Project for group T&lt;0&gt;&lt;2&gt;G&lt;0&gt;&lt;8&gt;.
+LCOM Project for group T02G08.
 
 Group members:
 
