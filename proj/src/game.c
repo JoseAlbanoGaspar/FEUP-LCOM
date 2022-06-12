@@ -86,7 +86,7 @@ int (game_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_
                   first_mouse = false;
                   transition = true;
                 }
-                if (enemy.active && checkMouseEnemy(enemy.x, enemy.y)) eraseMouse(true);
+                if (checkMouseEnemy(enemy.x, enemy.y)) eraseMouse(true);   
                 else {
                   eraseMouse(false);
                 }

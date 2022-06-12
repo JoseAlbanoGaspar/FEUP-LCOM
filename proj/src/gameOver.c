@@ -38,6 +38,11 @@ int (gameOver_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t 
             if(scancode != Q_KEY) scancode = 0x0000;
           }
 
+          // hardware interrupt notification
+          if (msg.m_notify.interrupts & irq_set_mouse) { // subscribed mouse interrupt
+            mouse_ih();
+          }
+
         default:
           break; // no other notifications expected: do nothing
       }
