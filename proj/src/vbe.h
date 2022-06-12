@@ -32,9 +32,9 @@ enum pixmap {SCORE, TITLE, CROSSHAIR, ENEMY, DEAD_ENEMY, APPLE, NUMBER0, NUMBER1
 
 
 /**
- * @brief
- * @param k
- * @return
+ * @brief gets the bitmask
+ * @param k byte to get bitmask
+ * @return the bitmask of the parameter byte
  */
 uint32_t getmask(int k);
 /**
@@ -94,22 +94,22 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
  */
 int(vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 /**
- *
- * @param x
- * @param y
- * @param mode
- * @param pixtype
- * @return
+ * @brief generats pixmaps dynamically
+ * @param x horizontal coordinate
+ * @param y vertical coordinate
+ * @param mode current video mode
+ * @param pixtype type of the pixmap
+ * @return 0 on success, non-zero otherwise
  */
 int (vg_ultimate_pixmap_handler)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype);
 /**
- *
- * @param x
- * @param y
- * @param mode
- * @param pixtype
+ * @brief erases pixmaps dynamically 
+ * @param x horizontal coordinate
+ * @param y vertical coordinate
+ * @param mode current video mode
+ * @param pixtype type of the pixmap
  * @param mouse
- * @return
+ * @return 0 on success, non-zero otherwise
  */
 int (vg_ultimate_pixmap_eraser)(uint16_t x, uint16_t y,uint16_t mode, enum pixmap pixtype, bool mouse);
 /**
@@ -130,8 +130,8 @@ void(vg_erase_pixmap)(xpm_map_t xpm, uint16_t x, uint16_t y);
 /**
  * @brief creates the sprite to be displayed
  * @param xpm map (assuming indexed color mode)
- * @param img
- * @return
+ * @param img pointer to image information
+ * @return returns the sprite created
  */
 uint8_t *(vg_create_sprite)(xpm_map_t xpm, xpm_image_t *img);
 /**

@@ -14,12 +14,12 @@
  * @param irq_set_keyboard irq line of keyboard
  * @param irq_set_mouse irq line of mouse
  * @param irq_set_timer irq line of timer
- * @return
+ * @return Returns 0 upon success and non-zero otherwise
  */
 int (menu_loop)(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer);
 /**
  * @brief initializes menu screen
- * @return
+ * @return Returns 0 upon success and non-zero otherwise
  */
 int (init_menu)();
 /**
