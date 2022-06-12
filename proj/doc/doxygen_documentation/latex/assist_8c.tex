@@ -1,0 +1,282 @@
+\hypertarget{assist_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/assist.c File Reference}
+\label{assist_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/assist.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/assist.c}}
+{\ttfamily \#include \char`\"{}assist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sprite.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{assist_8c_a9948d7ad9e3e6f39634c94746ccdc817}{subscribe\+\_\+all}} (uint8\+\_\+t aux\+\_\+timer, uint8\+\_\+t aux\+\_\+keyboard, uint8\+\_\+t aux\+\_\+mouse)
+\item 
+int() \mbox{\hyperlink{assist_8c_a0fd0dc17c1763a61953edcccf4447679}{unsubscribe\+\_\+all}} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes all the devices \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8c_aa632458efe74b5b5009fab6cf993fdb2}{draw\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em fills the variables according to the specified mode \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8c_a9e76973691946798a99eee8ae4d1eb30}{erase\+Mouse}} (bool \mbox{\hyperlink{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}{mouse}})
+\begin{DoxyCompactList}\small\item\em clears the variables form that were initialized lately \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{assist_8c_a70e4905865eb465140f1d3552c299d78}{is\+In\+Option}} (int x, int y, int width, int height)
+\begin{DoxyCompactList}\small\item\em auxiliar function to see if the mouse is over an enemy \end{DoxyCompactList}\item 
+bool() \mbox{\hyperlink{assist_8c_a18483d876eb3e27c549d496233aef760}{check\+Click\+Enemy}} (int enemyX, int enemyY)
+\begin{DoxyCompactList}\small\item\em checks if had clicked in an enemy \end{DoxyCompactList}\item 
+bool() \mbox{\hyperlink{assist_8c_a5d8eee78a15a185456f26033a4489b5e}{check\+Mouse\+Enemy}} (int enemyX, int enemyY)
+\item 
+void() \mbox{\hyperlink{assist_8c_a718e9bb18b3c9ae6aff312478ca10216}{update\+Game\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em updates game mouse state \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8c_a24d9365b01cbb931c173f1f9f944b90e}{update\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em updates mouse state \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{assist_8c_a7f3d11d35385878045b6b6a2ec438ba8}{hook\+\_\+id\+\_\+timer}}
+\item 
+int \mbox{\hyperlink{assist_8c_a302ad6946d3fafa84df3d343d44034a4}{hook\+\_\+id\+\_\+keyboard}}
+\item 
+int \mbox{\hyperlink{assist_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}{hook\+\_\+id\+\_\+mouse}}
+\item 
+int \mbox{\hyperlink{assist_8c_a85ea1b63086b31a15d3ed2579c5715a6}{mouseX}}
+\item 
+int \mbox{\hyperlink{assist_8c_a3637abebcaa9d04aa18b1610d0921e16}{mouseY}}
+\item 
+int \mbox{\hyperlink{assist_8c_adb95de0bbc14aa90e950f6202e808936}{last\+MouseX}}
+\item 
+int \mbox{\hyperlink{assist_8c_ac2f8c3e4d684eb70ff04d48977f771a7}{last\+MouseY}}
+\item 
+struct packet \mbox{\hyperlink{assist_8c_a3b2e64ffb96c650d6525c99be01c7331}{mouse\+\_\+packet}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{assist_8c_ae1a3e7f751ccf2c6aab87b740d58065f}{h\+\_\+res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{assist_8c_a9c67113f1cd2b08e5069bed5bcb04263}{v\+\_\+res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{assist_8c_a7a13a7564baa1d9b7a5d977fa9a71220}{bits\+Per\+Pixel}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{assist_8c_a6e827fe7f73255b58cc3d322108752a4}{bytes\+Per\+Pixel}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{assist_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}} = 0x0000
+\item 
+uint32\+\_\+t \mbox{\hyperlink{assist_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}{mouse\+\_\+array}} \mbox{[}12\mbox{]}\mbox{[}12\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{assist_8c_a18483d876eb3e27c549d496233aef760}\label{assist_8c_a18483d876eb3e27c549d496233aef760}} 
+\index{assist.c@{assist.c}!checkClickEnemy@{checkClickEnemy}}
+\index{checkClickEnemy@{checkClickEnemy}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{checkClickEnemy()}{checkClickEnemy()}}
+{\footnotesize\ttfamily bool() check\+Click\+Enemy (\begin{DoxyParamCaption}\item[{int}]{enemyX,  }\item[{int}]{enemyY }\end{DoxyParamCaption})}
+
+
+
+checks if had clicked in an enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enemyX} & x position of the enemy \\
+\hline
+{\em enemyY} & y position of the enemy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it had been clicked 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8c_a5d8eee78a15a185456f26033a4489b5e}\label{assist_8c_a5d8eee78a15a185456f26033a4489b5e}} 
+\index{assist.c@{assist.c}!checkMouseEnemy@{checkMouseEnemy}}
+\index{checkMouseEnemy@{checkMouseEnemy}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{checkMouseEnemy()}{checkMouseEnemy()}}
+{\footnotesize\ttfamily bool() check\+Mouse\+Enemy (\begin{DoxyParamCaption}\item[{int}]{enemyX,  }\item[{int}]{enemyY }\end{DoxyParamCaption})}
+
+checks if mouse is over an enemy 
+\begin{DoxyParams}{Parameters}
+{\em enemyX} & x position of the enemy \\
+\hline
+{\em enemyY} & y position of the enemy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it\textquotesingle{}s over him 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8c_aa632458efe74b5b5009fab6cf993fdb2}\label{assist_8c_aa632458efe74b5b5009fab6cf993fdb2}} 
+\index{assist.c@{assist.c}!drawMouse@{drawMouse}}
+\index{drawMouse@{drawMouse}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{drawMouse()}{drawMouse()}}
+{\footnotesize\ttfamily void() draw\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+fills the variables according to the specified mode 
+
+\mbox{\Hypertarget{assist_8c_a9e76973691946798a99eee8ae4d1eb30}\label{assist_8c_a9e76973691946798a99eee8ae4d1eb30}} 
+\index{assist.c@{assist.c}!eraseMouse@{eraseMouse}}
+\index{eraseMouse@{eraseMouse}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{eraseMouse()}{eraseMouse()}}
+{\footnotesize\ttfamily void() erase\+Mouse (\begin{DoxyParamCaption}\item[{bool}]{mouse }\end{DoxyParamCaption})}
+
+
+
+clears the variables form that were initialized lately 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{assist_8c_a70e4905865eb465140f1d3552c299d78}\label{assist_8c_a70e4905865eb465140f1d3552c299d78}} 
+\index{assist.c@{assist.c}!isInOption@{isInOption}}
+\index{isInOption@{isInOption}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{isInOption()}{isInOption()}}
+{\footnotesize\ttfamily int() is\+In\+Option (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+auxiliar function to see if the mouse is over an enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x\+\_\+pos of the enemy \\
+\hline
+{\em y} & y\+\_\+pos of the enemy \\
+\hline
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8c_a9948d7ad9e3e6f39634c94746ccdc817}\label{assist_8c_a9948d7ad9e3e6f39634c94746ccdc817}} 
+\index{assist.c@{assist.c}!subscribe\_all@{subscribe\_all}}
+\index{subscribe\_all@{subscribe\_all}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{subscribe\_all()}{subscribe\_all()}}
+{\footnotesize\ttfamily int() subscribe\+\_\+all (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{aux\+\_\+timer,  }\item[{uint8\+\_\+t}]{aux\+\_\+keyboard,  }\item[{uint8\+\_\+t}]{aux\+\_\+mouse }\end{DoxyParamCaption})}
+
+subscribes all the devices 
+\begin{DoxyParams}{Parameters}
+{\em aux\+\_\+timer} & \\
+\hline
+{\em aux\+\_\+keyboard} & \\
+\hline
+{\em aux\+\_\+mouse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8c_a0fd0dc17c1763a61953edcccf4447679}\label{assist_8c_a0fd0dc17c1763a61953edcccf4447679}} 
+\index{assist.c@{assist.c}!unsubscribe\_all@{unsubscribe\_all}}
+\index{unsubscribe\_all@{unsubscribe\_all}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{unsubscribe\_all()}{unsubscribe\_all()}}
+{\footnotesize\ttfamily int() unsubscribe\+\_\+all (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+unsubscribes all the devices 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8c_a718e9bb18b3c9ae6aff312478ca10216}\label{assist_8c_a718e9bb18b3c9ae6aff312478ca10216}} 
+\index{assist.c@{assist.c}!updateGameMouse@{updateGameMouse}}
+\index{updateGameMouse@{updateGameMouse}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{updateGameMouse()}{updateGameMouse()}}
+{\footnotesize\ttfamily void() update\+Game\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+updates game mouse state 
+
+\mbox{\Hypertarget{assist_8c_a24d9365b01cbb931c173f1f9f944b90e}\label{assist_8c_a24d9365b01cbb931c173f1f9f944b90e}} 
+\index{assist.c@{assist.c}!updateMouse@{updateMouse}}
+\index{updateMouse@{updateMouse}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{updateMouse()}{updateMouse()}}
+{\footnotesize\ttfamily void() update\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+updates mouse state 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{assist_8c_a7a13a7564baa1d9b7a5d977fa9a71220}\label{assist_8c_a7a13a7564baa1d9b7a5d977fa9a71220}} 
+\index{assist.c@{assist.c}!bitsPerPixel@{bitsPerPixel}}
+\index{bitsPerPixel@{bitsPerPixel}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{bitsPerPixel}{bitsPerPixel}}
+{\footnotesize\ttfamily uint16\+\_\+t bits\+Per\+Pixel\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a6e827fe7f73255b58cc3d322108752a4}\label{assist_8c_a6e827fe7f73255b58cc3d322108752a4}} 
+\index{assist.c@{assist.c}!bytesPerPixel@{bytesPerPixel}}
+\index{bytesPerPixel@{bytesPerPixel}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{bytesPerPixel}{bytesPerPixel}}
+{\footnotesize\ttfamily uint16\+\_\+t bytes\+Per\+Pixel\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_ae1a3e7f751ccf2c6aab87b740d58065f}\label{assist_8c_ae1a3e7f751ccf2c6aab87b740d58065f}} 
+\index{assist.c@{assist.c}!h\_res@{h\_res}}
+\index{h\_res@{h\_res}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{h\_res}{h\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t h\+\_\+res\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a302ad6946d3fafa84df3d343d44034a4}\label{assist_8c_a302ad6946d3fafa84df3d343d44034a4}} 
+\index{assist.c@{assist.c}!hook\_id\_keyboard@{hook\_id\_keyboard}}
+\index{hook\_id\_keyboard@{hook\_id\_keyboard}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{hook\_id\_keyboard}{hook\_id\_keyboard}}
+{\footnotesize\ttfamily int hook\+\_\+id\+\_\+keyboard\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}\label{assist_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}} 
+\index{assist.c@{assist.c}!hook\_id\_mouse@{hook\_id\_mouse}}
+\index{hook\_id\_mouse@{hook\_id\_mouse}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{hook\_id\_mouse}{hook\_id\_mouse}}
+{\footnotesize\ttfamily int hook\+\_\+id\+\_\+mouse\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a7f3d11d35385878045b6b6a2ec438ba8}\label{assist_8c_a7f3d11d35385878045b6b6a2ec438ba8}} 
+\index{assist.c@{assist.c}!hook\_id\_timer@{hook\_id\_timer}}
+\index{hook\_id\_timer@{hook\_id\_timer}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{hook\_id\_timer}{hook\_id\_timer}}
+{\footnotesize\ttfamily int hook\+\_\+id\+\_\+timer\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_adb95de0bbc14aa90e950f6202e808936}\label{assist_8c_adb95de0bbc14aa90e950f6202e808936}} 
+\index{assist.c@{assist.c}!lastMouseX@{lastMouseX}}
+\index{lastMouseX@{lastMouseX}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{lastMouseX}{lastMouseX}}
+{\footnotesize\ttfamily int last\+MouseX\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_ac2f8c3e4d684eb70ff04d48977f771a7}\label{assist_8c_ac2f8c3e4d684eb70ff04d48977f771a7}} 
+\index{assist.c@{assist.c}!lastMouseY@{lastMouseY}}
+\index{lastMouseY@{lastMouseY}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{lastMouseY}{lastMouseY}}
+{\footnotesize\ttfamily int last\+MouseY\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_af294e94ca5176720ef5e5cbedc95ca47}\label{assist_8c_af294e94ca5176720ef5e5cbedc95ca47}} 
+\index{assist.c@{assist.c}!mode@{mode}}
+\index{mode@{mode}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily uint16\+\_\+t mode = 0x0000}
+
+\mbox{\Hypertarget{assist_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}\label{assist_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}} 
+\index{assist.c@{assist.c}!mouse\_array@{mouse\_array}}
+\index{mouse\_array@{mouse\_array}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_array}{mouse\_array}}
+{\footnotesize\ttfamily uint32\+\_\+t mouse\+\_\+array\mbox{[}12\mbox{]}\mbox{[}12\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a3b2e64ffb96c650d6525c99be01c7331}\label{assist_8c_a3b2e64ffb96c650d6525c99be01c7331}} 
+\index{assist.c@{assist.c}!mouse\_packet@{mouse\_packet}}
+\index{mouse\_packet@{mouse\_packet}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_packet}{mouse\_packet}}
+{\footnotesize\ttfamily struct packet mouse\+\_\+packet\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a85ea1b63086b31a15d3ed2579c5715a6}\label{assist_8c_a85ea1b63086b31a15d3ed2579c5715a6}} 
+\index{assist.c@{assist.c}!mouseX@{mouseX}}
+\index{mouseX@{mouseX}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{mouseX}{mouseX}}
+{\footnotesize\ttfamily int mouseX\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a3637abebcaa9d04aa18b1610d0921e16}\label{assist_8c_a3637abebcaa9d04aa18b1610d0921e16}} 
+\index{assist.c@{assist.c}!mouseY@{mouseY}}
+\index{mouseY@{mouseY}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{mouseY}{mouseY}}
+{\footnotesize\ttfamily int mouseY\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{assist_8c_a9c67113f1cd2b08e5069bed5bcb04263}\label{assist_8c_a9c67113f1cd2b08e5069bed5bcb04263}} 
+\index{assist.c@{assist.c}!v\_res@{v\_res}}
+\index{v\_res@{v\_res}!assist.c@{assist.c}}
+\doxysubsubsection{\texorpdfstring{v\_res}{v\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t v\+\_\+res\hspace{0.3cm}{\ttfamily [extern]}}
+

@@ -1,0 +1,104 @@
+\hypertarget{game_over_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/game\+Over.c File Reference}
+\label{game_over_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/gameOver.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/gameOver.c}}
+{\ttfamily \#include \char`\"{}game\+Over.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{game_over_8c_a65b6dcfbff86ccf9e98ddaac825fa691}{game\+Over\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer, uint16\+\_\+t vg\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em creats game over screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{game_over_8c_ac0e186e4060b86762404a792b195cd78}{start\+\_\+game\+Over}} ()
+\begin{DoxyCompactList}\small\item\em changes screen aspect to game over view \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{game_over_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{game_over_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}
+\item 
+int \mbox{\hyperlink{game_over_8c_a153628a3ecbb1ff02c70be94dd3b9d13}{arena\+\_\+x}}
+\item 
+int \mbox{\hyperlink{game_over_8c_a9e639e526e0ef7a3b46bc22d24002349}{arena\+\_\+y}}
+\item 
+struct \mbox{\hyperlink{struct_snake}{Snake}} \mbox{\hyperlink{game_over_8c_a34d0b1072820e65492ab46abcab01a8d}{snake}}
+\item 
+bool \mbox{\hyperlink{game_over_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}{menu}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_over_8c_a65b6dcfbff86ccf9e98ddaac825fa691}\label{game_over_8c_a65b6dcfbff86ccf9e98ddaac825fa691}} 
+\index{gameOver.c@{gameOver.c}!gameOver\_loop@{gameOver\_loop}}
+\index{gameOver\_loop@{gameOver\_loop}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{gameOver\_loop()}{gameOver\_loop()}}
+{\footnotesize\ttfamily int() game\+Over\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer,  }\item[{uint16\+\_\+t}]{vg\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+creats game over screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+{\em vg\+\_\+mode} & current video mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game_over_8c_ac0e186e4060b86762404a792b195cd78}\label{game_over_8c_ac0e186e4060b86762404a792b195cd78}} 
+\index{gameOver.c@{gameOver.c}!start\_gameOver@{start\_gameOver}}
+\index{start\_gameOver@{start\_gameOver}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{start\_gameOver()}{start\_gameOver()}}
+{\footnotesize\ttfamily int() start\+\_\+game\+Over (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+changes screen aspect to game over view 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{game_over_8c_a153628a3ecbb1ff02c70be94dd3b9d13}\label{game_over_8c_a153628a3ecbb1ff02c70be94dd3b9d13}} 
+\index{gameOver.c@{gameOver.c}!arena\_x@{arena\_x}}
+\index{arena\_x@{arena\_x}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{arena\_x}{arena\_x}}
+{\footnotesize\ttfamily int arena\+\_\+x\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_over_8c_a9e639e526e0ef7a3b46bc22d24002349}\label{game_over_8c_a9e639e526e0ef7a3b46bc22d24002349}} 
+\index{gameOver.c@{gameOver.c}!arena\_y@{arena\_y}}
+\index{arena\_y@{arena\_y}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{arena\_y}{arena\_y}}
+{\footnotesize\ttfamily int arena\+\_\+y\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_over_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}\label{game_over_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}} 
+\index{gameOver.c@{gameOver.c}!menu@{menu}}
+\index{menu@{menu}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{menu}{menu}}
+{\footnotesize\ttfamily bool menu\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_over_8c_af294e94ca5176720ef5e5cbedc95ca47}\label{game_over_8c_af294e94ca5176720ef5e5cbedc95ca47}} 
+\index{gameOver.c@{gameOver.c}!mode@{mode}}
+\index{mode@{mode}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily uint16\+\_\+t mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_over_8c_ad02fcede5beda1de5da3bc015d0b8927}\label{game_over_8c_ad02fcede5beda1de5da3bc015d0b8927}} 
+\index{gameOver.c@{gameOver.c}!scancode@{scancode}}
+\index{scancode@{scancode}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{scancode}{scancode}}
+{\footnotesize\ttfamily uint16\+\_\+t scancode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_over_8c_a34d0b1072820e65492ab46abcab01a8d}\label{game_over_8c_a34d0b1072820e65492ab46abcab01a8d}} 
+\index{gameOver.c@{gameOver.c}!snake@{snake}}
+\index{snake@{snake}!gameOver.c@{gameOver.c}}
+\doxysubsubsection{\texorpdfstring{snake}{snake}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct_snake}{Snake}} snake\hspace{0.3cm}{\ttfamily [extern]}}
+

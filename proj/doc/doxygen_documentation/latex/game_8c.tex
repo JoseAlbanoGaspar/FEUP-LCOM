@@ -1,0 +1,156 @@
+\hypertarget{game_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/game.c File Reference}
+\label{game_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/game.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/game.c}}
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{game_8c_a33a884974e67cd513b3ee7c66fb5698a}{game\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer, uint16\+\_\+t vg\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em creates all the game \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{game_8c_aab6a9eadc3942279c77333c3e4e17664}{start\+\_\+game}} ()
+\begin{DoxyCompactList}\small\item\em initializes game content \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{game_8c_a2fed2d7071be915d687d533e5a971414}{draw\+Game}} ()
+\begin{DoxyCompactList}\small\item\em draw the elements of the game \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{game_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}{count}}
+\item 
+int \mbox{\hyperlink{game_8c_a507bb34439f4cb1480055f04abbc9833}{snake\+Count}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{game_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{game_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}
+\item 
+struct packet \mbox{\hyperlink{game_8c_a3b2e64ffb96c650d6525c99be01c7331}{mouse\+\_\+packet}}
+\item 
+int \mbox{\hyperlink{game_8c_abead54bd0e416d635f2709048c6068fb}{mouse\+Count}}
+\item 
+struct \mbox{\hyperlink{struct_snake}{Snake}} \mbox{\hyperlink{game_8c_a34d0b1072820e65492ab46abcab01a8d}{snake}}
+\item 
+struct \mbox{\hyperlink{struct_enemy}{Enemy}} \mbox{\hyperlink{game_8c_a6668c059708b3e985400b84d7170c8d1}{enemy}}
+\item 
+int \mbox{\hyperlink{game_8c_a153628a3ecbb1ff02c70be94dd3b9d13}{arena\+\_\+x}}
+\item 
+int \mbox{\hyperlink{game_8c_a9e639e526e0ef7a3b46bc22d24002349}{arena\+\_\+y}}
+\item 
+bool \mbox{\hyperlink{game_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}{menu}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_8c_a2fed2d7071be915d687d533e5a971414}\label{game_8c_a2fed2d7071be915d687d533e5a971414}} 
+\index{game.c@{game.c}!drawGame@{drawGame}}
+\index{drawGame@{drawGame}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{drawGame()}{drawGame()}}
+{\footnotesize\ttfamily void() draw\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draw the elements of the game 
+
+\mbox{\Hypertarget{game_8c_a33a884974e67cd513b3ee7c66fb5698a}\label{game_8c_a33a884974e67cd513b3ee7c66fb5698a}} 
+\index{game.c@{game.c}!game\_loop@{game\_loop}}
+\index{game\_loop@{game\_loop}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{game\_loop()}{game\_loop()}}
+{\footnotesize\ttfamily int() game\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer,  }\item[{uint16\+\_\+t}]{vg\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+creates all the game 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+{\em vg\+\_\+mode} & current video mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game_8c_aab6a9eadc3942279c77333c3e4e17664}\label{game_8c_aab6a9eadc3942279c77333c3e4e17664}} 
+\index{game.c@{game.c}!start\_game@{start\_game}}
+\index{start\_game@{start\_game}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{start\_game()}{start\_game()}}
+{\footnotesize\ttfamily int() start\+\_\+game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes game content 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{game_8c_a153628a3ecbb1ff02c70be94dd3b9d13}\label{game_8c_a153628a3ecbb1ff02c70be94dd3b9d13}} 
+\index{game.c@{game.c}!arena\_x@{arena\_x}}
+\index{arena\_x@{arena\_x}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{arena\_x}{arena\_x}}
+{\footnotesize\ttfamily int arena\+\_\+x\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a9e639e526e0ef7a3b46bc22d24002349}\label{game_8c_a9e639e526e0ef7a3b46bc22d24002349}} 
+\index{game.c@{game.c}!arena\_y@{arena\_y}}
+\index{arena\_y@{arena\_y}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{arena\_y}{arena\_y}}
+{\footnotesize\ttfamily int arena\+\_\+y\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}\label{game_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}} 
+\index{game.c@{game.c}!count@{count}}
+\index{count@{count}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily int count\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a6668c059708b3e985400b84d7170c8d1}\label{game_8c_a6668c059708b3e985400b84d7170c8d1}} 
+\index{game.c@{game.c}!enemy@{enemy}}
+\index{enemy@{enemy}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{enemy}{enemy}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct_enemy}{Enemy}} enemy\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}\label{game_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}} 
+\index{game.c@{game.c}!menu@{menu}}
+\index{menu@{menu}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{menu}{menu}}
+{\footnotesize\ttfamily bool menu = false}
+
+\mbox{\Hypertarget{game_8c_af294e94ca5176720ef5e5cbedc95ca47}\label{game_8c_af294e94ca5176720ef5e5cbedc95ca47}} 
+\index{game.c@{game.c}!mode@{mode}}
+\index{mode@{mode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily uint16\+\_\+t mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a3b2e64ffb96c650d6525c99be01c7331}\label{game_8c_a3b2e64ffb96c650d6525c99be01c7331}} 
+\index{game.c@{game.c}!mouse\_packet@{mouse\_packet}}
+\index{mouse\_packet@{mouse\_packet}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_packet}{mouse\_packet}}
+{\footnotesize\ttfamily struct packet mouse\+\_\+packet\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_abead54bd0e416d635f2709048c6068fb}\label{game_8c_abead54bd0e416d635f2709048c6068fb}} 
+\index{game.c@{game.c}!mouseCount@{mouseCount}}
+\index{mouseCount@{mouseCount}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{mouseCount}{mouseCount}}
+{\footnotesize\ttfamily int mouse\+Count\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_ad02fcede5beda1de5da3bc015d0b8927}\label{game_8c_ad02fcede5beda1de5da3bc015d0b8927}} 
+\index{game.c@{game.c}!scancode@{scancode}}
+\index{scancode@{scancode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{scancode}{scancode}}
+{\footnotesize\ttfamily uint16\+\_\+t scancode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a34d0b1072820e65492ab46abcab01a8d}\label{game_8c_a34d0b1072820e65492ab46abcab01a8d}} 
+\index{game.c@{game.c}!snake@{snake}}
+\index{snake@{snake}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{snake}{snake}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{struct_snake}{Snake}} snake\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{game_8c_a507bb34439f4cb1480055f04abbc9833}\label{game_8c_a507bb34439f4cb1480055f04abbc9833}} 
+\index{game.c@{game.c}!snakeCount@{snakeCount}}
+\index{snakeCount@{snakeCount}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{snakeCount}{snakeCount}}
+{\footnotesize\ttfamily int snake\+Count\hspace{0.3cm}{\ttfamily [extern]}}
+

@@ -1,0 +1,147 @@
+\hypertarget{keyboard_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/keyboard.h File Reference}
+\label{keyboard_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/keyboard.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/keyboard.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{keyboard_8h_a4ac9231a99a664d6a9f0b69767e0d707}{kbd\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em subscribes keyboard\textquotesingle{}s interrupts \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_aee0a7b54ee426fade9c780418d110fe0}{kbd\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes keyboard\textquotesingle{}s interrupts \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_a9db878fa35a8102723e650cb80a70edb}{kbd\+\_\+read\+\_\+buffer}} (uint16\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em Reads the scancode byte from the output buffer;. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_ac866afe9d476c71bc2d698854fa354d4}{kbd\+\_\+read\+\_\+status}} (uint8\+\_\+t $\ast$\mbox{\hyperlink{keyboard_8c_ade818037fd6c985038ff29656089758d}{status}})
+\begin{DoxyCompactList}\small\item\em reads status byte from kbc controller \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_ab7d92a3a384929251f9dae0f401f7591}{is\+Valid\+Status}} ()
+\begin{DoxyCompactList}\small\item\em after read the status register, check if there was some communications errors \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{keyboard_8h_a5761bd4aad91ac1d68916ad88f583d9f}{kbc\+\_\+ih}} (void)
+\begin{DoxyCompactList}\small\item\em reads the scancodes from the KBC using interrupts \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{keyboard_8h_ab35cd1a1eda88076796f97ee7763c9e7}{kbc\+\_\+reset\+\_\+scancode}} (void)
+\begin{DoxyCompactList}\small\item\em when pressed key is not ESC, it resets the scancode \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_a0ce808c04673ce0a828db19bbed6f8ef}{kbc\+\_\+poll}} ()
+\begin{DoxyCompactList}\small\item\em reads the scancodes from the KBC using polling \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{keyboard_8h_a701150cba7ddad295f8e1ae04b58ab5a}{kbc\+\_\+print}} ()
+\begin{DoxyCompactList}\small\item\em prints the scancode \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keyboard_8h_ab7d92a3a384929251f9dae0f401f7591}\label{keyboard_8h_ab7d92a3a384929251f9dae0f401f7591}} 
+\index{keyboard.h@{keyboard.h}!isValidStatus@{isValidStatus}}
+\index{isValidStatus@{isValidStatus}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{isValidStatus()}{isValidStatus()}}
+{\footnotesize\ttfamily int() is\+Valid\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+after read the status register, check if there was some communications errors 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_a5761bd4aad91ac1d68916ad88f583d9f}\label{keyboard_8h_a5761bd4aad91ac1d68916ad88f583d9f}} 
+\index{keyboard.h@{keyboard.h}!kbc\_ih@{kbc\_ih}}
+\index{kbc\_ih@{kbc\_ih}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_ih()}{kbc\_ih()}}
+{\footnotesize\ttfamily void() kbc\+\_\+ih (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+reads the scancodes from the KBC using interrupts 
+
+\mbox{\Hypertarget{keyboard_8h_a0ce808c04673ce0a828db19bbed6f8ef}\label{keyboard_8h_a0ce808c04673ce0a828db19bbed6f8ef}} 
+\index{keyboard.h@{keyboard.h}!kbc\_poll@{kbc\_poll}}
+\index{kbc\_poll@{kbc\_poll}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_poll()}{kbc\_poll()}}
+{\footnotesize\ttfamily int() kbc\+\_\+poll (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+reads the scancodes from the KBC using polling 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_a701150cba7ddad295f8e1ae04b58ab5a}\label{keyboard_8h_a701150cba7ddad295f8e1ae04b58ab5a}} 
+\index{keyboard.h@{keyboard.h}!kbc\_print@{kbc\_print}}
+\index{kbc\_print@{kbc\_print}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_print()}{kbc\_print()}}
+{\footnotesize\ttfamily void() kbc\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+prints the scancode 
+
+\mbox{\Hypertarget{keyboard_8h_ab35cd1a1eda88076796f97ee7763c9e7}\label{keyboard_8h_ab35cd1a1eda88076796f97ee7763c9e7}} 
+\index{keyboard.h@{keyboard.h}!kbc\_reset\_scancode@{kbc\_reset\_scancode}}
+\index{kbc\_reset\_scancode@{kbc\_reset\_scancode}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_reset\_scancode()}{kbc\_reset\_scancode()}}
+{\footnotesize\ttfamily void() kbc\+\_\+reset\+\_\+scancode (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+when pressed key is not ESC, it resets the scancode 
+
+\mbox{\Hypertarget{keyboard_8h_a9db878fa35a8102723e650cb80a70edb}\label{keyboard_8h_a9db878fa35a8102723e650cb80a70edb}} 
+\index{keyboard.h@{keyboard.h}!kbd\_read\_buffer@{kbd\_read\_buffer}}
+\index{kbd\_read\_buffer@{kbd\_read\_buffer}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbd\_read\_buffer()}{kbd\_read\_buffer()}}
+{\footnotesize\ttfamily int() kbd\+\_\+read\+\_\+buffer (\begin{DoxyParamCaption}\item[{uint16\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Reads the scancode byte from the output buffer;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$data} & Pointer to unsigned long variable that will store the data read from the out buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_ac866afe9d476c71bc2d698854fa354d4}\label{keyboard_8h_ac866afe9d476c71bc2d698854fa354d4}} 
+\index{keyboard.h@{keyboard.h}!kbd\_read\_status@{kbd\_read\_status}}
+\index{kbd\_read\_status@{kbd\_read\_status}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbd\_read\_status()}{kbd\_read\_status()}}
+{\footnotesize\ttfamily int() kbd\+\_\+read\+\_\+status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+reads status byte from kbc controller 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$status} & Pointer to unsigned long variable that will store new status byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_a4ac9231a99a664d6a9f0b69767e0d707}\label{keyboard_8h_a4ac9231a99a664d6a9f0b69767e0d707}} 
+\index{keyboard.h@{keyboard.h}!kbd\_subscribe\_int@{kbd\_subscribe\_int}}
+\index{kbd\_subscribe\_int@{kbd\_subscribe\_int}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbd\_subscribe\_int()}{kbd\_subscribe\_int()}}
+{\footnotesize\ttfamily int() kbd\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+subscribes keyboard\textquotesingle{}s interrupts 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_aee0a7b54ee426fade9c780418d110fe0}\label{keyboard_8h_aee0a7b54ee426fade9c780418d110fe0}} 
+\index{keyboard.h@{keyboard.h}!kbd\_unsubscribe\_int@{kbd\_unsubscribe\_int}}
+\index{kbd\_unsubscribe\_int@{kbd\_unsubscribe\_int}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbd\_unsubscribe\_int()}{kbd\_unsubscribe\_int()}}
+{\footnotesize\ttfamily int() kbd\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+unsubscribes keyboard\textquotesingle{}s interrupts 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}

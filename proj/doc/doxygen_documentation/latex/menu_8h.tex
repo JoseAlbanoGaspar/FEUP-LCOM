@@ -1,0 +1,111 @@
+\hypertarget{menu_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/menu.h File Reference}
+\label{menu_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/menu.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/menu.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$lcom/timer.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8254.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}keyboard.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mouse.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vbe.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}assist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sprite.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{menu_8h_ab38f5534f2de1f5c55b23ff3e1985ca9}{menu\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer)
+\begin{DoxyCompactList}\small\item\em creates all the menu \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8h_a3cbad9d1fd22d55488ab52e9aeb54713}{init\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em initializes menu screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8h_af78375f1dc5f27237dee9bd4c8a223fa}{update\+\_\+menu}} (int \mbox{\hyperlink{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}{sel}})
+\begin{DoxyCompactList}\small\item\em updates menu scrren \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8h_af6f6a7dbd72addf24cfd3227705f848d}{selected\+Opt}} (uint16\+\_\+t \mbox{\hyperlink{pause_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}}, int \mbox{\hyperlink{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}{sel}})
+\begin{DoxyCompactList}\small\item\em detects the option that is selected and changes it if its necessary \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8h_ae7f5d09b0c84211e8f5b1a19a3d0c01d}{on\+Press}} ()
+\begin{DoxyCompactList}\small\item\em detects if we click in an option \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{menu_8h_a3cbad9d1fd22d55488ab52e9aeb54713}\label{menu_8h_a3cbad9d1fd22d55488ab52e9aeb54713}} 
+\index{menu.h@{menu.h}!init\_menu@{init\_menu}}
+\index{init\_menu@{init\_menu}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{init\_menu()}{init\_menu()}}
+{\footnotesize\ttfamily int() init\+\_\+menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes menu screen 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8h_ab38f5534f2de1f5c55b23ff3e1985ca9}\label{menu_8h_ab38f5534f2de1f5c55b23ff3e1985ca9}} 
+\index{menu.h@{menu.h}!menu\_loop@{menu\_loop}}
+\index{menu\_loop@{menu\_loop}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{menu\_loop()}{menu\_loop()}}
+{\footnotesize\ttfamily int() menu\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer }\end{DoxyParamCaption})}
+
+
+
+creates all the menu 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8h_ae7f5d09b0c84211e8f5b1a19a3d0c01d}\label{menu_8h_ae7f5d09b0c84211e8f5b1a19a3d0c01d}} 
+\index{menu.h@{menu.h}!onPress@{onPress}}
+\index{onPress@{onPress}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{onPress()}{onPress()}}
+{\footnotesize\ttfamily int() on\+Press (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+detects if we click in an option 
+
+\begin{DoxyReturn}{Returns}
+returns 0 if we do not click, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8h_af6f6a7dbd72addf24cfd3227705f848d}\label{menu_8h_af6f6a7dbd72addf24cfd3227705f848d}} 
+\index{menu.h@{menu.h}!selectedOpt@{selectedOpt}}
+\index{selectedOpt@{selectedOpt}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{selectedOpt()}{selectedOpt()}}
+{\footnotesize\ttfamily int() selected\+Opt (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{scancode,  }\item[{int}]{sel }\end{DoxyParamCaption})}
+
+
+
+detects the option that is selected and changes it if its necessary 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & scancode of the key that was pressed \\
+\hline
+{\em sel} & option that is selected \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the sel to be highlighted 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8h_af78375f1dc5f27237dee9bd4c8a223fa}\label{menu_8h_af78375f1dc5f27237dee9bd4c8a223fa}} 
+\index{menu.h@{menu.h}!update\_menu@{update\_menu}}
+\index{update\_menu@{update\_menu}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{update\_menu()}{update\_menu()}}
+{\footnotesize\ttfamily int() update\+\_\+menu (\begin{DoxyParamCaption}\item[{int}]{sel }\end{DoxyParamCaption})}
+
+
+
+updates menu scrren 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sel} & selected option \\
+\hline
+\end{DoxyParams}

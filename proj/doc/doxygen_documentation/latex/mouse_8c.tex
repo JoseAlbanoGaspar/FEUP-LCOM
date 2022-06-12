@@ -1,0 +1,264 @@
+\hypertarget{mouse_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/mouse.c File Reference}
+\label{mouse_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/mouse.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/mouse.c}}
+{\ttfamily \#include \char`\"{}mouse.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{mouse_8c_a20285aed4b3ef45812cd967532dd09db}{mouse\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em subscribes mouse\textquotesingle{}s interrupts \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a3ecf823d80520009ae5e0d76ae40a3c3}{mouse\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes mouse\textquotesingle{}s interrupts \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a356ab32be61fe91f2aaa1bebbec58eb6}{mouse\+\_\+get\+\_\+status}} ()
+\begin{DoxyCompactList}\small\item\em reads status byte from mouse controller \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a3847cef1de37bddde479440f015f924e}{mouse\+\_\+check\+\_\+status}} ()
+\begin{DoxyCompactList}\small\item\em after read the out Buffer and the status register, check if there was some communications errors \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mouse_8c_ad7c704b34912678d95c13243cacf9d7f}{parse}} ()
+\begin{DoxyCompactList}\small\item\em fills the mouse\+\_\+packet \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{mouse_8c_a210374b50462acdedab00df64d5cea3c}{mouse\+\_\+ih}} ()
+\begin{DoxyCompactList}\small\item\em checks is there was no erros and fills the mouse\+\_\+packet \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a4b021543f7e44242de0f0d90bc2698cb}{mouse\+\_\+reset}} ()
+\begin{DoxyCompactList}\small\item\em resets the mouse \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a4b7ffcfa4fcb826827a90f97edb51633}{mouse\+\_\+en\+\_\+data\+\_\+report}} ()
+\begin{DoxyCompactList}\small\item\em enables data report from mouse \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a2e64475a1f75342899ae7999fe827c8c}{mouse\+\_\+dis\+\_\+data\+\_\+report}} ()
+\begin{DoxyCompactList}\small\item\em disables data report from mouse \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a84f9a1dd24e2d0fa92db027c02f8ff3d}{mouse\+\_\+is\+\_\+valid\+\_\+first\+\_\+line\+\_\+mov}} (int tolerance)
+\begin{DoxyCompactList}\small\item\em checks if first line of movement of the mouse is valid \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8c_a3da4a0b34f0127151a6759f549840109}{mouse\+\_\+is\+\_\+valid\+\_\+second\+\_\+line\+\_\+mov}} (int tolerance)
+\begin{DoxyCompactList}\small\item\em checks if second line of movement of the mouse is valid \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{mouse_8c_a8cc2edc6fa402c0f0ec052168bfb9656}{mouse\+\_\+status}}
+\item 
+int \mbox{\hyperlink{mouse_8c_af84140b4e1bb6d0d02ef8aae125d5668}{bit\+\_\+no\+\_\+global\+\_\+mouse}}
+\item 
+int \mbox{\hyperlink{mouse_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}{hook\+\_\+id\+\_\+mouse}} = MOUSE\+\_\+\+IRQ
+\item 
+uint8\+\_\+t \mbox{\hyperlink{mouse_8c_aa930701390a0652cab793497401d4736}{packet\+\_\+byte}}
+\item 
+struct packet \mbox{\hyperlink{mouse_8c_a3b2e64ffb96c650d6525c99be01c7331}{mouse\+\_\+packet}}
+\item 
+int \mbox{\hyperlink{mouse_8c_a85ea1b63086b31a15d3ed2579c5715a6}{mouseX}} = 2000
+\item 
+int \mbox{\hyperlink{mouse_8c_a3637abebcaa9d04aa18b1610d0921e16}{mouseY}} = 2000
+\item 
+int \mbox{\hyperlink{mouse_8c_adb95de0bbc14aa90e950f6202e808936}{last\+MouseX}} = 2000
+\item 
+int \mbox{\hyperlink{mouse_8c_ac2f8c3e4d684eb70ff04d48977f771a7}{last\+MouseY}} = 2000
+\item 
+int \mbox{\hyperlink{mouse_8c_abead54bd0e416d635f2709048c6068fb}{mouse\+Count}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mouse_8c_a3847cef1de37bddde479440f015f924e}\label{mouse_8c_a3847cef1de37bddde479440f015f924e}} 
+\index{mouse.c@{mouse.c}!mouse\_check\_status@{mouse\_check\_status}}
+\index{mouse\_check\_status@{mouse\_check\_status}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_check\_status()}{mouse\_check\_status()}}
+{\footnotesize\ttfamily int() mouse\+\_\+check\+\_\+status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+after read the out Buffer and the status register, check if there was some communications errors 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a2e64475a1f75342899ae7999fe827c8c}\label{mouse_8c_a2e64475a1f75342899ae7999fe827c8c}} 
+\index{mouse.c@{mouse.c}!mouse\_dis\_data\_report@{mouse\_dis\_data\_report}}
+\index{mouse\_dis\_data\_report@{mouse\_dis\_data\_report}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_dis\_data\_report()}{mouse\_dis\_data\_report()}}
+{\footnotesize\ttfamily int() mouse\+\_\+dis\+\_\+data\+\_\+report (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+disables data report from mouse 
+
+\begin{DoxyReturn}{Returns}
+return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a4b7ffcfa4fcb826827a90f97edb51633}\label{mouse_8c_a4b7ffcfa4fcb826827a90f97edb51633}} 
+\index{mouse.c@{mouse.c}!mouse\_en\_data\_report@{mouse\_en\_data\_report}}
+\index{mouse\_en\_data\_report@{mouse\_en\_data\_report}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_en\_data\_report()}{mouse\_en\_data\_report()}}
+{\footnotesize\ttfamily int() mouse\+\_\+en\+\_\+data\+\_\+report (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+enables data report from mouse 
+
+\begin{DoxyReturn}{Returns}
+return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a356ab32be61fe91f2aaa1bebbec58eb6}\label{mouse_8c_a356ab32be61fe91f2aaa1bebbec58eb6}} 
+\index{mouse.c@{mouse.c}!mouse\_get\_status@{mouse\_get\_status}}
+\index{mouse\_get\_status@{mouse\_get\_status}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_get\_status()}{mouse\_get\_status()}}
+{\footnotesize\ttfamily int() mouse\+\_\+get\+\_\+status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+reads status byte from mouse controller 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a210374b50462acdedab00df64d5cea3c}\label{mouse_8c_a210374b50462acdedab00df64d5cea3c}} 
+\index{mouse.c@{mouse.c}!mouse\_ih@{mouse\_ih}}
+\index{mouse\_ih@{mouse\_ih}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_ih()}{mouse\_ih()}}
+{\footnotesize\ttfamily void() mouse\+\_\+ih (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+checks is there was no erros and fills the mouse\+\_\+packet 
+
+\mbox{\Hypertarget{mouse_8c_a84f9a1dd24e2d0fa92db027c02f8ff3d}\label{mouse_8c_a84f9a1dd24e2d0fa92db027c02f8ff3d}} 
+\index{mouse.c@{mouse.c}!mouse\_is\_valid\_first\_line\_mov@{mouse\_is\_valid\_first\_line\_mov}}
+\index{mouse\_is\_valid\_first\_line\_mov@{mouse\_is\_valid\_first\_line\_mov}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_is\_valid\_first\_line\_mov()}{mouse\_is\_valid\_first\_line\_mov()}}
+{\footnotesize\ttfamily int() mouse\+\_\+is\+\_\+valid\+\_\+first\+\_\+line\+\_\+mov (\begin{DoxyParamCaption}\item[{int}]{tolerance }\end{DoxyParamCaption})}
+
+
+
+checks if first line of movement of the mouse is valid 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tolerance} & max error tolerance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a3da4a0b34f0127151a6759f549840109}\label{mouse_8c_a3da4a0b34f0127151a6759f549840109}} 
+\index{mouse.c@{mouse.c}!mouse\_is\_valid\_second\_line\_mov@{mouse\_is\_valid\_second\_line\_mov}}
+\index{mouse\_is\_valid\_second\_line\_mov@{mouse\_is\_valid\_second\_line\_mov}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_is\_valid\_second\_line\_mov()}{mouse\_is\_valid\_second\_line\_mov()}}
+{\footnotesize\ttfamily int() mouse\+\_\+is\+\_\+valid\+\_\+second\+\_\+line\+\_\+mov (\begin{DoxyParamCaption}\item[{int}]{tolerance }\end{DoxyParamCaption})}
+
+
+
+checks if second line of movement of the mouse is valid 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tolerance} & max error tolerance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a4b021543f7e44242de0f0d90bc2698cb}\label{mouse_8c_a4b021543f7e44242de0f0d90bc2698cb}} 
+\index{mouse.c@{mouse.c}!mouse\_reset@{mouse\_reset}}
+\index{mouse\_reset@{mouse\_reset}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_reset()}{mouse\_reset()}}
+{\footnotesize\ttfamily int() mouse\+\_\+reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+resets the mouse 
+
+\begin{DoxyReturn}{Returns}
+return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a20285aed4b3ef45812cd967532dd09db}\label{mouse_8c_a20285aed4b3ef45812cd967532dd09db}} 
+\index{mouse.c@{mouse.c}!mouse\_subscribe\_int@{mouse\_subscribe\_int}}
+\index{mouse\_subscribe\_int@{mouse\_subscribe\_int}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_subscribe\_int()}{mouse\_subscribe\_int()}}
+{\footnotesize\ttfamily int() mouse\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+subscribes mouse\textquotesingle{}s interrupts 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_a3ecf823d80520009ae5e0d76ae40a3c3}\label{mouse_8c_a3ecf823d80520009ae5e0d76ae40a3c3}} 
+\index{mouse.c@{mouse.c}!mouse\_unsubscribe\_int@{mouse\_unsubscribe\_int}}
+\index{mouse\_unsubscribe\_int@{mouse\_unsubscribe\_int}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_unsubscribe\_int()}{mouse\_unsubscribe\_int()}}
+{\footnotesize\ttfamily int() mouse\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+unsubscribes mouse\textquotesingle{}s interrupts 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mouse_8c_ad7c704b34912678d95c13243cacf9d7f}\label{mouse_8c_ad7c704b34912678d95c13243cacf9d7f}} 
+\index{mouse.c@{mouse.c}!parse@{parse}}
+\index{parse@{parse}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily void parse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+fills the mouse\+\_\+packet 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{mouse_8c_af84140b4e1bb6d0d02ef8aae125d5668}\label{mouse_8c_af84140b4e1bb6d0d02ef8aae125d5668}} 
+\index{mouse.c@{mouse.c}!bit\_no\_global\_mouse@{bit\_no\_global\_mouse}}
+\index{bit\_no\_global\_mouse@{bit\_no\_global\_mouse}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{bit\_no\_global\_mouse}{bit\_no\_global\_mouse}}
+{\footnotesize\ttfamily int bit\+\_\+no\+\_\+global\+\_\+mouse}
+
+\mbox{\Hypertarget{mouse_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}\label{mouse_8c_a0b0da21bbdff62b7b28e9af7ec3d0d76}} 
+\index{mouse.c@{mouse.c}!hook\_id\_mouse@{hook\_id\_mouse}}
+\index{hook\_id\_mouse@{hook\_id\_mouse}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{hook\_id\_mouse}{hook\_id\_mouse}}
+{\footnotesize\ttfamily int hook\+\_\+id\+\_\+mouse = MOUSE\+\_\+\+IRQ}
+
+\mbox{\Hypertarget{mouse_8c_adb95de0bbc14aa90e950f6202e808936}\label{mouse_8c_adb95de0bbc14aa90e950f6202e808936}} 
+\index{mouse.c@{mouse.c}!lastMouseX@{lastMouseX}}
+\index{lastMouseX@{lastMouseX}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{lastMouseX}{lastMouseX}}
+{\footnotesize\ttfamily int last\+MouseX = 2000}
+
+\mbox{\Hypertarget{mouse_8c_ac2f8c3e4d684eb70ff04d48977f771a7}\label{mouse_8c_ac2f8c3e4d684eb70ff04d48977f771a7}} 
+\index{mouse.c@{mouse.c}!lastMouseY@{lastMouseY}}
+\index{lastMouseY@{lastMouseY}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{lastMouseY}{lastMouseY}}
+{\footnotesize\ttfamily int last\+MouseY = 2000}
+
+\mbox{\Hypertarget{mouse_8c_a3b2e64ffb96c650d6525c99be01c7331}\label{mouse_8c_a3b2e64ffb96c650d6525c99be01c7331}} 
+\index{mouse.c@{mouse.c}!mouse\_packet@{mouse\_packet}}
+\index{mouse\_packet@{mouse\_packet}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_packet}{mouse\_packet}}
+{\footnotesize\ttfamily struct packet mouse\+\_\+packet}
+
+\mbox{\Hypertarget{mouse_8c_a8cc2edc6fa402c0f0ec052168bfb9656}\label{mouse_8c_a8cc2edc6fa402c0f0ec052168bfb9656}} 
+\index{mouse.c@{mouse.c}!mouse\_status@{mouse\_status}}
+\index{mouse\_status@{mouse\_status}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_status}{mouse\_status}}
+{\footnotesize\ttfamily uint8\+\_\+t mouse\+\_\+status}
+
+\mbox{\Hypertarget{mouse_8c_abead54bd0e416d635f2709048c6068fb}\label{mouse_8c_abead54bd0e416d635f2709048c6068fb}} 
+\index{mouse.c@{mouse.c}!mouseCount@{mouseCount}}
+\index{mouseCount@{mouseCount}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouseCount}{mouseCount}}
+{\footnotesize\ttfamily int mouse\+Count = 0}
+
+\mbox{\Hypertarget{mouse_8c_a85ea1b63086b31a15d3ed2579c5715a6}\label{mouse_8c_a85ea1b63086b31a15d3ed2579c5715a6}} 
+\index{mouse.c@{mouse.c}!mouseX@{mouseX}}
+\index{mouseX@{mouseX}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouseX}{mouseX}}
+{\footnotesize\ttfamily int mouseX = 2000}
+
+\mbox{\Hypertarget{mouse_8c_a3637abebcaa9d04aa18b1610d0921e16}\label{mouse_8c_a3637abebcaa9d04aa18b1610d0921e16}} 
+\index{mouse.c@{mouse.c}!mouseY@{mouseY}}
+\index{mouseY@{mouseY}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{mouseY}{mouseY}}
+{\footnotesize\ttfamily int mouseY = 2000}
+
+\mbox{\Hypertarget{mouse_8c_aa930701390a0652cab793497401d4736}\label{mouse_8c_aa930701390a0652cab793497401d4736}} 
+\index{mouse.c@{mouse.c}!packet\_byte@{packet\_byte}}
+\index{packet\_byte@{packet\_byte}!mouse.c@{mouse.c}}
+\doxysubsubsection{\texorpdfstring{packet\_byte}{packet\_byte}}
+{\footnotesize\ttfamily uint8\+\_\+t packet\+\_\+byte}
+

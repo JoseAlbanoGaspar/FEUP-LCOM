@@ -1,0 +1,383 @@
+\hypertarget{vbe_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/vbe.c File Reference}
+\label{vbe_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/vbe.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/vbe.c}}
+{\ttfamily \#include \char`\"{}vbe.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$() \mbox{\hyperlink{vbe_8c_afa0e432c3ebeefc29a59abc4d22918df}{vg\+\_\+init}} (uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}})
+\begin{DoxyCompactList}\small\item\em Initializes the video module in graphics mode. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a452651f22c0c2deb7a21556eb00b437e}{vg\+\_\+get\+\_\+mode\+\_\+info}} (uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$vmi\+\_\+p)
+\begin{DoxyCompactList}\small\item\em Returns information on the input VBE mode. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{vbe_8c_a267c7882e7d3f826fe69f8bb0a35cdd2}{getmask}} (int k)
+\item 
+int() \mbox{\hyperlink{vbe_8c_a08c498ffeb0a3962e3b7711b57397741}{vg\+\_\+draw\+\_\+pixel}} (uint16\+\_\+t x, uint16\+\_\+t y, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws only a pixel by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a1135e6421577648c6d1c0abc1e971663}{vg\+\_\+draw\+\_\+vline}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t len, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a verical line by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a5e5b25bd525250f61f40b9e9f212d5e6}{vg\+\_\+draw\+\_\+hline}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t len, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a horizontal line by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a99d2da2559e11200c6b40c469e9977ec}{vg\+\_\+draw\+\_\+rectangle}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t width, uint16\+\_\+t height, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a filled rectangle by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_af7be676c7f6db3e91ab5165ad52b7416}{vg\+\_\+draw\+\_\+pattern}} (uint8\+\_\+t no\+\_\+rectangles, uint32\+\_\+t first, uint8\+\_\+t step)
+\begin{DoxyCompactList}\small\item\em Draws a rectangle-\/based colored pattern. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a713a7925a6327e368eaa4216045a3235}{vg\+\_\+draw\+\_\+pixmap}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em draws the pixmax on the screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a9afffb86679e9bdce8dd7def17ed1af6}{vg\+\_\+ultimate\+\_\+pixmap\+\_\+handler}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}} pixtype)
+\item 
+int() \mbox{\hyperlink{vbe_8c_aed0c6ff5c4196a55cfc8afa0da978dfe}{vg\+\_\+ultimate\+\_\+pixmap\+\_\+eraser}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}} pixtype, bool \mbox{\hyperlink{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}{mouse}})
+\item 
+void() \mbox{\hyperlink{vbe_8c_a160d2217bf637efbc5f14e9e805775a3}{vg\+\_\+erase\+\_\+pixmap}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em erases the pixmax of the screen \end{DoxyCompactList}\item 
+uint8\+\_\+t $\ast$() \mbox{\hyperlink{vbe_8c_aff6cfb7e32d9a94a84b4e284738b6d7a}{vg\+\_\+create\+\_\+sprite}} (xpm\+\_\+map\+\_\+t xpm, xpm\+\_\+image\+\_\+t $\ast$img)
+\begin{DoxyCompactList}\small\item\em creates the sprite to be displayed \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_a75f0acc6757adeb19c890704303a4fc0}{vg\+\_\+draw\+\_\+sprite}} (uint8\+\_\+t $\ast$sprite, xpm\+\_\+image\+\_\+t img, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em draws the sprite on the screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8c_ac9e65f8000cfc3af0b4f5af9c61c7d14}{vg\+\_\+erase\+\_\+sprite}} (uint8\+\_\+t $\ast$sprite, xpm\+\_\+image\+\_\+t img, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em erases the sprite on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{vbe_8c_aba790f1e96c267ea3bbfbe498bcaef63}{swap\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em swaps current buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{vbe_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}{mouse\+\_\+array}} \mbox{[}12\mbox{]}\mbox{[}12\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{vbe_8c_a267c7882e7d3f826fe69f8bb0a35cdd2}\label{vbe_8c_a267c7882e7d3f826fe69f8bb0a35cdd2}} 
+\index{vbe.c@{vbe.c}!getmask@{getmask}}
+\index{getmask@{getmask}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{getmask()}{getmask()}}
+{\footnotesize\ttfamily uint32\+\_\+t getmask (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_aba790f1e96c267ea3bbfbe498bcaef63}\label{vbe_8c_aba790f1e96c267ea3bbfbe498bcaef63}} 
+\index{vbe.c@{vbe.c}!swapBuffer@{swapBuffer}}
+\index{swapBuffer@{swapBuffer}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{swapBuffer()}{swapBuffer()}}
+{\footnotesize\ttfamily void() swap\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+swaps current buffer 
+
+\mbox{\Hypertarget{vbe_8c_aff6cfb7e32d9a94a84b4e284738b6d7a}\label{vbe_8c_aff6cfb7e32d9a94a84b4e284738b6d7a}} 
+\index{vbe.c@{vbe.c}!vg\_create\_sprite@{vg\_create\_sprite}}
+\index{vg\_create\_sprite@{vg\_create\_sprite}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_create\_sprite()}{vg\_create\_sprite()}}
+{\footnotesize\ttfamily uint8\+\_\+t $\ast$() vg\+\_\+create\+\_\+sprite (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{xpm\+\_\+image\+\_\+t $\ast$}]{img }\end{DoxyParamCaption})}
+
+
+
+creates the sprite to be displayed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em img} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a5e5b25bd525250f61f40b9e9f212d5e6}\label{vbe_8c_a5e5b25bd525250f61f40b9e9f212d5e6}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_hline@{vg\_draw\_hline}}
+\index{vg\_draw\_hline@{vg\_draw\_hline}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_hline()}{vg\_draw\_hline()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+hline (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{len,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a horizontal line by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the initial point \\
+\hline
+{\em y} & vertical coordinate of the initial point \\
+\hline
+{\em len} & line\textquotesingle{}s length in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_af7be676c7f6db3e91ab5165ad52b7416}\label{vbe_8c_af7be676c7f6db3e91ab5165ad52b7416}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_pattern@{vg\_draw\_pattern}}
+\index{vg\_draw\_pattern@{vg\_draw\_pattern}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pattern()}{vg\_draw\_pattern()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pattern (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{no\+\_\+rectangles,  }\item[{uint32\+\_\+t}]{first,  }\item[{uint8\+\_\+t}]{step }\end{DoxyParamCaption})}
+
+
+
+Draws a rectangle-\/based colored pattern. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no\+\_\+rectangles} & Number of rectangles in each of the horizontal and vertical direction \\
+\hline
+{\em first} & Color to be used in the first rectangle \\
+\hline
+{\em step} & Difference between the values of the R/G component in adjacent rectangles \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a08c498ffeb0a3962e3b7711b57397741}\label{vbe_8c_a08c498ffeb0a3962e3b7711b57397741}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_pixel@{vg\_draw\_pixel}}
+\index{vg\_draw\_pixel@{vg\_draw\_pixel}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pixel()}{vg\_draw\_pixel()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws only a pixel by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the point \\
+\hline
+{\em y} & vertical coordinate of the point \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a713a7925a6327e368eaa4216045a3235}\label{vbe_8c_a713a7925a6327e368eaa4216045a3235}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_pixmap@{vg\_draw\_pixmap}}
+\index{vg\_draw\_pixmap@{vg\_draw\_pixmap}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pixmap()}{vg\_draw\_pixmap()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pixmap (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+draws the pixmax on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a99d2da2559e11200c6b40c469e9977ec}\label{vbe_8c_a99d2da2559e11200c6b40c469e9977ec}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_rectangle@{vg\_draw\_rectangle}}
+\index{vg\_draw\_rectangle@{vg\_draw\_rectangle}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_rectangle()}{vg\_draw\_rectangle()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{width,  }\item[{uint16\+\_\+t}]{height,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a filled rectangle by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the rectangle\textquotesingle{}s top-\/left vertex \\
+\hline
+{\em y} & vertical coordinate of the rectangle\textquotesingle{}s top-\/left vertex \\
+\hline
+{\em width} & rectangle\textquotesingle{}s width in pixels \\
+\hline
+{\em height} & rectangle\textquotesingle{}s height in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a75f0acc6757adeb19c890704303a4fc0}\label{vbe_8c_a75f0acc6757adeb19c890704303a4fc0}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_sprite@{vg\_draw\_sprite}}
+\index{vg\_draw\_sprite@{vg\_draw\_sprite}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_sprite()}{vg\_draw\_sprite()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+sprite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+draws the sprite on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$sprite} & pointer to where is stored the sprite \\
+\hline
+{\em img} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a1135e6421577648c6d1c0abc1e971663}\label{vbe_8c_a1135e6421577648c6d1c0abc1e971663}} 
+\index{vbe.c@{vbe.c}!vg\_draw\_vline@{vg\_draw\_vline}}
+\index{vg\_draw\_vline@{vg\_draw\_vline}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_vline()}{vg\_draw\_vline()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+vline (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{len,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a verical line by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the initial point \\
+\hline
+{\em y} & vertical coordinate of the initial point \\
+\hline
+{\em len} & line\textquotesingle{}s length in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a160d2217bf637efbc5f14e9e805775a3}\label{vbe_8c_a160d2217bf637efbc5f14e9e805775a3}} 
+\index{vbe.c@{vbe.c}!vg\_erase\_pixmap@{vg\_erase\_pixmap}}
+\index{vg\_erase\_pixmap@{vg\_erase\_pixmap}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_erase\_pixmap()}{vg\_erase\_pixmap()}}
+{\footnotesize\ttfamily void() vg\+\_\+erase\+\_\+pixmap (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+erases the pixmax of the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vbe_8c_ac9e65f8000cfc3af0b4f5af9c61c7d14}\label{vbe_8c_ac9e65f8000cfc3af0b4f5af9c61c7d14}} 
+\index{vbe.c@{vbe.c}!vg\_erase\_sprite@{vg\_erase\_sprite}}
+\index{vg\_erase\_sprite@{vg\_erase\_sprite}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_erase\_sprite()}{vg\_erase\_sprite()}}
+{\footnotesize\ttfamily int() vg\+\_\+erase\+\_\+sprite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+erases the sprite on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$sprite} & pointer to where is stored the sprite \\
+\hline
+{\em img} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a452651f22c0c2deb7a21556eb00b437e}\label{vbe_8c_a452651f22c0c2deb7a21556eb00b437e}} 
+\index{vbe.c@{vbe.c}!vg\_get\_mode\_info@{vg\_get\_mode\_info}}
+\index{vg\_get\_mode\_info@{vg\_get\_mode\_info}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_get\_mode\_info()}{vg\_get\_mode\_info()}}
+{\footnotesize\ttfamily int() vg\+\_\+get\+\_\+mode\+\_\+info (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode,  }\item[{vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$}]{vmi\+\_\+p }\end{DoxyParamCaption})}
+
+
+
+Returns information on the input VBE mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & mode whose information should be returned \\
+\hline
+{\em vmi\+\_\+p} & address of vbe\+\_\+mode\+\_\+info\+\_\+t structure to be initialized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_afa0e432c3ebeefc29a59abc4d22918df}\label{vbe_8c_afa0e432c3ebeefc29a59abc4d22918df}} 
+\index{vbe.c@{vbe.c}!vg\_init@{vg\_init}}
+\index{vg\_init@{vg\_init}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_init()}{vg\_init()}}
+{\footnotesize\ttfamily void $\ast$() vg\+\_\+init (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Initializes the video module in graphics mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & 16-\/bit VBE mode to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vbe_8c_aed0c6ff5c4196a55cfc8afa0da978dfe}\label{vbe_8c_aed0c6ff5c4196a55cfc8afa0da978dfe}} 
+\index{vbe.c@{vbe.c}!vg\_ultimate\_pixmap\_eraser@{vg\_ultimate\_pixmap\_eraser}}
+\index{vg\_ultimate\_pixmap\_eraser@{vg\_ultimate\_pixmap\_eraser}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_ultimate\_pixmap\_eraser()}{vg\_ultimate\_pixmap\_eraser()}}
+{\footnotesize\ttfamily int() vg\+\_\+ultimate\+\_\+pixmap\+\_\+eraser (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{mode,  }\item[{enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}}}]{pixtype,  }\item[{bool}]{mouse }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em mode} & \\
+\hline
+{\em pixtype} & \\
+\hline
+{\em mouse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8c_a9afffb86679e9bdce8dd7def17ed1af6}\label{vbe_8c_a9afffb86679e9bdce8dd7def17ed1af6}} 
+\index{vbe.c@{vbe.c}!vg\_ultimate\_pixmap\_handler@{vg\_ultimate\_pixmap\_handler}}
+\index{vg\_ultimate\_pixmap\_handler@{vg\_ultimate\_pixmap\_handler}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{vg\_ultimate\_pixmap\_handler()}{vg\_ultimate\_pixmap\_handler()}}
+{\footnotesize\ttfamily int() vg\+\_\+ultimate\+\_\+pixmap\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{mode,  }\item[{enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}}}]{pixtype }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em mode} & \\
+\hline
+{\em pixtype} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{vbe_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}\label{vbe_8c_aafe6af55d8bc78004ee6a86d65aa6d5a}} 
+\index{vbe.c@{vbe.c}!mouse\_array@{mouse\_array}}
+\index{mouse\_array@{mouse\_array}!vbe.c@{vbe.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_array}{mouse\_array}}
+{\footnotesize\ttfamily uint32\+\_\+t mouse\+\_\+array\mbox{[}12\mbox{]}\mbox{[}12\mbox{]}}
+

@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['game_5floop_0',['game_loop',['../game_8c.html#a33a884974e67cd513b3ee7c66fb5698a',1,'game_loop(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode):&#160;game.c'],['../game_8h.html#a33a884974e67cd513b3ee7c66fb5698a',1,'game_loop(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode):&#160;game.c']]],
+  ['gameover_5floop_1',['gameOver_loop',['../game_over_8c.html#a65b6dcfbff86ccf9e98ddaac825fa691',1,'gameOver_loop(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode):&#160;gameOver.c'],['../game_over_8h.html#a65b6dcfbff86ccf9e98ddaac825fa691',1,'gameOver_loop(uint32_t irq_set_keyboard, uint32_t irq_set_mouse, uint32_t irq_set_timer, uint16_t vg_mode):&#160;gameOver.c']]],
+  ['getdate_2',['getDate',['../rtc_8c.html#a151db8d516dd649f8d14dab18be79882',1,'getDate(unsigned long *day, unsigned long *month, unsigned long *year):&#160;rtc.c'],['../rtc_8h.html#a151db8d516dd649f8d14dab18be79882',1,'getDate(unsigned long *day, unsigned long *month, unsigned long *year):&#160;rtc.c']]],
+  ['gethour_3',['getHour',['../rtc_8c.html#a87be9dbdb025ecbb1bd326713842f043',1,'getHour(unsigned long *hour, unsigned long *minutes, unsigned long *seconds):&#160;rtc.c'],['../rtc_8h.html#a87be9dbdb025ecbb1bd326713842f043',1,'getHour(unsigned long *hour, unsigned long *minutes, unsigned long *seconds):&#160;rtc.c']]],
+  ['getmask_4',['getmask',['../vbe_8c.html#a267c7882e7d3f826fe69f8bb0a35cdd2',1,'getmask(int k):&#160;vbe.c'],['../vbe_8h.html#a267c7882e7d3f826fe69f8bb0a35cdd2',1,'getmask(int k):&#160;vbe.c']]]
+];

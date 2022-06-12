@@ -1,0 +1,34 @@
+\hypertarget{pause_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/pause.h File Reference}
+\label{pause_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/pause.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/pause.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8254.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}keyboard.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{pause_8h_acd656219308017c1a8efe2566cd2f3ba}{pause\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse)
+\begin{DoxyCompactList}\small\item\em freezes the screen if the user presses \textquotesingle{}p\textquotesingle{} key \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pause_8h_acd656219308017c1a8efe2566cd2f3ba}\label{pause_8h_acd656219308017c1a8efe2566cd2f3ba}} 
+\index{pause.h@{pause.h}!pause\_loop@{pause\_loop}}
+\index{pause\_loop@{pause\_loop}!pause.h@{pause.h}}
+\doxysubsubsection{\texorpdfstring{pause\_loop()}{pause\_loop()}}
+{\footnotesize\ttfamily int pause\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse }\end{DoxyParamCaption})}
+
+
+
+freezes the screen if the user presses \textquotesingle{}p\textquotesingle{} key 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}

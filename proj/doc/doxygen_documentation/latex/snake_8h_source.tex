@@ -1,0 +1,57 @@
+\hypertarget{snake_8h_source}{}\doxysection{snake.\+h}
+\label{snake_8h_source}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/snake.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/snake.h}}
+\mbox{\hyperlink{snake_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <time.h>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}macros/i8042.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}macros/constants.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{vbe_8h}{vbe.h}}"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{13 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_snake}{Snake}} \{}
+\DoxyCodeLine{14     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_snake_a886d551d5381dc3e53f17825ffc51641}{direction}}; \textcolor{comment}{//0 right, 1 left, 2 up, 3 down}}
+\DoxyCodeLine{15     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_snake_abaf49955ba2a81bee7ed3492bd7bf135}{segments\_len}};}
+\DoxyCodeLine{16     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_snake_a30071d36e49af22b83102038f1ec5146}{segments}}[2400];}
+\DoxyCodeLine{17     \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_snake_abdf845f1692b5c02faf65b08c1edc254}{addToSnake}};}
+\DoxyCodeLine{18     \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_snake_aa80b6f7095f74d688046c58c3d5d51bb}{canChangeDir}};}
+\DoxyCodeLine{19     \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_snake_a23a0742ddb120a88b03c4eaa61daab72}{alive}};}
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_snake_aef160b7437d94056f1dc59646cd5b87d}{score}};}
+\DoxyCodeLine{21 \};}
+\DoxyCodeLine{26 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_enemy}{Enemy}} \{}
+\DoxyCodeLine{27     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_enemy_a6150e0515f7202e2fb518f7206ed97dc}{x}};}
+\DoxyCodeLine{28     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_enemy_a0a2f84ed7838f07779ae24c5a9086d33}{y}};}
+\DoxyCodeLine{29     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_enemy_a7bb8b2cfc1aec0db2429c600cddccf17}{lastX}};}
+\DoxyCodeLine{30     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_enemy_ae135df8cfc9b15d97e97b400a5cbc768}{lastY}};}
+\DoxyCodeLine{31     \textcolor{keywordtype}{bool} \mbox{\hyperlink{struct_enemy_a03c996f9fcf0e10baeb3e700be0c409a}{active}};}
+\DoxyCodeLine{32 \};}
+\DoxyCodeLine{36 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_apple}{Apple}} \{}
+\DoxyCodeLine{37     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_apple_a6150e0515f7202e2fb518f7206ed97dc}{x}};}
+\DoxyCodeLine{38     \textcolor{keywordtype}{int} \mbox{\hyperlink{struct_apple_a0a2f84ed7838f07779ae24c5a9086d33}{y}};}
+\DoxyCodeLine{39 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 }
+\DoxyCodeLine{46 void (\mbox{\hyperlink{snake_8h_ae8163f6794fb222af5c88f39f498d1ea}{startPosition}})(uint16\_t vbe\_mode);}
+\DoxyCodeLine{50 void (\mbox{\hyperlink{snake_8h_aaf1a4bf6e21ff99f2f17ef82caa25167}{drawSnake}})();}
+\DoxyCodeLine{55 void (\mbox{\hyperlink{snake_8h_adcc49db1b45319557afb30a51b81365d}{changeDirection}})(uint16\_t \mbox{\hyperlink{game_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}});}
+\DoxyCodeLine{61 bool (\mbox{\hyperlink{snake_8h_ad409482aee4ee97340b0a717e6927c06}{canMove}})(\textcolor{keywordtype}{int} dir);}
+\DoxyCodeLine{66 void (\mbox{\hyperlink{snake_8h_ab3a3db5933b6414a3aaf937434a0b498}{moveSnake}})(\textcolor{keywordtype}{int} dir);}
+\DoxyCodeLine{70 void (\mbox{\hyperlink{snake_8h_a506261f0e8ba0c315688dd3e31ba1305}{drawBackground}})();}
+\DoxyCodeLine{78 void (\mbox{\hyperlink{snake_8h_ab6540d3f43a0c035660e115a27302489}{drawNumbers}})(\textcolor{keywordtype}{int} value,\textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y, \textcolor{keywordtype}{int} digit\_len);}
+\DoxyCodeLine{82 void (\mbox{\hyperlink{snake_8h_ab575d28f36585904c4e37827fe4ce00b}{drawScore}})();}
+\DoxyCodeLine{86 void (\mbox{\hyperlink{snake_8h_a5edcf4d6d50a1d76be5c7f2122b3e597}{moveSegments}})();}
+\DoxyCodeLine{92 void (\mbox{\hyperlink{snake_8h_aac82ea0facf288c1067bb61a4e581867}{incrementSnake}})(\textcolor{keywordtype}{int} tailX, \textcolor{keywordtype}{int} tailY);}
+\DoxyCodeLine{96 void (\mbox{\hyperlink{snake_8h_a6aa791eee13773b91ee78bef5a6e5f92}{drawApple}})();}
+\DoxyCodeLine{100 void (\mbox{\hyperlink{snake_8h_ace91d39c567f2f2cb8ef6a1f7b43e92a}{updateApple}})();}
+\DoxyCodeLine{104 void (\mbox{\hyperlink{snake_8h_a43bfb386c3551c11b03326b586f2135c}{spawnEnemy}})();}
+\DoxyCodeLine{108 void (\mbox{\hyperlink{snake_8h_a02baa3f66dbebd17e8f412adedffabcd}{moveEnemy}})();}
+\DoxyCodeLine{112 void (\mbox{\hyperlink{snake_8h_aa6797ade2faa9b10aa56c422b8fd2f9f}{eraseEnemyTrail}})();}
+\DoxyCodeLine{116 void (\mbox{\hyperlink{snake_8h_adaca7d46c52f03cac20e3d349dfb4b42}{damageSnake}})();}
+\DoxyCodeLine{120 void (\mbox{\hyperlink{snake_8h_a36b24676f66ac52fa62b398c69c4d428}{drawEnemy}})();}
+\DoxyCodeLine{124 void (\mbox{\hyperlink{snake_8h_a6a58284877300ae987df54d724f89315}{killEnemy}})();}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 }
+
+\end{DoxyCode}

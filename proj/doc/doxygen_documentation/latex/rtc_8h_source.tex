@@ -1,0 +1,25 @@
+\hypertarget{rtc_8h_source}{}\doxysection{rtc.\+h}
+\label{rtc_8h_source}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/rtc.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/rtc.h}}
+\mbox{\hyperlink{rtc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_RTC\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_RTC\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <lcom/liblm.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}macros/iRTC.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <stdbool.h>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 }
+\DoxyCodeLine{16 \textcolor{keywordtype}{int} \mbox{\hyperlink{rtc_8h_aa2b091a9cf7dce22b896bb1f041b3e2f}{isRTCUpdating}}();}
+\DoxyCodeLine{21 \textcolor{keywordtype}{int} \mbox{\hyperlink{rtc_8h_adc99d6e13380791f37d25254f382185b}{isBCD}}();}
+\DoxyCodeLine{27 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{rtc_8h_a111177dc1cb3efbcb3c3dd232e20d3be}{BCDtoBin}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}* bcd);}
+\DoxyCodeLine{34 \textcolor{keywordtype}{void} \mbox{\hyperlink{rtc_8h_a151db8d516dd649f8d14dab18be79882}{getDate}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *day, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *month, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *year);}
+\DoxyCodeLine{41 \textcolor{keywordtype}{void} \mbox{\hyperlink{rtc_8h_a87be9dbdb025ecbb1bd326713842f043}{getHour}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *hour, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *minutes, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *seconds);}
+\DoxyCodeLine{48 int(\mbox{\hyperlink{rtc_8h_af100beb57056675501e2c5f9211e5862}{util\_sys\_inb\_RTC}})(\textcolor{keywordtype}{int} port, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *value);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

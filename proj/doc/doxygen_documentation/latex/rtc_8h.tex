@@ -1,0 +1,128 @@
+\hypertarget{rtc_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/rtc.h File Reference}
+\label{rtc_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/rtc.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/rtc.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$lcom/liblm.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i\+RTC.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{rtc_8h_aa2b091a9cf7dce22b896bb1f041b3e2f}{is\+RTCUpdating}} ()
+\begin{DoxyCompactList}\small\item\em checks if rtc is updating or not \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{rtc_8h_adc99d6e13380791f37d25254f382185b}{is\+BCD}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the data read from RTC is in BCD. \end{DoxyCompactList}\item 
+unsigned long \mbox{\hyperlink{rtc_8h_a111177dc1cb3efbcb3c3dd232e20d3be}{BCDto\+Bin}} (unsigned long $\ast$bcd)
+\begin{DoxyCompactList}\small\item\em transforms the data that is in bcd form to binary one \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtc_8h_a151db8d516dd649f8d14dab18be79882}{get\+Date}} (unsigned long $\ast$day, unsigned long $\ast$month, unsigned long $\ast$year)
+\begin{DoxyCompactList}\small\item\em reads the current date from RTC \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtc_8h_a87be9dbdb025ecbb1bd326713842f043}{get\+Hour}} (unsigned long $\ast$hour, unsigned long $\ast$minutes, unsigned long $\ast$seconds)
+\begin{DoxyCompactList}\small\item\em reads current hour from RTC \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{rtc_8h_af100beb57056675501e2c5f9211e5862}{util\+\_\+sys\+\_\+inb\+\_\+\+RTC}} (int port, unsigned long $\ast$value)
+\begin{DoxyCompactList}\small\item\em aux function for sys\+\_\+inb in rtc \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rtc_8h_a111177dc1cb3efbcb3c3dd232e20d3be}\label{rtc_8h_a111177dc1cb3efbcb3c3dd232e20d3be}} 
+\index{rtc.h@{rtc.h}!BCDtoBin@{BCDtoBin}}
+\index{BCDtoBin@{BCDtoBin}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{BCDtoBin()}{BCDtoBin()}}
+{\footnotesize\ttfamily unsigned long BCDto\+Bin (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{bcd }\end{DoxyParamCaption})}
+
+
+
+transforms the data that is in bcd form to binary one 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bcd} & bcd a pointer to the byte in BCD form \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the binary form of the given BCD byte 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rtc_8h_a151db8d516dd649f8d14dab18be79882}\label{rtc_8h_a151db8d516dd649f8d14dab18be79882}} 
+\index{rtc.h@{rtc.h}!getDate@{getDate}}
+\index{getDate@{getDate}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{getDate()}{getDate()}}
+{\footnotesize\ttfamily void get\+Date (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{day,  }\item[{unsigned long $\ast$}]{month,  }\item[{unsigned long $\ast$}]{year }\end{DoxyParamCaption})}
+
+
+
+reads the current date from RTC 
+
+
+\begin{DoxyParams}{Parameters}
+{\em day} & a pointer to a byte to store the day \\
+\hline
+{\em month} & a pointer to a byte to store the month \\
+\hline
+{\em year} & a pointer to a byte to store the year \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rtc_8h_a87be9dbdb025ecbb1bd326713842f043}\label{rtc_8h_a87be9dbdb025ecbb1bd326713842f043}} 
+\index{rtc.h@{rtc.h}!getHour@{getHour}}
+\index{getHour@{getHour}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{getHour()}{getHour()}}
+{\footnotesize\ttfamily void get\+Hour (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{hour,  }\item[{unsigned long $\ast$}]{minutes,  }\item[{unsigned long $\ast$}]{seconds }\end{DoxyParamCaption})}
+
+
+
+reads current hour from RTC 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hour} & a pointer to a byte to store the hour \\
+\hline
+{\em minutes} & a pointer to a byte to store the minutes \\
+\hline
+{\em seconds} & a pointer to a byte to store the seconds \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{rtc_8h_adc99d6e13380791f37d25254f382185b}\label{rtc_8h_adc99d6e13380791f37d25254f382185b}} 
+\index{rtc.h@{rtc.h}!isBCD@{isBCD}}
+\index{isBCD@{isBCD}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{isBCD()}{isBCD()}}
+{\footnotesize\ttfamily int is\+BCD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the data read from RTC is in BCD. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if it\textquotesingle{}s not in bcd form and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rtc_8h_aa2b091a9cf7dce22b896bb1f041b3e2f}\label{rtc_8h_aa2b091a9cf7dce22b896bb1f041b3e2f}} 
+\index{rtc.h@{rtc.h}!isRTCUpdating@{isRTCUpdating}}
+\index{isRTCUpdating@{isRTCUpdating}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{isRTCUpdating()}{isRTCUpdating()}}
+{\footnotesize\ttfamily int is\+RTCUpdating (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+checks if rtc is updating or not 
+
+\begin{DoxyReturn}{Returns}
+return 0 if rtc is not updating and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rtc_8h_af100beb57056675501e2c5f9211e5862}\label{rtc_8h_af100beb57056675501e2c5f9211e5862}} 
+\index{rtc.h@{rtc.h}!util\_sys\_inb\_RTC@{util\_sys\_inb\_RTC}}
+\index{util\_sys\_inb\_RTC@{util\_sys\_inb\_RTC}!rtc.h@{rtc.h}}
+\doxysubsubsection{\texorpdfstring{util\_sys\_inb\_RTC()}{util\_sys\_inb\_RTC()}}
+{\footnotesize\ttfamily int() util\+\_\+sys\+\_\+inb\+\_\+\+RTC (\begin{DoxyParamCaption}\item[{int}]{port,  }\item[{unsigned long $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+aux function for sys\+\_\+inb in rtc 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & register from where we\textquotesingle{}re reading data \\
+\hline
+{\em value} & a pointer to the variable to fill with data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}

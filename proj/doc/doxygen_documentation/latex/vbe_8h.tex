@@ -1,0 +1,662 @@
+\hypertarget{vbe_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/vbe.h File Reference}
+\label{vbe_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/vbe.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/vbe.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sprite.\+h\char`\"{}}\newline
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}} \{ \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47af57444a2814db96222f09035ff269767}{SCORE}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0a041e18d712f7b239eac5375daf4a05}{TITLE}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a018571312ea34f2adcc7455e1f7ed1bc}{CROSSHAIR}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5ce368bdfc444a87fef6c208b4101571}{ENEMY}}
+, \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a44fb105642db25ba0fee334fee66022a}{DEAD\+\_\+\+ENEMY}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5484ec37ffd1fcffb7aba549a4839910}{APPLE}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a832f4da4174ccbafd1ddf1079649370b}{NUMBER0}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac6c241a183bdd651059af8c1f807d7b5}{NUMBER1}}
+, \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3d19425bec520eba69d3dc6fe897a2a6}{NUMBER2}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa344584d4b6777bb3a4c78f1bae8c4b8}{NUMBER3}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3f534e3e7c81e4245ab1a7d450ad8054}{NUMBER4}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47acc141dce4764c1af954ae4a0d90a185f}{NUMBER5}}
+, \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac7be67c345ff9db34309330a58c5a9de}{NUMBER6}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a30fd48ae13a89b7d1813bd30f16d0558}{NUMBER7}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a1a093a83f86c297afdfb700d2ac72311}{NUMBER8}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a97f164050f40a234ab0b93a0c4337392}{NUMBER9}}
+, \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a42495cc178524da331d4681864c72b72}{GAMEOVER}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a7a10b5d68d31711288e1fe0fa17dbf4f}{EXIT}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0352906d1ea1dfcd663c918f3a86755b}{PLAY}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa7ee74b547c7cc6a96b3d23c8ddc20f9}{GO\+\_\+\+BACK\+\_\+1}}
+, \newline
+\mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3a27497b11fee5e6a410fbb3562090b1}{GO\+\_\+\+BACK\+\_\+2}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a9460318c458344a612d47696fd941417}{TWO\+\_\+\+POINTS}}
+, \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aaabdfe7000ca535236502bb0c87ad944}{SLASH}}
+ \}
+\begin{DoxyCompactList}\small\item\em pixmap to be displayed on the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{vbe_8h_a267c7882e7d3f826fe69f8bb0a35cdd2}{getmask}} (int k)
+\item 
+void $\ast$() \mbox{\hyperlink{vbe_8h_afa0e432c3ebeefc29a59abc4d22918df}{vg\+\_\+init}} (uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}})
+\begin{DoxyCompactList}\small\item\em Initializes the video module in graphics mode. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a452651f22c0c2deb7a21556eb00b437e}{vg\+\_\+get\+\_\+mode\+\_\+info}} (uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$vmi\+\_\+p)
+\begin{DoxyCompactList}\small\item\em Returns information on the input VBE mode. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a08c498ffeb0a3962e3b7711b57397741}{vg\+\_\+draw\+\_\+pixel}} (uint16\+\_\+t x, uint16\+\_\+t y, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws only a pixel by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a1135e6421577648c6d1c0abc1e971663}{vg\+\_\+draw\+\_\+vline}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t len, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a verical line by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a5e5b25bd525250f61f40b9e9f212d5e6}{vg\+\_\+draw\+\_\+hline}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t len, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a horizontal line by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a99d2da2559e11200c6b40c469e9977ec}{vg\+\_\+draw\+\_\+rectangle}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t width, uint16\+\_\+t height, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em Draws a filled rectangle by changing the video RAM. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_af7be676c7f6db3e91ab5165ad52b7416}{vg\+\_\+draw\+\_\+pattern}} (uint8\+\_\+t no\+\_\+rectangles, uint32\+\_\+t first, uint8\+\_\+t step)
+\begin{DoxyCompactList}\small\item\em Draws a rectangle-\/based colored pattern. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a9afffb86679e9bdce8dd7def17ed1af6}{vg\+\_\+ultimate\+\_\+pixmap\+\_\+handler}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}} pixtype)
+\item 
+int() \mbox{\hyperlink{vbe_8h_aed0c6ff5c4196a55cfc8afa0da978dfe}{vg\+\_\+ultimate\+\_\+pixmap\+\_\+eraser}} (uint16\+\_\+t x, uint16\+\_\+t y, uint16\+\_\+t \mbox{\hyperlink{proj_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}, enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}} pixtype, bool \mbox{\hyperlink{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}{mouse}})
+\item 
+int() \mbox{\hyperlink{vbe_8h_a713a7925a6327e368eaa4216045a3235}{vg\+\_\+draw\+\_\+pixmap}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em draws the pixmax on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{vbe_8h_a160d2217bf637efbc5f14e9e805775a3}{vg\+\_\+erase\+\_\+pixmap}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em erases the pixmax of the screen \end{DoxyCompactList}\item 
+uint8\+\_\+t $\ast$() \mbox{\hyperlink{vbe_8h_aff6cfb7e32d9a94a84b4e284738b6d7a}{vg\+\_\+create\+\_\+sprite}} (xpm\+\_\+map\+\_\+t xpm, xpm\+\_\+image\+\_\+t $\ast$img)
+\begin{DoxyCompactList}\small\item\em creates the sprite to be displayed \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_a75f0acc6757adeb19c890704303a4fc0}{vg\+\_\+draw\+\_\+sprite}} (uint8\+\_\+t $\ast$sprite, xpm\+\_\+image\+\_\+t img, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em draws the sprite on the screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{vbe_8h_ac9e65f8000cfc3af0b4f5af9c61c7d14}{vg\+\_\+erase\+\_\+sprite}} (uint8\+\_\+t $\ast$sprite, xpm\+\_\+image\+\_\+t img, uint16\+\_\+t x, uint16\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em erases the sprite on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{vbe_8h_aba790f1e96c267ea3bbfbe498bcaef63}{swap\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em swaps current buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{vbe_8h_acab531abaa74a7e664e3986f2522b33a}{r}}
+\item 
+struct minix\+\_\+mem\+\_\+range \mbox{\hyperlink{vbe_8h_a27553ef0da1f0b187170035242a2287f}{mr}}
+\item 
+unsigned int \mbox{\hyperlink{vbe_8h_af856b4fb3e3f77e7beed552fb48a7c3a}{vram\+\_\+base}}
+\item 
+unsigned int \mbox{\hyperlink{vbe_8h_a17b12b87c65aaa04215d9bdb7e9e84dd}{vram\+\_\+size}}
+\item 
+static void $\ast$ \mbox{\hyperlink{vbe_8h_a5077a1a703b40b073dc6b5c1129ab0a1}{video\+\_\+mem}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{vbe_8h_ae1a3e7f751ccf2c6aab87b740d58065f}{h\+\_\+res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{vbe_8h_a9c67113f1cd2b08e5069bed5bcb04263}{v\+\_\+res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{vbe_8h_a7a13a7564baa1d9b7a5d977fa9a71220}{bits\+Per\+Pixel}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{vbe_8h_a6e827fe7f73255b58cc3d322108752a4}{bytes\+Per\+Pixel}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a4fb45a90ea3974b0dad0a4bfae3f27ee}{red\+\_\+s}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a5936c5421859afbf2fd12b4429765d71}{red\+\_\+p}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a7f863cad21830077410620b2b9d466ae}{green\+\_\+s}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a2b50275a98cb83366bfeecddf1d68a9e}{green\+\_\+p}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a269eb8c5b8fc363f72b9755a410ee87e}{blue\+\_\+s}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_a9be643ee0bab5c793c9fbdb4b93f2b9b}{blue\+\_\+p}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{vbe_8h_aea399bf1ee5c1c440ea91f5f100260fb}{memory\+Model}}
+\item 
+phys\+\_\+bytes \mbox{\hyperlink{vbe_8h_afc7f239dc11fb12b0875cb81d263637a}{phys\+\_\+addr}}
+\item 
+static void $\ast$ \mbox{\hyperlink{vbe_8h_ac40d92d21b09f6aaba881247730ae260}{double\+\_\+buffer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}} 
+\index{vbe.h@{vbe.h}!pixmap@{pixmap}}
+\index{pixmap@{pixmap}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{pixmap}{pixmap}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}}}
+
+
+
+pixmap to be displayed on the screen 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCORE@{SCORE}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!SCORE@{SCORE}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47af57444a2814db96222f09035ff269767}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47af57444a2814db96222f09035ff269767}} 
+SCORE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TITLE@{TITLE}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!TITLE@{TITLE}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0a041e18d712f7b239eac5375daf4a05}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0a041e18d712f7b239eac5375daf4a05}} 
+TITLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CROSSHAIR@{CROSSHAIR}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!CROSSHAIR@{CROSSHAIR}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a018571312ea34f2adcc7455e1f7ed1bc}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a018571312ea34f2adcc7455e1f7ed1bc}} 
+CROSSHAIR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENEMY@{ENEMY}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!ENEMY@{ENEMY}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5ce368bdfc444a87fef6c208b4101571}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5ce368bdfc444a87fef6c208b4101571}} 
+ENEMY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEAD\_ENEMY@{DEAD\_ENEMY}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!DEAD\_ENEMY@{DEAD\_ENEMY}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a44fb105642db25ba0fee334fee66022a}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a44fb105642db25ba0fee334fee66022a}} 
+DEAD\+\_\+\+ENEMY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APPLE@{APPLE}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!APPLE@{APPLE}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5484ec37ffd1fcffb7aba549a4839910}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a5484ec37ffd1fcffb7aba549a4839910}} 
+APPLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER0@{NUMBER0}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER0@{NUMBER0}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a832f4da4174ccbafd1ddf1079649370b}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a832f4da4174ccbafd1ddf1079649370b}} 
+NUMBER0&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER1@{NUMBER1}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER1@{NUMBER1}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac6c241a183bdd651059af8c1f807d7b5}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac6c241a183bdd651059af8c1f807d7b5}} 
+NUMBER1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER2@{NUMBER2}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER2@{NUMBER2}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3d19425bec520eba69d3dc6fe897a2a6}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3d19425bec520eba69d3dc6fe897a2a6}} 
+NUMBER2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER3@{NUMBER3}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER3@{NUMBER3}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa344584d4b6777bb3a4c78f1bae8c4b8}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa344584d4b6777bb3a4c78f1bae8c4b8}} 
+NUMBER3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER4@{NUMBER4}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER4@{NUMBER4}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3f534e3e7c81e4245ab1a7d450ad8054}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3f534e3e7c81e4245ab1a7d450ad8054}} 
+NUMBER4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER5@{NUMBER5}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER5@{NUMBER5}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47acc141dce4764c1af954ae4a0d90a185f}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47acc141dce4764c1af954ae4a0d90a185f}} 
+NUMBER5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER6@{NUMBER6}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER6@{NUMBER6}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac7be67c345ff9db34309330a58c5a9de}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47ac7be67c345ff9db34309330a58c5a9de}} 
+NUMBER6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER7@{NUMBER7}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER7@{NUMBER7}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a30fd48ae13a89b7d1813bd30f16d0558}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a30fd48ae13a89b7d1813bd30f16d0558}} 
+NUMBER7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER8@{NUMBER8}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER8@{NUMBER8}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a1a093a83f86c297afdfb700d2ac72311}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a1a093a83f86c297afdfb700d2ac72311}} 
+NUMBER8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER9@{NUMBER9}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!NUMBER9@{NUMBER9}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a97f164050f40a234ab0b93a0c4337392}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a97f164050f40a234ab0b93a0c4337392}} 
+NUMBER9&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GAMEOVER@{GAMEOVER}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!GAMEOVER@{GAMEOVER}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a42495cc178524da331d4681864c72b72}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a42495cc178524da331d4681864c72b72}} 
+GAMEOVER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXIT@{EXIT}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!EXIT@{EXIT}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a7a10b5d68d31711288e1fe0fa17dbf4f}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a7a10b5d68d31711288e1fe0fa17dbf4f}} 
+EXIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAY@{PLAY}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!PLAY@{PLAY}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0352906d1ea1dfcd663c918f3a86755b}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a0352906d1ea1dfcd663c918f3a86755b}} 
+PLAY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GO\_BACK\_1@{GO\_BACK\_1}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!GO\_BACK\_1@{GO\_BACK\_1}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa7ee74b547c7cc6a96b3d23c8ddc20f9}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aa7ee74b547c7cc6a96b3d23c8ddc20f9}} 
+GO\+\_\+\+BACK\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GO\_BACK\_2@{GO\_BACK\_2}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!GO\_BACK\_2@{GO\_BACK\_2}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3a27497b11fee5e6a410fbb3562090b1}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a3a27497b11fee5e6a410fbb3562090b1}} 
+GO\+\_\+\+BACK\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TWO\_POINTS@{TWO\_POINTS}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!TWO\_POINTS@{TWO\_POINTS}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a9460318c458344a612d47696fd941417}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47a9460318c458344a612d47696fd941417}} 
+TWO\+\_\+\+POINTS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SLASH@{SLASH}!vbe.h@{vbe.h}}\index{vbe.h@{vbe.h}!SLASH@{SLASH}}}\mbox{\Hypertarget{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aaabdfe7000ca535236502bb0c87ad944}\label{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47aaabdfe7000ca535236502bb0c87ad944}} 
+SLASH&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{vbe_8h_a267c7882e7d3f826fe69f8bb0a35cdd2}\label{vbe_8h_a267c7882e7d3f826fe69f8bb0a35cdd2}} 
+\index{vbe.h@{vbe.h}!getmask@{getmask}}
+\index{getmask@{getmask}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{getmask()}{getmask()}}
+{\footnotesize\ttfamily uint32\+\_\+t getmask (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_aba790f1e96c267ea3bbfbe498bcaef63}\label{vbe_8h_aba790f1e96c267ea3bbfbe498bcaef63}} 
+\index{vbe.h@{vbe.h}!swapBuffer@{swapBuffer}}
+\index{swapBuffer@{swapBuffer}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{swapBuffer()}{swapBuffer()}}
+{\footnotesize\ttfamily void() swap\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+swaps current buffer 
+
+\mbox{\Hypertarget{vbe_8h_aff6cfb7e32d9a94a84b4e284738b6d7a}\label{vbe_8h_aff6cfb7e32d9a94a84b4e284738b6d7a}} 
+\index{vbe.h@{vbe.h}!vg\_create\_sprite@{vg\_create\_sprite}}
+\index{vg\_create\_sprite@{vg\_create\_sprite}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_create\_sprite()}{vg\_create\_sprite()}}
+{\footnotesize\ttfamily uint8\+\_\+t $\ast$() vg\+\_\+create\+\_\+sprite (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{xpm\+\_\+image\+\_\+t $\ast$}]{img }\end{DoxyParamCaption})}
+
+
+
+creates the sprite to be displayed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em img} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a5e5b25bd525250f61f40b9e9f212d5e6}\label{vbe_8h_a5e5b25bd525250f61f40b9e9f212d5e6}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_hline@{vg\_draw\_hline}}
+\index{vg\_draw\_hline@{vg\_draw\_hline}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_hline()}{vg\_draw\_hline()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+hline (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{len,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a horizontal line by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the initial point \\
+\hline
+{\em y} & vertical coordinate of the initial point \\
+\hline
+{\em len} & line\textquotesingle{}s length in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_af7be676c7f6db3e91ab5165ad52b7416}\label{vbe_8h_af7be676c7f6db3e91ab5165ad52b7416}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_pattern@{vg\_draw\_pattern}}
+\index{vg\_draw\_pattern@{vg\_draw\_pattern}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pattern()}{vg\_draw\_pattern()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pattern (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{no\+\_\+rectangles,  }\item[{uint32\+\_\+t}]{first,  }\item[{uint8\+\_\+t}]{step }\end{DoxyParamCaption})}
+
+
+
+Draws a rectangle-\/based colored pattern. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no\+\_\+rectangles} & Number of rectangles in each of the horizontal and vertical direction \\
+\hline
+{\em first} & Color to be used in the first rectangle \\
+\hline
+{\em step} & Difference between the values of the R/G component in adjacent rectangles \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a08c498ffeb0a3962e3b7711b57397741}\label{vbe_8h_a08c498ffeb0a3962e3b7711b57397741}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_pixel@{vg\_draw\_pixel}}
+\index{vg\_draw\_pixel@{vg\_draw\_pixel}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pixel()}{vg\_draw\_pixel()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws only a pixel by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the point \\
+\hline
+{\em y} & vertical coordinate of the point \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a713a7925a6327e368eaa4216045a3235}\label{vbe_8h_a713a7925a6327e368eaa4216045a3235}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_pixmap@{vg\_draw\_pixmap}}
+\index{vg\_draw\_pixmap@{vg\_draw\_pixmap}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pixmap()}{vg\_draw\_pixmap()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pixmap (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+draws the pixmax on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a99d2da2559e11200c6b40c469e9977ec}\label{vbe_8h_a99d2da2559e11200c6b40c469e9977ec}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_rectangle@{vg\_draw\_rectangle}}
+\index{vg\_draw\_rectangle@{vg\_draw\_rectangle}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_rectangle()}{vg\_draw\_rectangle()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{width,  }\item[{uint16\+\_\+t}]{height,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a filled rectangle by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the rectangle\textquotesingle{}s top-\/left vertex \\
+\hline
+{\em y} & vertical coordinate of the rectangle\textquotesingle{}s top-\/left vertex \\
+\hline
+{\em width} & rectangle\textquotesingle{}s width in pixels \\
+\hline
+{\em height} & rectangle\textquotesingle{}s height in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a75f0acc6757adeb19c890704303a4fc0}\label{vbe_8h_a75f0acc6757adeb19c890704303a4fc0}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_sprite@{vg\_draw\_sprite}}
+\index{vg\_draw\_sprite@{vg\_draw\_sprite}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_sprite()}{vg\_draw\_sprite()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+sprite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+draws the sprite on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$sprite} & pointer to where is stored the sprite \\
+\hline
+{\em img} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a1135e6421577648c6d1c0abc1e971663}\label{vbe_8h_a1135e6421577648c6d1c0abc1e971663}} 
+\index{vbe.h@{vbe.h}!vg\_draw\_vline@{vg\_draw\_vline}}
+\index{vg\_draw\_vline@{vg\_draw\_vline}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_vline()}{vg\_draw\_vline()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+vline (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{len,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a verical line by changing the video RAM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of the initial point \\
+\hline
+{\em y} & vertical coordinate of the initial point \\
+\hline
+{\em len} & line\textquotesingle{}s length in pixels \\
+\hline
+{\em color} & color to set the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a160d2217bf637efbc5f14e9e805775a3}\label{vbe_8h_a160d2217bf637efbc5f14e9e805775a3}} 
+\index{vbe.h@{vbe.h}!vg\_erase\_pixmap@{vg\_erase\_pixmap}}
+\index{vg\_erase\_pixmap@{vg\_erase\_pixmap}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_erase\_pixmap()}{vg\_erase\_pixmap()}}
+{\footnotesize\ttfamily void() vg\+\_\+erase\+\_\+pixmap (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+erases the pixmax of the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vbe_8h_ac9e65f8000cfc3af0b4f5af9c61c7d14}\label{vbe_8h_ac9e65f8000cfc3af0b4f5af9c61c7d14}} 
+\index{vbe.h@{vbe.h}!vg\_erase\_sprite@{vg\_erase\_sprite}}
+\index{vg\_erase\_sprite@{vg\_erase\_sprite}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_erase\_sprite()}{vg\_erase\_sprite()}}
+{\footnotesize\ttfamily int() vg\+\_\+erase\+\_\+sprite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+erases the sprite on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$sprite} & pointer to where is stored the sprite \\
+\hline
+{\em img} & map (assuming indexed color mode) \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner, starts at 0 (leftmost pixel) \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner, starts at 0 (top pixel) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a452651f22c0c2deb7a21556eb00b437e}\label{vbe_8h_a452651f22c0c2deb7a21556eb00b437e}} 
+\index{vbe.h@{vbe.h}!vg\_get\_mode\_info@{vg\_get\_mode\_info}}
+\index{vg\_get\_mode\_info@{vg\_get\_mode\_info}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_get\_mode\_info()}{vg\_get\_mode\_info()}}
+{\footnotesize\ttfamily int() vg\+\_\+get\+\_\+mode\+\_\+info (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode,  }\item[{vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$}]{vmi\+\_\+p }\end{DoxyParamCaption})}
+
+
+
+Returns information on the input VBE mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & mode whose information should be returned \\
+\hline
+{\em vmi\+\_\+p} & address of vbe\+\_\+mode\+\_\+info\+\_\+t structure to be initialized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_afa0e432c3ebeefc29a59abc4d22918df}\label{vbe_8h_afa0e432c3ebeefc29a59abc4d22918df}} 
+\index{vbe.h@{vbe.h}!vg\_init@{vg\_init}}
+\index{vg\_init@{vg\_init}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_init()}{vg\_init()}}
+{\footnotesize\ttfamily void $\ast$() vg\+\_\+init (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Initializes the video module in graphics mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & 16-\/bit VBE mode to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vbe_8h_aed0c6ff5c4196a55cfc8afa0da978dfe}\label{vbe_8h_aed0c6ff5c4196a55cfc8afa0da978dfe}} 
+\index{vbe.h@{vbe.h}!vg\_ultimate\_pixmap\_eraser@{vg\_ultimate\_pixmap\_eraser}}
+\index{vg\_ultimate\_pixmap\_eraser@{vg\_ultimate\_pixmap\_eraser}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_ultimate\_pixmap\_eraser()}{vg\_ultimate\_pixmap\_eraser()}}
+{\footnotesize\ttfamily int() vg\+\_\+ultimate\+\_\+pixmap\+\_\+eraser (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{mode,  }\item[{enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}}}]{pixtype,  }\item[{bool}]{mouse }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em mode} & \\
+\hline
+{\em pixtype} & \\
+\hline
+{\em mouse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{vbe_8h_a9afffb86679e9bdce8dd7def17ed1af6}\label{vbe_8h_a9afffb86679e9bdce8dd7def17ed1af6}} 
+\index{vbe.h@{vbe.h}!vg\_ultimate\_pixmap\_handler@{vg\_ultimate\_pixmap\_handler}}
+\index{vg\_ultimate\_pixmap\_handler@{vg\_ultimate\_pixmap\_handler}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vg\_ultimate\_pixmap\_handler()}{vg\_ultimate\_pixmap\_handler()}}
+{\footnotesize\ttfamily int() vg\+\_\+ultimate\+\_\+pixmap\+\_\+handler (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{mode,  }\item[{enum \mbox{\hyperlink{vbe_8h_acffa85dc875ba8bc4c40e81486b82b47}{pixmap}}}]{pixtype }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em mode} & \\
+\hline
+{\em pixtype} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{vbe_8h_a7a13a7564baa1d9b7a5d977fa9a71220}\label{vbe_8h_a7a13a7564baa1d9b7a5d977fa9a71220}} 
+\index{vbe.h@{vbe.h}!bitsPerPixel@{bitsPerPixel}}
+\index{bitsPerPixel@{bitsPerPixel}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{bitsPerPixel}{bitsPerPixel}}
+{\footnotesize\ttfamily uint16\+\_\+t bits\+Per\+Pixel}
+
+\mbox{\Hypertarget{vbe_8h_a9be643ee0bab5c793c9fbdb4b93f2b9b}\label{vbe_8h_a9be643ee0bab5c793c9fbdb4b93f2b9b}} 
+\index{vbe.h@{vbe.h}!blue\_p@{blue\_p}}
+\index{blue\_p@{blue\_p}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{blue\_p}{blue\_p}}
+{\footnotesize\ttfamily uint8\+\_\+t blue\+\_\+p}
+
+\mbox{\Hypertarget{vbe_8h_a269eb8c5b8fc363f72b9755a410ee87e}\label{vbe_8h_a269eb8c5b8fc363f72b9755a410ee87e}} 
+\index{vbe.h@{vbe.h}!blue\_s@{blue\_s}}
+\index{blue\_s@{blue\_s}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{blue\_s}{blue\_s}}
+{\footnotesize\ttfamily uint8\+\_\+t blue\+\_\+s}
+
+\mbox{\Hypertarget{vbe_8h_a6e827fe7f73255b58cc3d322108752a4}\label{vbe_8h_a6e827fe7f73255b58cc3d322108752a4}} 
+\index{vbe.h@{vbe.h}!bytesPerPixel@{bytesPerPixel}}
+\index{bytesPerPixel@{bytesPerPixel}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{bytesPerPixel}{bytesPerPixel}}
+{\footnotesize\ttfamily uint16\+\_\+t bytes\+Per\+Pixel}
+
+\mbox{\Hypertarget{vbe_8h_ac40d92d21b09f6aaba881247730ae260}\label{vbe_8h_ac40d92d21b09f6aaba881247730ae260}} 
+\index{vbe.h@{vbe.h}!double\_buffer@{double\_buffer}}
+\index{double\_buffer@{double\_buffer}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{double\_buffer}{double\_buffer}}
+{\footnotesize\ttfamily void$\ast$ double\+\_\+buffer\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{vbe_8h_a2b50275a98cb83366bfeecddf1d68a9e}\label{vbe_8h_a2b50275a98cb83366bfeecddf1d68a9e}} 
+\index{vbe.h@{vbe.h}!green\_p@{green\_p}}
+\index{green\_p@{green\_p}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{green\_p}{green\_p}}
+{\footnotesize\ttfamily uint8\+\_\+t green\+\_\+p}
+
+\mbox{\Hypertarget{vbe_8h_a7f863cad21830077410620b2b9d466ae}\label{vbe_8h_a7f863cad21830077410620b2b9d466ae}} 
+\index{vbe.h@{vbe.h}!green\_s@{green\_s}}
+\index{green\_s@{green\_s}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{green\_s}{green\_s}}
+{\footnotesize\ttfamily uint8\+\_\+t green\+\_\+s}
+
+\mbox{\Hypertarget{vbe_8h_ae1a3e7f751ccf2c6aab87b740d58065f}\label{vbe_8h_ae1a3e7f751ccf2c6aab87b740d58065f}} 
+\index{vbe.h@{vbe.h}!h\_res@{h\_res}}
+\index{h\_res@{h\_res}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{h\_res}{h\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t h\+\_\+res}
+
+\mbox{\Hypertarget{vbe_8h_aea399bf1ee5c1c440ea91f5f100260fb}\label{vbe_8h_aea399bf1ee5c1c440ea91f5f100260fb}} 
+\index{vbe.h@{vbe.h}!memoryModel@{memoryModel}}
+\index{memoryModel@{memoryModel}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{memoryModel}{memoryModel}}
+{\footnotesize\ttfamily uint8\+\_\+t memory\+Model}
+
+\mbox{\Hypertarget{vbe_8h_a27553ef0da1f0b187170035242a2287f}\label{vbe_8h_a27553ef0da1f0b187170035242a2287f}} 
+\index{vbe.h@{vbe.h}!mr@{mr}}
+\index{mr@{mr}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{mr}{mr}}
+{\footnotesize\ttfamily struct minix\+\_\+mem\+\_\+range mr}
+
+\mbox{\Hypertarget{vbe_8h_afc7f239dc11fb12b0875cb81d263637a}\label{vbe_8h_afc7f239dc11fb12b0875cb81d263637a}} 
+\index{vbe.h@{vbe.h}!phys\_addr@{phys\_addr}}
+\index{phys\_addr@{phys\_addr}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{phys\_addr}{phys\_addr}}
+{\footnotesize\ttfamily phys\+\_\+bytes phys\+\_\+addr}
+
+\mbox{\Hypertarget{vbe_8h_acab531abaa74a7e664e3986f2522b33a}\label{vbe_8h_acab531abaa74a7e664e3986f2522b33a}} 
+\index{vbe.h@{vbe.h}!r@{r}}
+\index{r@{r}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{r}{r}}
+{\footnotesize\ttfamily int r}
+
+\mbox{\Hypertarget{vbe_8h_a5936c5421859afbf2fd12b4429765d71}\label{vbe_8h_a5936c5421859afbf2fd12b4429765d71}} 
+\index{vbe.h@{vbe.h}!red\_p@{red\_p}}
+\index{red\_p@{red\_p}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{red\_p}{red\_p}}
+{\footnotesize\ttfamily uint8\+\_\+t red\+\_\+p}
+
+\mbox{\Hypertarget{vbe_8h_a4fb45a90ea3974b0dad0a4bfae3f27ee}\label{vbe_8h_a4fb45a90ea3974b0dad0a4bfae3f27ee}} 
+\index{vbe.h@{vbe.h}!red\_s@{red\_s}}
+\index{red\_s@{red\_s}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{red\_s}{red\_s}}
+{\footnotesize\ttfamily uint8\+\_\+t red\+\_\+s}
+
+\mbox{\Hypertarget{vbe_8h_a9c67113f1cd2b08e5069bed5bcb04263}\label{vbe_8h_a9c67113f1cd2b08e5069bed5bcb04263}} 
+\index{vbe.h@{vbe.h}!v\_res@{v\_res}}
+\index{v\_res@{v\_res}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{v\_res}{v\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t v\+\_\+res}
+
+\mbox{\Hypertarget{vbe_8h_a5077a1a703b40b073dc6b5c1129ab0a1}\label{vbe_8h_a5077a1a703b40b073dc6b5c1129ab0a1}} 
+\index{vbe.h@{vbe.h}!video\_mem@{video\_mem}}
+\index{video\_mem@{video\_mem}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{video\_mem}{video\_mem}}
+{\footnotesize\ttfamily void$\ast$ video\+\_\+mem\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{vbe_8h_af856b4fb3e3f77e7beed552fb48a7c3a}\label{vbe_8h_af856b4fb3e3f77e7beed552fb48a7c3a}} 
+\index{vbe.h@{vbe.h}!vram\_base@{vram\_base}}
+\index{vram\_base@{vram\_base}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vram\_base}{vram\_base}}
+{\footnotesize\ttfamily unsigned int vram\+\_\+base}
+
+\mbox{\Hypertarget{vbe_8h_a17b12b87c65aaa04215d9bdb7e9e84dd}\label{vbe_8h_a17b12b87c65aaa04215d9bdb7e9e84dd}} 
+\index{vbe.h@{vbe.h}!vram\_size@{vram\_size}}
+\index{vram\_size@{vram\_size}!vbe.h@{vbe.h}}
+\doxysubsubsection{\texorpdfstring{vram\_size}{vram\_size}}
+{\footnotesize\ttfamily unsigned int vram\+\_\+size}
+

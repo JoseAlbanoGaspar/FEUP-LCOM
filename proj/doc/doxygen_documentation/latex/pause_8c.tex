@@ -1,0 +1,45 @@
+\hypertarget{pause_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/pause.c File Reference}
+\label{pause_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/pause.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/pause.c}}
+{\ttfamily \#include \char`\"{}pause.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{pause_8c_acd656219308017c1a8efe2566cd2f3ba}{pause\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse)
+\begin{DoxyCompactList}\small\item\em freezes the screen if the user presses \textquotesingle{}p\textquotesingle{} key \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{pause_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pause_8c_acd656219308017c1a8efe2566cd2f3ba}\label{pause_8c_acd656219308017c1a8efe2566cd2f3ba}} 
+\index{pause.c@{pause.c}!pause\_loop@{pause\_loop}}
+\index{pause\_loop@{pause\_loop}!pause.c@{pause.c}}
+\doxysubsubsection{\texorpdfstring{pause\_loop()}{pause\_loop()}}
+{\footnotesize\ttfamily int pause\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse }\end{DoxyParamCaption})}
+
+
+
+freezes the screen if the user presses \textquotesingle{}p\textquotesingle{} key 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{pause_8c_ad02fcede5beda1de5da3bc015d0b8927}\label{pause_8c_ad02fcede5beda1de5da3bc015d0b8927}} 
+\index{pause.c@{pause.c}!scancode@{scancode}}
+\index{scancode@{scancode}!pause.c@{pause.c}}
+\doxysubsubsection{\texorpdfstring{scancode}{scancode}}
+{\footnotesize\ttfamily uint16\+\_\+t scancode\hspace{0.3cm}{\ttfamily [extern]}}
+

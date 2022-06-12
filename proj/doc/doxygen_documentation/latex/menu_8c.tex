@@ -1,0 +1,228 @@
+\hypertarget{menu_8c}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/menu.c File Reference}
+\label{menu_8c}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/menu.c@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/menu.c}}
+{\ttfamily \#include \char`\"{}menu.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{menu_8c_ab38f5534f2de1f5c55b23ff3e1985ca9}{menu\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer)
+\begin{DoxyCompactList}\small\item\em creates all the menu \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8c_a3cbad9d1fd22d55488ab52e9aeb54713}{init\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em initializes menu screen \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8c_aaf9f4dbcf53c6a754adaeee99add2dee}{update\+\_\+menu}} (int \mbox{\hyperlink{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}{sel}})
+\begin{DoxyCompactList}\small\item\em updates menu scrren \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8c_ae3cd159ab6cf8a40fa5165abf6b45968}{selected\+Opt}} (uint16\+\_\+t scan, int \mbox{\hyperlink{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}{sel}})
+\begin{DoxyCompactList}\small\item\em detects the option that is selected and changes it if its necessary \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{menu_8c_ae7f5d09b0c84211e8f5b1a19a3d0c01d}{on\+Press}} ()
+\begin{DoxyCompactList}\small\item\em detects if we click in an option \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{menu_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}{count}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}}
+\item 
+struct packet \mbox{\hyperlink{menu_8c_a3b2e64ffb96c650d6525c99be01c7331}{mouse\+\_\+packet}}
+\item 
+int \mbox{\hyperlink{menu_8c_abead54bd0e416d635f2709048c6068fb}{mouse\+Count}}
+\item 
+int \mbox{\hyperlink{menu_8c_a85ea1b63086b31a15d3ed2579c5715a6}{mouseX}}
+\item 
+int \mbox{\hyperlink{menu_8c_a3637abebcaa9d04aa18b1610d0921e16}{mouseY}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_af294e94ca5176720ef5e5cbedc95ca47}{mode}}
+\item 
+bool \mbox{\hyperlink{menu_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}{menu}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_ae1a3e7f751ccf2c6aab87b740d58065f}{h\+\_\+res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_a9c67113f1cd2b08e5069bed5bcb04263}{v\+\_\+res}}
+\item 
+int \mbox{\hyperlink{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}{sel}} \mbox{[}$\,$\mbox{]} = \{0,1\}
+\item 
+int \mbox{\hyperlink{menu_8c_adab4da51ba40d5a492becdceccccbfcd}{selected}} = 0
+\item 
+bool \mbox{\hyperlink{menu_8c_ad8f6d257142678d59a37901ccaff0438}{game}} = false
+\item 
+bool \mbox{\hyperlink{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}{mouse}} = false
+\item 
+bool \mbox{\hyperlink{menu_8c_a223618348d25362b6c1859bc1a2346eb}{exit\+Opt}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{menu_8c_a3cbad9d1fd22d55488ab52e9aeb54713}\label{menu_8c_a3cbad9d1fd22d55488ab52e9aeb54713}} 
+\index{menu.c@{menu.c}!init\_menu@{init\_menu}}
+\index{init\_menu@{init\_menu}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{init\_menu()}{init\_menu()}}
+{\footnotesize\ttfamily int() init\+\_\+menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes menu screen 
+
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_ab38f5534f2de1f5c55b23ff3e1985ca9}\label{menu_8c_ab38f5534f2de1f5c55b23ff3e1985ca9}} 
+\index{menu.c@{menu.c}!menu\_loop@{menu\_loop}}
+\index{menu\_loop@{menu\_loop}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{menu\_loop()}{menu\_loop()}}
+{\footnotesize\ttfamily int() menu\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer }\end{DoxyParamCaption})}
+
+
+
+creates all the menu 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_ae7f5d09b0c84211e8f5b1a19a3d0c01d}\label{menu_8c_ae7f5d09b0c84211e8f5b1a19a3d0c01d}} 
+\index{menu.c@{menu.c}!onPress@{onPress}}
+\index{onPress@{onPress}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{onPress()}{onPress()}}
+{\footnotesize\ttfamily int() on\+Press (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+detects if we click in an option 
+
+\begin{DoxyReturn}{Returns}
+returns 0 if we do not click, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_ae3cd159ab6cf8a40fa5165abf6b45968}\label{menu_8c_ae3cd159ab6cf8a40fa5165abf6b45968}} 
+\index{menu.c@{menu.c}!selectedOpt@{selectedOpt}}
+\index{selectedOpt@{selectedOpt}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{selectedOpt()}{selectedOpt()}}
+{\footnotesize\ttfamily int() selected\+Opt (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{scancode,  }\item[{int}]{sel }\end{DoxyParamCaption})}
+
+
+
+detects the option that is selected and changes it if its necessary 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & scancode of the key that was pressed \\
+\hline
+{\em sel} & option that is selected \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the sel to be highlighted 
+\end{DoxyReturn}
+\mbox{\Hypertarget{menu_8c_aaf9f4dbcf53c6a754adaeee99add2dee}\label{menu_8c_aaf9f4dbcf53c6a754adaeee99add2dee}} 
+\index{menu.c@{menu.c}!update\_menu@{update\_menu}}
+\index{update\_menu@{update\_menu}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{update\_menu()}{update\_menu()}}
+{\footnotesize\ttfamily int update\+\_\+menu (\begin{DoxyParamCaption}\item[{int}]{sel }\end{DoxyParamCaption})}
+
+
+
+updates menu scrren 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sel} & selected option \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{menu_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}\label{menu_8c_ad43c3812e6d13e0518d9f8b8f463ffcf}} 
+\index{menu.c@{menu.c}!count@{count}}
+\index{count@{count}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily int count\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a223618348d25362b6c1859bc1a2346eb}\label{menu_8c_a223618348d25362b6c1859bc1a2346eb}} 
+\index{menu.c@{menu.c}!exitOpt@{exitOpt}}
+\index{exitOpt@{exitOpt}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{exitOpt}{exitOpt}}
+{\footnotesize\ttfamily bool exit\+Opt = false}
+
+\mbox{\Hypertarget{menu_8c_ad8f6d257142678d59a37901ccaff0438}\label{menu_8c_ad8f6d257142678d59a37901ccaff0438}} 
+\index{menu.c@{menu.c}!game@{game}}
+\index{game@{game}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{game}{game}}
+{\footnotesize\ttfamily bool game = false}
+
+\mbox{\Hypertarget{menu_8c_ae1a3e7f751ccf2c6aab87b740d58065f}\label{menu_8c_ae1a3e7f751ccf2c6aab87b740d58065f}} 
+\index{menu.c@{menu.c}!h\_res@{h\_res}}
+\index{h\_res@{h\_res}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{h\_res}{h\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t h\+\_\+res\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}\label{menu_8c_a64881c5f5f42c13aa0deb1dc0d7a8b26}} 
+\index{menu.c@{menu.c}!menu@{menu}}
+\index{menu@{menu}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{menu}{menu}}
+{\footnotesize\ttfamily bool menu\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_af294e94ca5176720ef5e5cbedc95ca47}\label{menu_8c_af294e94ca5176720ef5e5cbedc95ca47}} 
+\index{menu.c@{menu.c}!mode@{mode}}
+\index{mode@{mode}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily uint16\+\_\+t mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}\label{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}} 
+\index{menu.c@{menu.c}!mouse@{mouse}}
+\index{mouse@{mouse}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouse}{mouse}}
+{\footnotesize\ttfamily bool mouse = false}
+
+\mbox{\Hypertarget{menu_8c_a3b2e64ffb96c650d6525c99be01c7331}\label{menu_8c_a3b2e64ffb96c650d6525c99be01c7331}} 
+\index{menu.c@{menu.c}!mouse\_packet@{mouse\_packet}}
+\index{mouse\_packet@{mouse\_packet}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_packet}{mouse\_packet}}
+{\footnotesize\ttfamily struct packet mouse\+\_\+packet\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_abead54bd0e416d635f2709048c6068fb}\label{menu_8c_abead54bd0e416d635f2709048c6068fb}} 
+\index{menu.c@{menu.c}!mouseCount@{mouseCount}}
+\index{mouseCount@{mouseCount}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouseCount}{mouseCount}}
+{\footnotesize\ttfamily int mouse\+Count\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a85ea1b63086b31a15d3ed2579c5715a6}\label{menu_8c_a85ea1b63086b31a15d3ed2579c5715a6}} 
+\index{menu.c@{menu.c}!mouseX@{mouseX}}
+\index{mouseX@{mouseX}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouseX}{mouseX}}
+{\footnotesize\ttfamily int mouseX\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a3637abebcaa9d04aa18b1610d0921e16}\label{menu_8c_a3637abebcaa9d04aa18b1610d0921e16}} 
+\index{menu.c@{menu.c}!mouseY@{mouseY}}
+\index{mouseY@{mouseY}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouseY}{mouseY}}
+{\footnotesize\ttfamily int mouseY\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_ad02fcede5beda1de5da3bc015d0b8927}\label{menu_8c_ad02fcede5beda1de5da3bc015d0b8927}} 
+\index{menu.c@{menu.c}!scancode@{scancode}}
+\index{scancode@{scancode}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{scancode}{scancode}}
+{\footnotesize\ttfamily uint16\+\_\+t scancode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}\label{menu_8c_af5c6e40aaaaec57f0ff0ec3edb31afab}} 
+\index{menu.c@{menu.c}!sel@{sel}}
+\index{sel@{sel}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{sel}{sel}}
+{\footnotesize\ttfamily int sel\mbox{[}$\,$\mbox{]} = \{0,1\}}
+
+\mbox{\Hypertarget{menu_8c_adab4da51ba40d5a492becdceccccbfcd}\label{menu_8c_adab4da51ba40d5a492becdceccccbfcd}} 
+\index{menu.c@{menu.c}!selected@{selected}}
+\index{selected@{selected}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{selected}{selected}}
+{\footnotesize\ttfamily int selected = 0}
+
+\mbox{\Hypertarget{menu_8c_a9c67113f1cd2b08e5069bed5bcb04263}\label{menu_8c_a9c67113f1cd2b08e5069bed5bcb04263}} 
+\index{menu.c@{menu.c}!v\_res@{v\_res}}
+\index{v\_res@{v\_res}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{v\_res}{v\_res}}
+{\footnotesize\ttfamily uint16\+\_\+t v\+\_\+res\hspace{0.3cm}{\ttfamily [extern]}}
+

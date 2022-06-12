@@ -1,0 +1,57 @@
+\hypertarget{game_over_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/game\+Over.h File Reference}
+\label{game_over_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/gameOver.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/gameOver.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$lcom/timer.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8254.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}assist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}snake.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rtc.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{game_over_8h_a65b6dcfbff86ccf9e98ddaac825fa691}{game\+Over\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer, uint16\+\_\+t vg\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em creats game over screen \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{game_over_8h_ac0e186e4060b86762404a792b195cd78}{start\+\_\+game\+Over}} ()
+\begin{DoxyCompactList}\small\item\em changes screen aspect to game over view \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_over_8h_a65b6dcfbff86ccf9e98ddaac825fa691}\label{game_over_8h_a65b6dcfbff86ccf9e98ddaac825fa691}} 
+\index{gameOver.h@{gameOver.h}!gameOver\_loop@{gameOver\_loop}}
+\index{gameOver\_loop@{gameOver\_loop}!gameOver.h@{gameOver.h}}
+\doxysubsubsection{\texorpdfstring{gameOver\_loop()}{gameOver\_loop()}}
+{\footnotesize\ttfamily int() game\+Over\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer,  }\item[{uint16\+\_\+t}]{vg\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+creats game over screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+{\em vg\+\_\+mode} & current video mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game_over_8h_ac0e186e4060b86762404a792b195cd78}\label{game_over_8h_ac0e186e4060b86762404a792b195cd78}} 
+\index{gameOver.h@{gameOver.h}!start\_gameOver@{start\_gameOver}}
+\index{start\_gameOver@{start\_gameOver}!gameOver.h@{gameOver.h}}
+\doxysubsubsection{\texorpdfstring{start\_gameOver()}{start\_gameOver()}}
+{\footnotesize\ttfamily int() start\+\_\+game\+Over (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+changes screen aspect to game over view 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}

@@ -1,0 +1,25 @@
+\hypertarget{keyboard_8h_source}{}\doxysection{keyboard.\+h}
+\label{keyboard_8h_source}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/keyboard.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/keyboard.h}}
+\mbox{\hyperlink{keyboard_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_LCOM\_KEYBOARD\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_LCOM\_KEYBOARD\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}macros/i8042.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{12 int (\mbox{\hyperlink{keyboard_8h_a4ac9231a99a664d6a9f0b69767e0d707}{kbd\_subscribe\_int}})(uint8\_t *bit\_no);}
+\DoxyCodeLine{17 int (\mbox{\hyperlink{keyboard_8h_aee0a7b54ee426fade9c780418d110fe0}{kbd\_unsubscribe\_int}})();}
+\DoxyCodeLine{23 int (\mbox{\hyperlink{keyboard_8h_a9db878fa35a8102723e650cb80a70edb}{kbd\_read\_buffer}})(uint16\_t * data);}
+\DoxyCodeLine{29 int (\mbox{\hyperlink{keyboard_8h_ac866afe9d476c71bc2d698854fa354d4}{kbd\_read\_status}})(uint8\_t * \mbox{\hyperlink{keyboard_8c_ade818037fd6c985038ff29656089758d}{status}});}
+\DoxyCodeLine{34 int (\mbox{\hyperlink{keyboard_8h_ab7d92a3a384929251f9dae0f401f7591}{isValidStatus}})();}
+\DoxyCodeLine{38 void (\mbox{\hyperlink{keyboard_8h_a5761bd4aad91ac1d68916ad88f583d9f}{kbc\_ih}})(void);}
+\DoxyCodeLine{42 void (\mbox{\hyperlink{keyboard_8h_ab35cd1a1eda88076796f97ee7763c9e7}{kbc\_reset\_scancode}})(void);}
+\DoxyCodeLine{47 int (\mbox{\hyperlink{keyboard_8h_a0ce808c04673ce0a828db19bbed6f8ef}{kbc\_poll}})();}
+\DoxyCodeLine{51 void (\mbox{\hyperlink{keyboard_8h_a701150cba7ddad295f8e1ae04b58ab5a}{kbc\_print}})();}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_LCOM\_KEYBOARD\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

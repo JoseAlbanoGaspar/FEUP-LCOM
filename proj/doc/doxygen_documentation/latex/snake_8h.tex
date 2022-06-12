@@ -1,0 +1,281 @@
+\hypertarget{snake_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/snake.h File Reference}
+\label{snake_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/snake.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/snake.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vbe.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_snake}{Snake}}
+\begin{DoxyCompactList}\small\item\em stores all the stuff related to the snake \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_enemy}{Enemy}}
+\begin{DoxyCompactList}\small\item\em stores the initial and final horizontal and vertical positions of the enemy, and still stores if he\textquotesingle{}s current active or not \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_apple}{Apple}}
+\begin{DoxyCompactList}\small\item\em stores the horizontal and vertical positions of the apple \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void() \mbox{\hyperlink{snake_8h_ae8163f6794fb222af5c88f39f498d1ea}{start\+Position}} (uint16\+\_\+t vbe\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em initializes the position of game elements \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_aaf1a4bf6e21ff99f2f17ef82caa25167}{draw\+Snake}} ()
+\begin{DoxyCompactList}\small\item\em draws the snake on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_adcc49db1b45319557afb30a51b81365d}{change\+Direction}} (uint16\+\_\+t \mbox{\hyperlink{pause_8c_ad02fcede5beda1de5da3bc015d0b8927}{scancode}})
+\begin{DoxyCompactList}\small\item\em detects if snake have to change direction based on the pressed key \end{DoxyCompactList}\item 
+bool() \mbox{\hyperlink{snake_8h_ad409482aee4ee97340b0a717e6927c06}{can\+Move}} (int dir)
+\begin{DoxyCompactList}\small\item\em checks if the snake can move without die \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_ab3a3db5933b6414a3aaf937434a0b498}{move\+Snake}} (int dir)
+\begin{DoxyCompactList}\small\item\em moves the snake on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a506261f0e8ba0c315688dd3e31ba1305}{draw\+Background}} ()
+\begin{DoxyCompactList}\small\item\em draws background of te game based on the video mode \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_ab6540d3f43a0c035660e115a27302489}{draw\+Numbers}} (int value, int x, int y, int digit\+\_\+len)
+\begin{DoxyCompactList}\small\item\em aux function for draw the score numbers on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_ab575d28f36585904c4e37827fe4ce00b}{draw\+Score}} ()
+\begin{DoxyCompactList}\small\item\em draws the bar of score on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a5edcf4d6d50a1d76be5c7f2122b3e597}{move\+Segments}} ()
+\begin{DoxyCompactList}\small\item\em moves the body of the snake \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_aac82ea0facf288c1067bb61a4e581867}{increment\+Snake}} (int tailX, int tailY)
+\begin{DoxyCompactList}\small\item\em increments the size of the snake \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a6aa791eee13773b91ee78bef5a6e5f92}{draw\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em draws an apple on the screen \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_ace91d39c567f2f2cb8ef6a1f7b43e92a}{update\+Apple}} ()
+\begin{DoxyCompactList}\small\item\em detects if exists an apple on the screen, if doesn\textquotesingle{}t, draws a new one \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a43bfb386c3551c11b03326b586f2135c}{spawn\+Enemy}} ()
+\begin{DoxyCompactList}\small\item\em creates a new enemy at a random position \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a02baa3f66dbebd17e8f412adedffabcd}{move\+Enemy}} ()
+\begin{DoxyCompactList}\small\item\em moves the enemy based on the head of the snake \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_aa6797ade2faa9b10aa56c422b8fd2f9f}{erase\+Enemy\+Trail}} ()
+\begin{DoxyCompactList}\small\item\em erases the enemy after this touches the snake \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_adaca7d46c52f03cac20e3d349dfb4b42}{damage\+Snake}} ()
+\begin{DoxyCompactList}\small\item\em takes off one segment of the snake body \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a36b24676f66ac52fa62b398c69c4d428}{draw\+Enemy}} ()
+\begin{DoxyCompactList}\small\item\em draws a new enemy \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{snake_8h_a6a58284877300ae987df54d724f89315}{kill\+Enemy}} ()
+\begin{DoxyCompactList}\small\item\em erases the enemy when it was killed by the user \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{snake_8h_ad409482aee4ee97340b0a717e6927c06}\label{snake_8h_ad409482aee4ee97340b0a717e6927c06}} 
+\index{snake.h@{snake.h}!canMove@{canMove}}
+\index{canMove@{canMove}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{canMove()}{canMove()}}
+{\footnotesize\ttfamily bool() can\+Move (\begin{DoxyParamCaption}\item[{int}]{dir }\end{DoxyParamCaption})}
+
+
+
+checks if the snake can move without die 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & direction of the snake movement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return true if there\textquotesingle{}s no problem on moving on or false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{snake_8h_adcc49db1b45319557afb30a51b81365d}\label{snake_8h_adcc49db1b45319557afb30a51b81365d}} 
+\index{snake.h@{snake.h}!changeDirection@{changeDirection}}
+\index{changeDirection@{changeDirection}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{changeDirection()}{changeDirection()}}
+{\footnotesize\ttfamily void() change\+Direction (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+detects if snake have to change direction based on the pressed key 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & scancode of the pressed key \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{snake_8h_adaca7d46c52f03cac20e3d349dfb4b42}\label{snake_8h_adaca7d46c52f03cac20e3d349dfb4b42}} 
+\index{snake.h@{snake.h}!damageSnake@{damageSnake}}
+\index{damageSnake@{damageSnake}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{damageSnake()}{damageSnake()}}
+{\footnotesize\ttfamily void() damage\+Snake (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+takes off one segment of the snake body 
+
+\mbox{\Hypertarget{snake_8h_a6aa791eee13773b91ee78bef5a6e5f92}\label{snake_8h_a6aa791eee13773b91ee78bef5a6e5f92}} 
+\index{snake.h@{snake.h}!drawApple@{drawApple}}
+\index{drawApple@{drawApple}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawApple()}{drawApple()}}
+{\footnotesize\ttfamily void() draw\+Apple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws an apple on the screen 
+
+\mbox{\Hypertarget{snake_8h_a506261f0e8ba0c315688dd3e31ba1305}\label{snake_8h_a506261f0e8ba0c315688dd3e31ba1305}} 
+\index{snake.h@{snake.h}!drawBackground@{drawBackground}}
+\index{drawBackground@{drawBackground}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawBackground()}{drawBackground()}}
+{\footnotesize\ttfamily void() draw\+Background (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws background of te game based on the video mode 
+
+\mbox{\Hypertarget{snake_8h_a36b24676f66ac52fa62b398c69c4d428}\label{snake_8h_a36b24676f66ac52fa62b398c69c4d428}} 
+\index{snake.h@{snake.h}!drawEnemy@{drawEnemy}}
+\index{drawEnemy@{drawEnemy}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawEnemy()}{drawEnemy()}}
+{\footnotesize\ttfamily void() draw\+Enemy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws a new enemy 
+
+\mbox{\Hypertarget{snake_8h_ab6540d3f43a0c035660e115a27302489}\label{snake_8h_ab6540d3f43a0c035660e115a27302489}} 
+\index{snake.h@{snake.h}!drawNumbers@{drawNumbers}}
+\index{drawNumbers@{drawNumbers}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawNumbers()}{drawNumbers()}}
+{\footnotesize\ttfamily void() draw\+Numbers (\begin{DoxyParamCaption}\item[{int}]{value,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{digit\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+aux function for draw the score numbers on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & score value \\
+\hline
+{\em x} & x\+\_\+pos to start draw the numbers \\
+\hline
+{\em y} & y\+\_\+pos to start draw the numbers \\
+\hline
+{\em digit\+\_\+len} & max lengh of the score \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{snake_8h_ab575d28f36585904c4e37827fe4ce00b}\label{snake_8h_ab575d28f36585904c4e37827fe4ce00b}} 
+\index{snake.h@{snake.h}!drawScore@{drawScore}}
+\index{drawScore@{drawScore}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawScore()}{drawScore()}}
+{\footnotesize\ttfamily void() draw\+Score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws the bar of score on the screen 
+
+\mbox{\Hypertarget{snake_8h_aaf1a4bf6e21ff99f2f17ef82caa25167}\label{snake_8h_aaf1a4bf6e21ff99f2f17ef82caa25167}} 
+\index{snake.h@{snake.h}!drawSnake@{drawSnake}}
+\index{drawSnake@{drawSnake}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{drawSnake()}{drawSnake()}}
+{\footnotesize\ttfamily void() draw\+Snake (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draws the snake on the screen 
+
+\mbox{\Hypertarget{snake_8h_aa6797ade2faa9b10aa56c422b8fd2f9f}\label{snake_8h_aa6797ade2faa9b10aa56c422b8fd2f9f}} 
+\index{snake.h@{snake.h}!eraseEnemyTrail@{eraseEnemyTrail}}
+\index{eraseEnemyTrail@{eraseEnemyTrail}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{eraseEnemyTrail()}{eraseEnemyTrail()}}
+{\footnotesize\ttfamily void() erase\+Enemy\+Trail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+erases the enemy after this touches the snake 
+
+\mbox{\Hypertarget{snake_8h_aac82ea0facf288c1067bb61a4e581867}\label{snake_8h_aac82ea0facf288c1067bb61a4e581867}} 
+\index{snake.h@{snake.h}!incrementSnake@{incrementSnake}}
+\index{incrementSnake@{incrementSnake}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{incrementSnake()}{incrementSnake()}}
+{\footnotesize\ttfamily void() increment\+Snake (\begin{DoxyParamCaption}\item[{int}]{tailX,  }\item[{int}]{tailY }\end{DoxyParamCaption})}
+
+
+
+increments the size of the snake 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tailX} & x\+\_\+pos of the tail of the snake \\
+\hline
+{\em tailY} & y\+\_\+pos of the tail of the snake \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{snake_8h_a6a58284877300ae987df54d724f89315}\label{snake_8h_a6a58284877300ae987df54d724f89315}} 
+\index{snake.h@{snake.h}!killEnemy@{killEnemy}}
+\index{killEnemy@{killEnemy}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{killEnemy()}{killEnemy()}}
+{\footnotesize\ttfamily void() kill\+Enemy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+erases the enemy when it was killed by the user 
+
+\mbox{\Hypertarget{snake_8h_a02baa3f66dbebd17e8f412adedffabcd}\label{snake_8h_a02baa3f66dbebd17e8f412adedffabcd}} 
+\index{snake.h@{snake.h}!moveEnemy@{moveEnemy}}
+\index{moveEnemy@{moveEnemy}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{moveEnemy()}{moveEnemy()}}
+{\footnotesize\ttfamily void() move\+Enemy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+moves the enemy based on the head of the snake 
+
+\mbox{\Hypertarget{snake_8h_a5edcf4d6d50a1d76be5c7f2122b3e597}\label{snake_8h_a5edcf4d6d50a1d76be5c7f2122b3e597}} 
+\index{snake.h@{snake.h}!moveSegments@{moveSegments}}
+\index{moveSegments@{moveSegments}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{moveSegments()}{moveSegments()}}
+{\footnotesize\ttfamily void() move\+Segments (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+moves the body of the snake 
+
+\mbox{\Hypertarget{snake_8h_ab3a3db5933b6414a3aaf937434a0b498}\label{snake_8h_ab3a3db5933b6414a3aaf937434a0b498}} 
+\index{snake.h@{snake.h}!moveSnake@{moveSnake}}
+\index{moveSnake@{moveSnake}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{moveSnake()}{moveSnake()}}
+{\footnotesize\ttfamily void() move\+Snake (\begin{DoxyParamCaption}\item[{int}]{dir }\end{DoxyParamCaption})}
+
+
+
+moves the snake on the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir} & direction of the movement \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{snake_8h_a43bfb386c3551c11b03326b586f2135c}\label{snake_8h_a43bfb386c3551c11b03326b586f2135c}} 
+\index{snake.h@{snake.h}!spawnEnemy@{spawnEnemy}}
+\index{spawnEnemy@{spawnEnemy}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{spawnEnemy()}{spawnEnemy()}}
+{\footnotesize\ttfamily void() spawn\+Enemy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+creates a new enemy at a random position 
+
+\mbox{\Hypertarget{snake_8h_ae8163f6794fb222af5c88f39f498d1ea}\label{snake_8h_ae8163f6794fb222af5c88f39f498d1ea}} 
+\index{snake.h@{snake.h}!startPosition@{startPosition}}
+\index{startPosition@{startPosition}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{startPosition()}{startPosition()}}
+{\footnotesize\ttfamily void() start\+Position (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{vbe\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+initializes the position of game elements 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vbe\+\_\+mode} & video mode which we\textquotesingle{}re in \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{snake_8h_ace91d39c567f2f2cb8ef6a1f7b43e92a}\label{snake_8h_ace91d39c567f2f2cb8ef6a1f7b43e92a}} 
+\index{snake.h@{snake.h}!updateApple@{updateApple}}
+\index{updateApple@{updateApple}!snake.h@{snake.h}}
+\doxysubsubsection{\texorpdfstring{updateApple()}{updateApple()}}
+{\footnotesize\ttfamily void() update\+Apple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+detects if exists an apple on the screen, if doesn\textquotesingle{}t, draws a new one 
+

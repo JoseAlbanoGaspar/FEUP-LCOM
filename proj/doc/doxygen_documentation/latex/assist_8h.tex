@@ -1,0 +1,168 @@
+\hypertarget{assist_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/assist.h File Reference}
+\label{assist_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/assist.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/assist.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}keyboard.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mouse.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}vbe.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{assist_8h_a9948d7ad9e3e6f39634c94746ccdc817}{subscribe\+\_\+all}} (uint8\+\_\+t aux\+\_\+timer, uint8\+\_\+t aux\+\_\+keyboard, uint8\+\_\+t aux\+\_\+mouse)
+\item 
+int() \mbox{\hyperlink{assist_8h_a0fd0dc17c1763a61953edcccf4447679}{unsubscribe\+\_\+all}} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes all the devices \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8h_aa632458efe74b5b5009fab6cf993fdb2}{draw\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em fills the variables according to the specified mode \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8h_a9e76973691946798a99eee8ae4d1eb30}{erase\+Mouse}} (bool \mbox{\hyperlink{menu_8c_a67f56a4cc2abb4c95842669de4e4fe02}{mouse}})
+\begin{DoxyCompactList}\small\item\em clears the variables form that were initialized lately \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8h_a24d9365b01cbb931c173f1f9f944b90e}{update\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em updates mouse state \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{assist_8h_a718e9bb18b3c9ae6aff312478ca10216}{update\+Game\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em updates game mouse state \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{assist_8h_a70e4905865eb465140f1d3552c299d78}{is\+In\+Option}} (int x, int y, int width, int height)
+\begin{DoxyCompactList}\small\item\em auxiliar function to see if the mouse is over an enemy \end{DoxyCompactList}\item 
+bool() \mbox{\hyperlink{assist_8h_a5d8eee78a15a185456f26033a4489b5e}{check\+Mouse\+Enemy}} (int enemyX, int enemyY)
+\item 
+bool() \mbox{\hyperlink{assist_8h_a18483d876eb3e27c549d496233aef760}{check\+Click\+Enemy}} (int enemyX, int enemyY)
+\begin{DoxyCompactList}\small\item\em checks if had clicked in an enemy \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{assist_8h_a18483d876eb3e27c549d496233aef760}\label{assist_8h_a18483d876eb3e27c549d496233aef760}} 
+\index{assist.h@{assist.h}!checkClickEnemy@{checkClickEnemy}}
+\index{checkClickEnemy@{checkClickEnemy}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{checkClickEnemy()}{checkClickEnemy()}}
+{\footnotesize\ttfamily bool() check\+Click\+Enemy (\begin{DoxyParamCaption}\item[{int}]{enemyX,  }\item[{int}]{enemyY }\end{DoxyParamCaption})}
+
+
+
+checks if had clicked in an enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enemyX} & x position of the enemy \\
+\hline
+{\em enemyY} & y position of the enemy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it had been clicked 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8h_a5d8eee78a15a185456f26033a4489b5e}\label{assist_8h_a5d8eee78a15a185456f26033a4489b5e}} 
+\index{assist.h@{assist.h}!checkMouseEnemy@{checkMouseEnemy}}
+\index{checkMouseEnemy@{checkMouseEnemy}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{checkMouseEnemy()}{checkMouseEnemy()}}
+{\footnotesize\ttfamily bool() check\+Mouse\+Enemy (\begin{DoxyParamCaption}\item[{int}]{enemyX,  }\item[{int}]{enemyY }\end{DoxyParamCaption})}
+
+checks if mouse is over an enemy 
+\begin{DoxyParams}{Parameters}
+{\em enemyX} & x position of the enemy \\
+\hline
+{\em enemyY} & y position of the enemy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it\textquotesingle{}s over him 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8h_aa632458efe74b5b5009fab6cf993fdb2}\label{assist_8h_aa632458efe74b5b5009fab6cf993fdb2}} 
+\index{assist.h@{assist.h}!drawMouse@{drawMouse}}
+\index{drawMouse@{drawMouse}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{drawMouse()}{drawMouse()}}
+{\footnotesize\ttfamily void() draw\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+fills the variables according to the specified mode 
+
+\mbox{\Hypertarget{assist_8h_a9e76973691946798a99eee8ae4d1eb30}\label{assist_8h_a9e76973691946798a99eee8ae4d1eb30}} 
+\index{assist.h@{assist.h}!eraseMouse@{eraseMouse}}
+\index{eraseMouse@{eraseMouse}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{eraseMouse()}{eraseMouse()}}
+{\footnotesize\ttfamily void() erase\+Mouse (\begin{DoxyParamCaption}\item[{bool}]{mouse }\end{DoxyParamCaption})}
+
+
+
+clears the variables form that were initialized lately 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{assist_8h_a70e4905865eb465140f1d3552c299d78}\label{assist_8h_a70e4905865eb465140f1d3552c299d78}} 
+\index{assist.h@{assist.h}!isInOption@{isInOption}}
+\index{isInOption@{isInOption}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{isInOption()}{isInOption()}}
+{\footnotesize\ttfamily int() is\+In\+Option (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+auxiliar function to see if the mouse is over an enemy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x\+\_\+pos of the enemy \\
+\hline
+{\em y} & y\+\_\+pos of the enemy \\
+\hline
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8h_a9948d7ad9e3e6f39634c94746ccdc817}\label{assist_8h_a9948d7ad9e3e6f39634c94746ccdc817}} 
+\index{assist.h@{assist.h}!subscribe\_all@{subscribe\_all}}
+\index{subscribe\_all@{subscribe\_all}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{subscribe\_all()}{subscribe\_all()}}
+{\footnotesize\ttfamily int() subscribe\+\_\+all (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{aux\+\_\+timer,  }\item[{uint8\+\_\+t}]{aux\+\_\+keyboard,  }\item[{uint8\+\_\+t}]{aux\+\_\+mouse }\end{DoxyParamCaption})}
+
+subscribes all the devices 
+\begin{DoxyParams}{Parameters}
+{\em aux\+\_\+timer} & \\
+\hline
+{\em aux\+\_\+keyboard} & \\
+\hline
+{\em aux\+\_\+mouse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8h_a0fd0dc17c1763a61953edcccf4447679}\label{assist_8h_a0fd0dc17c1763a61953edcccf4447679}} 
+\index{assist.h@{assist.h}!unsubscribe\_all@{unsubscribe\_all}}
+\index{unsubscribe\_all@{unsubscribe\_all}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{unsubscribe\_all()}{unsubscribe\_all()}}
+{\footnotesize\ttfamily int() unsubscribe\+\_\+all (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+unsubscribes all the devices 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{assist_8h_a718e9bb18b3c9ae6aff312478ca10216}\label{assist_8h_a718e9bb18b3c9ae6aff312478ca10216}} 
+\index{assist.h@{assist.h}!updateGameMouse@{updateGameMouse}}
+\index{updateGameMouse@{updateGameMouse}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{updateGameMouse()}{updateGameMouse()}}
+{\footnotesize\ttfamily void() update\+Game\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+updates game mouse state 
+
+\mbox{\Hypertarget{assist_8h_a24d9365b01cbb931c173f1f9f944b90e}\label{assist_8h_a24d9365b01cbb931c173f1f9f944b90e}} 
+\index{assist.h@{assist.h}!updateMouse@{updateMouse}}
+\index{updateMouse@{updateMouse}!assist.h@{assist.h}}
+\doxysubsubsection{\texorpdfstring{updateMouse()}{updateMouse()}}
+{\footnotesize\ttfamily void() update\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+updates mouse state 
+

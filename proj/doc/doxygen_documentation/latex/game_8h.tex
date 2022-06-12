@@ -1,0 +1,69 @@
+\hypertarget{game_8h}{}\doxysection{C\+:/\+Users/barba/\+One\+Drive/\+Ambiente de Trabalho/\+MINIX-\/\+LCOM/shared/proj/src/game.h File Reference}
+\label{game_8h}\index{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/game.h@{C:/Users/barba/OneDrive/Ambiente de Trabalho/MINIX-\/LCOM/shared/proj/src/game.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$lcom/timer.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}macros/i8254.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}macros/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}assist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}snake.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pause.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{game_8h_a33a884974e67cd513b3ee7c66fb5698a}{game\+\_\+loop}} (uint32\+\_\+t irq\+\_\+set\+\_\+keyboard, uint32\+\_\+t irq\+\_\+set\+\_\+mouse, uint32\+\_\+t irq\+\_\+set\+\_\+timer, uint16\+\_\+t vg\+\_\+mode)
+\begin{DoxyCompactList}\small\item\em creates all the game \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{game_8h_aab6a9eadc3942279c77333c3e4e17664}{start\+\_\+game}} ()
+\begin{DoxyCompactList}\small\item\em initializes game content \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{game_8h_a2fed2d7071be915d687d533e5a971414}{draw\+Game}} ()
+\begin{DoxyCompactList}\small\item\em draw the elements of the game \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_8h_a2fed2d7071be915d687d533e5a971414}\label{game_8h_a2fed2d7071be915d687d533e5a971414}} 
+\index{game.h@{game.h}!drawGame@{drawGame}}
+\index{drawGame@{drawGame}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{drawGame()}{drawGame()}}
+{\footnotesize\ttfamily void() draw\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+draw the elements of the game 
+
+\mbox{\Hypertarget{game_8h_a33a884974e67cd513b3ee7c66fb5698a}\label{game_8h_a33a884974e67cd513b3ee7c66fb5698a}} 
+\index{game.h@{game.h}!game\_loop@{game\_loop}}
+\index{game\_loop@{game\_loop}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{game\_loop()}{game\_loop()}}
+{\footnotesize\ttfamily int() game\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+keyboard,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+mouse,  }\item[{uint32\+\_\+t}]{irq\+\_\+set\+\_\+timer,  }\item[{uint16\+\_\+t}]{vg\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+creates all the game 
+
+
+\begin{DoxyParams}{Parameters}
+{\em irq\+\_\+set\+\_\+keyboard} & irq line of keyboard \\
+\hline
+{\em irq\+\_\+set\+\_\+mouse} & irq line of mouse \\
+\hline
+{\em irq\+\_\+set\+\_\+timer} & irq line of timer \\
+\hline
+{\em vg\+\_\+mode} & current video mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{game_8h_aab6a9eadc3942279c77333c3e4e17664}\label{game_8h_aab6a9eadc3942279c77333c3e4e17664}} 
+\index{game.h@{game.h}!start\_game@{start\_game}}
+\index{start\_game@{start\_game}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{start\_game()}{start\_game()}}
+{\footnotesize\ttfamily int() start\+\_\+game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes game content 
+
+\begin{DoxyReturn}{Returns}
+return 0 if success, non 0 otherwise 
+\end{DoxyReturn}
