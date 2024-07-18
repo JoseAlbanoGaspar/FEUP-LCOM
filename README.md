@@ -2,6 +2,9 @@
 
 LCOM Project for group T02G08.
 
+This repository contains the solutions that my group developed for the LCOM course.
+The contents here should be used for learning purposes.
+
 Group members:
 
 1. &lt;André&gt; &lt;Morais&gt; (&lt;up202005303@fe.up.pt&gt;)
